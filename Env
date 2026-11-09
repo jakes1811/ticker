@@ -1,38 +1,52 @@
-(.venv) C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\TESTING>python test_a.py
-C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\TESTING\.venv\Lib\site-packages\urllib3\connectionpool.py:1129: InsecureRequestWarning: Unverified HTTPS request is being made to host 'stock.indianapi.in'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
-  warnings.warn(
-404
-Endpoint not allowed. Check if the endpoint is valid.
-
-(.venv) C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\TESTING>python test_a.py
-Traceback (most recent call last):
-  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\TESTING\test_a.py", line 17, in <module>
-    raise ValueError(
-        "API key not found. Set INDIANAPI_KEY first."
-    )
-ValueError: API key not found. Set INDIANAPI_KEY first.
-
-(.venv) C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\TESTING>set INDIANAPI_KEY=sk-live-XbZvehGQ9vKzj1y2I74JLUxzBaBBhG0EXC0spDhA
-
-(.venv) C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\TESTING>python test_a.py
+(.venv) C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\TESTING>python test_a.py    
 ==================================================
 INDIAN STOCK MARKET DATA EXTRACTION
 ==================================================
-Connection Error: HTTPSConnectionPool(host='stock.indianapi.in', port=443): Max retries exceeded with url: /stock?name=Reliance (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1082)')))
-Connection Error: HTTPSConnectionPool(host='stock.indianapi.in', port=443): Max retries exceeded with url: /stock?name=TCS (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1082)')))
-Connection Error: HTTPSConnectionPool(host='stock.indianapi.in', port=443): Max retries exceeded with url: /stock?name=Infosys (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1082)')))
-Connection Error: HTTPSConnectionPool(host='stock.indianapi.in', port=443): Max retries exceeded with url: /stock?name=HDFC+Bank (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1082)')))
-Connection Error: HTTPSConnectionPool(host='stock.indianapi.in', port=443): Max retries exceeded with url: /stock?name=ICICI+Bank (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1082)')))
-Connection Error: HTTPSConnectionPool(host='stock.indianapi.in', port=443): Max retries exceeded with url: /stock?name=Wipro (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1082)')))
-Connection Error: HTTPSConnectionPool(host='stock.indianapi.in', port=443): Max retries exceeded with url: /stock?name=ITC (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1082)')))
-Connection Error: HTTPSConnectionPool(host='stock.indianapi.in', port=443): Max retries exceeded with url: /stock?name=Tata+Motors (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1082)')))
-Connection Error: HTTPSConnectionPool(host='stock.indianapi.in', port=443): Max retries exceeded with url: /stock?name=Bharti+Airtel (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1082)')))
-Connection Error: HTTPSConnectionPool(host='stock.indianapi.in', port=443): Max retries exceeded with url: /stock?name=Larsen+and+Toubro (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1082)')))
+
+Fetching: Reliance
+Status Code: 200
+Successfully fetched: Reliance
+
+Fetching: TCS
+Status Code: 200
+Successfully fetched: TCS
+
+Fetching: Infosys
+Status Code: 200
+Successfully fetched: Infosys
+
+Fetching: HDFC Bank
+Status Code: 200
+Successfully fetched: HDFC Bank
+
+Fetching: ICICI Bank
+Status Code: 200
+Successfully fetched: ICICI Bank
+
+Fetching: Wipro
+Status Code: 200
+Successfully fetched: Wipro
+
+Fetching: ITC
+Status Code: 200
+Successfully fetched: ITC
+
+Fetching: Tata Motors
+Status Code: 200
+Successfully fetched: Tata Motors
+
+Fetching: Bharti Airtel
+Status Code: 200
+Successfully fetched: Bharti Airtel
+
+Fetching: Larsen and Toubro
+Status Code: 200
+Successfully fetched: Larsen and Toubro
 
 ==================================================
 EXTRACTION COMPLETED
 ==================================================
 Total stocks requested: 10
-Successfully fetched: 0
-Failed: 10
+Successfully fetched: 10
+Failed: 0
 Saved file: stock_data.json
