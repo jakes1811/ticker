@@ -5,6 +5,9 @@ Stocks: ['RELIANCE', 'TCS', 'INFY', 'HDFCBANK', 'ICICIBANK']
 Kafka topic: stock-prices
 
 Fetching latest stock prices...
-IndianAPI request failed: HTTPSConnectionPool(host='pro.indianapi.in', port=443): Max retries exceeded with url: /nse_stock_batch_live_price (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1082)')))
+IndianAPI request failed: 403 Client Error: Forbidden for url: https://pro.indianapi.in/nse_stock_batch_live_price
 Next fetch in 30 seconds.
 
+Fetching latest stock prices...
+IndianAPI request failed: 403 Client Error: Forbidden for url: https://pro.indianapi.in/nse_stock_batch_live_price
+Next fetch in 30 seconds.
