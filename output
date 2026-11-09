@@ -1,0 +1,39 @@
+# mem3 OUTPUT: what your part must produce
+
+## 1. BRONZE: `bronze/news` and `bronze/ticks` (read by the Silver jobs, mem2 and you)
+Raw, untouched, append-only; format `storage.table_format`; columns `kafka_key, raw_json, topic, partition, offset, kafka_ts`:
+```text
+bronze/ticks
+kafka_key  raw_json                                                      topic         partition offset kafka_ts
+RELIANCE   {"ticker":"RELIANCE","price":1425.30,...,"emitted_at":"...100Z"} market-ticks  1         88210  2026-11-09 04:45:00.314
+```
+Rules: no parsing, no cleaning, **no ticker extraction** (for ticks the ticker is the Kafka key; for news tickers are found in Silver). Row count must equal the Kafka message count.
+
+## 2. SILVER news: `silver/news` (one row per article)
+```text
+article_id             published_at          source                  headline                                    clean_text (shortened)                       tickers       p_pos p_neg p_neu sentiment_score sentiment_label processed_at
+NEWS-a1b2c3d4e5f60001  2026-11-09T04:45:00Z  Economic Times Markets  Reliance Industries Q2 profit beats...      Reliance Industries Q2 profit beats ... RIL...  [RELIANCE]    0.90  0.03  0.07  0.87            positive        2026-11-09T04:45:25Z
+NEWS-a1b2c3d4e5f60003  2026-11-09T04:50:00Z  Livemint Markets        SBI and HDFC Bank lead banking rally...     SBI and HDFC Bank lead ... State Bank of ... [SBIN,HDFCBANK] 0.80  0.05  0.15  0.75            positive        2026-11-09T04:50:30Z
+```
+(also `ingested_at`). `clean_text` has no HTML. `sentiment_score = p_pos - p_neg`; probabilities sum to about 1.
+
+## 3. SILVER news by ticker: `silver/news_by_ticker` (read by mem4)
+One row per article x ticker (an article with 2 tickers gives 2 rows):
+```text
+article_id             ticker    published_at          source            headline                       p_pos p_neg p_neu sentiment_score sentiment_label processed_at
+NEWS-a1b2c3d4e5f60001  RELIANCE  2026-11-09T04:45:00Z  Economic Times... Reliance Industries Q2 profit..  0.90  0.03  0.07  0.87            positive        2026-11-09T04:45:25Z
+NEWS-a1b2c3d4e5f60003  SBIN      2026-11-09T04:50:00Z  Livemint Markets  SBI and HDFC Bank lead...        0.80  0.05  0.15  0.75            positive        2026-11-09T04:50:30Z
+NEWS-a1b2c3d4e5f60003  HDFCBANK  2026-11-09T04:50:00Z  Livemint Markets  SBI and HDFC Bank lead...        0.80  0.05  0.15  0.75            positive        2026-11-09T04:50:30Z
+```
+Articles that mention none of the 10 tickers stay only in `silver/news`. No duplicate `article_id` (dedupe, restart-safe). Rejected records go to a dead-letter folder.
+
+## 4. Audit rows (via `common.audit`, one per micro-batch)
+```text
+bronze_ingestion_audit   run_id=20261109T044500-a1b2c3 job_name=bronze_ticks_sink topic=market-ticks batch_id=812 record_count=500 status=OK latency_ms=1840 error_count=0
+silver_processing_audit  run_id=20261109T044600-b2c3d4 job_name=silver_news_job batch_id=37 input_count=12 processed_count=11 rejected_count=1 ticker_count=4 duration_ms=1450 status=OK
+pipeline_execution_audit job_name=silver_news_job status=RUNNING records_processed=1280 throughput_per_sec=2.1 error_count=0 heartbeat_at=...
+```
+`input_count = processed_count + rejected_count` is checked by `verify_pipeline.py`. Same job rows for `bronze_news_sink`, `bronze_ticks_sink`.
+
+## How to verify your output
+`python scripts/peek.py bronze/news` · `python scripts/peek.py silver/news_by_ticker` · `python scripts/check_flow.py` (Bronze rows = Kafka offsets) · `python scripts/verify_pipeline.py` (lineage: every Silver article exists in Bronze; sentiment maths; no duplicates).
