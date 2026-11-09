@@ -5,24 +5,38 @@ truststore.inject_into_ssl()
 import os
 import requests
 
-API_KEY = os.getenv("INDIANAPI_KEY", "").strip()
-
 url = "https://stock.indianapi.in/stock"
 
 headers = {
-    "x-api-key": API_KEY
-}
-
-params = {
-    "name": "Tata Steel"
+    "x-api-key": os.getenv("INDIANAPI_KEY", "").strip()
 }
 
 response = requests.get(
     url,
     headers=headers,
-    params=params,
+    params={"name": "Tata Steel"},
     timeout=20
 )
 
-print("Status:", response.status_code)
-print("Response:", response.text[:3000])
+response.raise_for_status()
+data = response.json()
+
+
+def find_price_fields(obj, path=""):
+    if isinstance(obj, dict):
+        for key, value in obj.items():
+            current_path = f"{path}.{key}" if path else key
+
+            if any(word in key.lower() for word in
+                   ["price", "ltp", "change", "timestamp"]):
+                print(current_path, ":", value)
+
+            if isinstance(value, (dict, list)):
+                find_price_fields(value, current_path)
+
+    elif isinstance(obj, list):
+        for index, item in enumerate(obj):
+            find_price_fields(item, f"{path}[{index}]")
+
+
+find_price_fields(data)
