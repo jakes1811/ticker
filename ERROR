@@ -1,0 +1,15 @@
+Starting IndianAPI Stock Producer...
+Polling interval: 30 seconds
+Stocks: ['RELIANCE', 'TCS', 'INFY', 'HDFCBANK', 'ICICIBANK']
+Kafka topic: stock-prices
+
+Fetching latest stock prices...
+IndianAPI request failed: Invalid leading whitespace, reserved character(s), or return character(s) in header value: ' sk-live-XbZvehGQ9vKzj1y2I74JLUxzBaBBhG0EXC0spDhA'
+Next fetch in 30 seconds.
+
+Fetching latest stock prices...
+IndianAPI request failed: Invalid leading whitespace, reserved character(s), or return character(s) in header value: ' sk-live-XbZvehGQ9vKzj1y2I74JLUxzBaBBhG0EXC0spDhA'
+Next fetch in 30 seconds.
+
+Stopping stock producer...
+Producer stopped.
