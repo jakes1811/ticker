@@ -1,63 +1,10 @@
-(.venv) C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\TESTING>python test_api.py
-companyProfile.exchangeCodeBse : 500470
-companyProfile.exchangeCodeNse : TATASTEEL
-companyProfile.peerCompanyList[0].priceToBookValueRatio : 3.02
-companyProfile.peerCompanyList[0].priceToEarningsValueRatio : 41.62
-companyProfile.peerCompanyList[0].price : 1347
-companyProfile.peerCompanyList[0].percentChange : -0.3
-companyProfile.peerCompanyList[0].netChange : -4.1
-companyProfile.peerCompanyList[1].priceToBookValueRatio : 7.58
-companyProfile.peerCompanyList[1].priceToEarningsValueRatio : 27.84
-companyProfile.peerCompanyList[1].price : 1807
-companyProfile.peerCompanyList[1].percentChange : 0.19
-companyProfile.peerCompanyList[1].netChange : 3.5
-companyProfile.peerCompanyList[2].priceToBookValueRatio : 2.06
-companyProfile.peerCompanyList[2].priceToEarningsValueRatio : 25.99
-companyProfile.peerCompanyList[2].price : 1146
-companyProfile.peerCompanyList[2].percentChange : -0.78
-companyProfile.peerCompanyList[2].netChange : -9
-companyProfile.peerCompanyList[3].priceToBookValueRatio : 3.07
-companyProfile.peerCompanyList[3].priceToEarningsValueRatio : 18.79
-companyProfile.peerCompanyList[3].price : 691.05
-companyProfile.peerCompanyList[3].percentChange : -1.95
-companyProfile.peerCompanyList[3].netChange : -13.75
-companyProfile.peerCompanyList[4].priceToBookValueRatio : 4.56
-companyProfile.peerCompanyList[4].priceToEarningsValueRatio : 25.89
-companyProfile.peerCompanyList[4].price : 2202.1
-companyProfile.peerCompanyList[4].percentChange : -1.95
-companyProfile.peerCompanyList[4].netChange : -43.7
-currentPrice : {'BSE': '184.90', 'NSE': '184.85'}
-stockTechnicalData[0].bsePrice : 180.19
-stockTechnicalData[0].nsePrice : 180.42
-stockTechnicalData[1].bsePrice : 174.86
-stockTechnicalData[1].nsePrice : 174.98
-stockTechnicalData[2].bsePrice : 174.09
-stockTechnicalData[2].nsePrice : 174.19
-stockTechnicalData[3].bsePrice : 180.21
-stockTechnicalData[3].nsePrice : 180.31
-stockTechnicalData[4].bsePrice : 184.39
-stockTechnicalData[4].nsePrice : 184.50
-stockTechnicalData[5].bsePrice : 193.59
-stockTechnicalData[5].nsePrice : 193.64
-percentChange : -2.43
-keyMetrics.priceandVolume : [{'displayName': 'Market Cap', 'key': 'marketCap', 'value': '230818.86'}, {'displayName': '52 week Low Date', 'key': '52WeekLowDate', 'value': '2025-12-09T00:00:00'}, {'displayName': 'Price - 1 Day % Change', 'key': 'price1DayPercentChange', 'value': '2.09'}, {'displayName': 'Relative (S&P500) price percent change - 13 week', 'key': 'relativePricePercentChange13Week', 'value': '-3.77'}, {'displayName': 'Avg trading volume last 10 days', 'key': 'avgTradingVolumeLast10Days', 'value': '22.34'}, {'displayName': 'Price - 13 week price percent change', 'key': 'price13WeekPricePercentChange', 'value': '1.41'}, {'displayName': 'Price - 52 week price percent change', 'key': 'price52WeekPricePercentChange', 'value': '4.87'}, {'displayName': 'Avg Trading Volume Last 3 months', 'key': 'avgTradingVolumeLast3months', 'value': '526.44'}, {'displayName': 'Price - 5 Day % Change', 'key': 'price5DayPercentChange', 'value': '7.23'}, {'displayName': 'Price % Change Month To Date', 'key': 'pricePercentChangeMonthToDate', 'value': '13.48'}, {'displayName': 'Relative (S&P500) price percent change - 04 week', 'key': 'relativePricePercentChange-04week', 'value': '-4.13'}, {'displayName': '52 week High Date', 'key': '52WeekHighDate', 'value': '2026-05-15T00:00:00'}, {'displayName': 'Price - 26 week price percent change', 'key': 'price26WeekPricePercentChange', 'value': '-11.32'}, {'displayName': 'PDATE', 'key': 'PDATE', 'value': '2026-11-08T00:00:00'}, {'displayName': 'Price - YTD price percent change', 'key': 'priceYTDPricePercentChange', 'value': '5.62'}, {'displayName': 'Relative (S&P500) price percent change - 52 week', 'key': 'relativePricePercentChange52Week', 'value': '8.05'}, {'displayName': 'NPRICE', 'key': 'NPRICE', 'value': '190.20'}, {'displayName': 'Relative (S&P500) price percent change - 26 week', 'key': 'relativePricePercentChange26Week', 'value': '-17.11'}, {'displayName': '52 week Low', 'key': '52WeekLow', 'value': '160.06'}, {'displayName': '52 week High', 'key': '52WeekHigh', 'value': '224.40'}, {'displayName': 'Beta', 'key': 'beta', 'value': '1.06'}, {'displayName': 'Relative (S&P500) price percent change - Year to Date', 'key': 'relativePricePercentChangeYearToDate', 'value': '8.81'}]
-stockDetailsReusableData.price : 184.90
-stockDetailsReusableData.percentChange : -2.43
-stockDetailsReusableData.priceYTDPricePercentChange : 5.62
-stockDetailsReusableData.price5DayPercentChange : 7.23
-stockDetailsReusableData.peerCompanyList[0].priceToBookValueRatio : 3.02
-stockDetailsReusableData.peerCompanyList[0].priceToEarningsValueRatio : 41.62
-stockDetailsReusableData.peerCompanyList[0].price : 1347
-stockDetailsReusableData.peerCompanyList[0].percentChange : -0.3
-stockDetailsReusableData.peerCompanyList[0].netChange : -4.1
-stockDetailsReusableData.peerCompanyList[1].priceToBookValueRatio : 7.58
-stockDetailsReusableData.peerCompanyList[1].priceToEarningsValueRatio : 27.84
-stockDetailsReusableData.peerCompanyList[1].price : 1807
-stockDetailsReusableData.peerCompanyList[1].percentChange : 0.19
-stockDetailsReusableData.peerCompanyList[1].netChange : 3.5
-stockDetailsReusableData.peerCompanyList[2].priceToBookValueRatio : 2.06
-stockDetailsReusableData.peerCompanyList[2].priceToEarningsValueRatio : 25.99
-stockDetailsReusableData.peerCompanyList[2].price : 1146
-stockDetailsReusableData.peerCompanyList[2].percentChange : -0.78
-stockDetailsReusableData.peerCompanyList[2].netChange : -9
-stockDetailsReusableData.sectorPriceToEarningsValueRatio : 12.50
+C:\kafka_2.13-4.4.0\bin\windows>.\kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic stock-prices --from-beginning
+2026-11-09T17:44:35.553740700Z main ERROR Reconfiguration failed: No configuration found for '5e2de80c' at 'null' in 'null'
+The consumer rebalance protocol (KIP-848) is production-ready! Set group.protocol=consumer to try it out. See https://kafka.apache.org/documentation/#consumer_rebalance_protocol
+{"name": "Tata Steel", "current_price": 184.85}
+{"name": "Tata Consultancy Services", "current_price": 2475.4}
+{"name": "HDFC Bank", "current_price": 798.15}
+{"name": "ICICI Bank", "current_price": 1589.0}
+{"name": "Reliance Industries", "current_price": 1324.4}
+{"name": "Infosys", "current_price": 1154.1}
+
