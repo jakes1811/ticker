@@ -1,0 +1,177 @@
+import os
+import time
+import json
+import requests
+
+from kafka import KafkaProducer
+from kafka.errors import KafkaError
+
+
+# ---------------- CONFIGURATION ----------------
+
+API_KEY = os.getenv("INDIANAPI_KEY")
+
+API_URL = (
+    "https://pro.indianapi.in/nse_stock_batch_live_price"
+)
+
+STOCK_SYMBOLS = [
+    "RELIANCE",
+    "TCS",
+    "INFY",
+    "HDFCBANK",
+    "ICICIBANK",
+    # Add your remaining 5 NSE symbols here
+]
+
+KAFKA_BROKER = "localhost:9092"
+KAFKA_TOPIC = "stock-prices"
+
+POLL_INTERVAL = 30
+
+
+# ---------------- VALIDATE CONFIGURATION ----------------
+
+if not API_KEY:
+    raise ValueError("Please configure your INDIANAPI_KEY")
+
+
+# ---------------- KAFKA PRODUCER ----------------
+
+producer = KafkaProducer(
+    bootstrap_servers=KAFKA_BROKER,
+    value_serializer=lambda value: json.dumps(value).encode("utf-8")
+)
+
+
+# ---------------- INDIANAPI REQUEST ----------------
+
+headers = {
+    "X-API-Key": API_KEY,
+    "Content-Type": "application/json"
+}
+
+payload = {
+    "stock_symbols": STOCK_SYMBOLS
+}
+
+
+# Stores only the latest prices received during this run.
+# Starts empty every time the file is launched.
+last_prices = {}
+
+
+def extract_quotes(data, parent_key=None):
+    """Extract only symbol and LTP from the API response."""
+
+    quotes = {}
+
+    if isinstance(data, dict):
+
+        if "ltp" in data:
+            symbol = (
+                data.get("symbol")
+                or data.get("stock_symbol")
+                or data.get("ticker")
+                or parent_key
+            )
+
+            if symbol:
+                try:
+                    quotes[str(symbol).upper()] = float(data["ltp"])
+                except (TypeError, ValueError):
+                    pass
+
+        else:
+            for key, value in data.items():
+                quotes.update(extract_quotes(value, key))
+
+    elif isinstance(data, list):
+        for item in data:
+            quotes.update(extract_quotes(item))
+
+    return quotes
+
+
+# ---------------- FETCH AND PUBLISH ----------------
+
+def fetch_stock_prices():
+
+    try:
+        response = requests.post(
+            API_URL,
+            headers=headers,
+            json=payload,
+            timeout=20
+        )
+
+        response.raise_for_status()
+
+        api_data = response.json()
+
+        quotes = extract_quotes(api_data)
+
+        if not quotes:
+            print("No valid LTP values found in API response.")
+            print("Check the response structure and API subscription.")
+            return
+
+        for symbol, price in quotes.items():
+
+            # Publish the first price received.
+            # After that, publish only changed prices.
+            if last_prices.get(symbol) != price:
+
+                message = {
+                    "name": symbol,
+                    "current_price": price
+                }
+
+                producer.send(
+                    KAFKA_TOPIC,
+                    value=message
+                )
+
+                print("Published:", message)
+
+                last_prices[symbol] = price
+
+        producer.flush()
+
+    except requests.RequestException as error:
+        print("IndianAPI request failed:", error)
+
+    except (ValueError, KeyError) as error:
+        print("Could not process API response:", error)
+
+    except KafkaError as error:
+        print("Kafka error:", error)
+
+
+# ---------------- MAIN LOOP ----------------
+
+if __name__ == "__main__":
+
+    print("Starting IndianAPI Stock Producer...")
+    print("Polling interval: 30 seconds")
+    print("Stocks:", STOCK_SYMBOLS)
+    print("Kafka topic:", KAFKA_TOPIC)
+
+    try:
+        while True:
+
+            print("\nFetching latest stock prices...")
+
+            fetch_stock_prices()
+
+            print("Next fetch in 30 seconds.")
+
+            time.sleep(POLL_INTERVAL)
+
+    except KeyboardInterrupt:
+        print("\nStopping stock producer...")
+
+    finally:
+        producer.flush()
+        producer.close()
+        print("Producer stopped.")
