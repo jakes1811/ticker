@@ -2,3 +2,6 @@
 
 
 .\kafka-topics.bat --list --bootstrap-server localhost:9092
+
+
+python -c "import os; print('API key loaded:', bool(os.getenv('INDIANAPI_KEY')))"
