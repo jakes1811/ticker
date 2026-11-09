@@ -3,5 +3,7 @@
 
 .\kafka-topics.bat --list --bootstrap-server localhost:9092
 
+.\kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic stock-prices --from-beginning
+
 
 python -c "import os; print('API key loaded:', bool(os.getenv('INDIANAPI_KEY')))"
