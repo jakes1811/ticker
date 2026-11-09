@@ -1,19 +1,28 @@
+
+import truststore
+truststore.inject_into_ssl()
+
 import os
 import requests
 
 API_KEY = os.getenv("INDIANAPI_KEY", "").strip()
 
+url = "https://stock.indianapi.in/stock"
+
 headers = {
-    "X-API-Key": API_KEY
+    "x-api-key": API_KEY
 }
 
-url = "https://pro.indianapi.in/usage"
+params = {
+    "name": "Tata Steel"
+}
 
 response = requests.get(
     url,
     headers=headers,
+    params=params,
     timeout=20
 )
 
 print("Status:", response.status_code)
-print("Response:", response.text)
+print("Response:", response.text[:3000])
