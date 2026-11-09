@@ -1,0 +1,25 @@
+# mem3 INPUT: what comes into your part
+
+## A. For the Bronze sinks: two Kafka topics
+**`raw-news-events`** (from mem1), key = article_id:
+```json
+{"article_id":"NEWS-a1b2c3d4e5f60001","published_at":"2026-11-09T04:45:00Z","source":"Economic Times Markets","headline":"Reliance Industries Q2 profit beats estimates on strong retail and Jio growth","full_text":"<p>Reliance Industries (RIL) reported better-than-expected quarterly profit driven by Jio and retail.</p>","url":"https://example.com/1","ingested_at":"2026-11-09T04:45:20Z"}
+```
+**`market-ticks`** (from mem2), key = ticker:
+```json
+{"ticker":"RELIANCE","price":1425.30,"volume":4200000,"price_as_of":"2026-11-09T04:30:00Z","emitted_at":"2026-11-09T04:45:00.100Z","market_open":true,"source":"yfinance"}
+```
+Read them with Spark's Kafka source: you get `key`, `value`, `topic`, `partition`, `offset`, `timestamp` (all binary/typed by Spark). Cast key/value to STRING. Kafka must be running (mem1).
+
+## B. For Silver news: the Bronze news table you wrote: `data_path('bronze','news')`
+```text
+kafka_key              raw_json                                   topic             partition offset kafka_ts
+NEWS-a1b2c3d4e5f60001  {"article_id":"NEWS-a1b2...","headline"...} raw-news-events   2         4021   2026-11-09 04:45:21.314
+NEWS-a1b2c3d4e5f60002  {"article_id":"NEWS-a1b2...0002","...}      raw-news-events   0         4022   2026-11-09 04:47:31.020
+```
+Parse it with `common.bronze_reader.read_bronze_stream(spark, "news", NEWS_DDL)`; malformed JSON gives NULL columns, so rows with `article_id IS NULL` are your rejects.
+**Test without Kafka/Bronze:** `python -m common.fixture_to_bronze fixtures/sample_news.jsonl news --key-field article_id --interval 3` creates Bronze-shaped Parquet in `bronze_sim/news`; run the job with `--source sim`.
+
+## C. Other inputs
+`aliases.json` (company names to tickers), the local FinBERT model folder `../models/finbert`, config `nlp.*`, `spark.*`, `storage.table_format`.
+Sample articles for your tests: `fixtures/sample_news.jsonl` (Reliance positive, Infosys negative, SBI + HDFC Bank two tickers).
