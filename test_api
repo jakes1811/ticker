@@ -1,0 +1,19 @@
+import os
+import requests
+
+API_KEY = os.getenv("INDIANAPI_KEY", "").strip()
+
+headers = {
+    "X-API-Key": API_KEY
+}
+
+url = "https://pro.indianapi.in/usage"
+
+response = requests.get(
+    url,
+    headers=headers,
+    timeout=20
+)
+
+print("Status:", response.status_code)
+print("Response:", response.text)
