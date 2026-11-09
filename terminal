@@ -1,0 +1,37 @@
+(.venv) C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\TESTING>python stock_producer.py
+IndianAPI Stock Producer Started
+Polling interval: 30 seconds
+Kafka topic: stock-prices
+
+Fetching stock prices...
+Published: {'name': 'Reliance Industries', 'current_price': 1324.4}
+Published: {'name': 'Tata Consultancy Services', 'current_price': 2475.4}
+Published: {'name': 'Infosys', 'current_price': 1154.1}
+Published: {'name': 'HDFC Bank', 'current_price': 798.15}
+Published: {'name': 'ICICI Bank', 'current_price': 1589.0}
+Published: {'name': 'Tata Steel', 'current_price': 184.85}
+
+Waiting 30 seconds...
+
+Fetching stock prices...
+No price change: Reliance Industries = 1324.4
+No price change: Tata Consultancy Services = 2475.4
+No price change: Infosys = 1154.1
+No price change: HDFC Bank = 798.15
+No price change: ICICI Bank = 1589.0
+No price change: Tata Steel = 184.85
+
+Waiting 30 seconds...
+
+Fetching stock prices...
+No price change: Reliance Industries = 1324.4
+No price change: Tata Consultancy Services = 2475.4
+No price change: Infosys = 1154.1
+No price change: HDFC Bank = 798.15
+No price change: ICICI Bank = 1589.0
+No price change: Tata Steel = 184.85
+
+Waiting 30 seconds...
+
+Stopping producer...
+Producer stopped
