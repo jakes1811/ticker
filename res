@@ -1,3 +1,63 @@
 (.venv) C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\TESTING>python test_api.py
-Status: 200
-Response: {"companyName":"Tata Steel","industry":"Iron & Steel","companyProfile":{"companyDescription":"Tata Steel Limited is an India-based global steel company. The Company and its subsidiaries have presence across the entire value chain of steel manufacturing from mining and processing iron ore and coal to producing and distributing finished products. The Company offers a range of steel products including a portfolio of high value-added downstream products such as hot rolled, cold rolled, coated steel, rebars, wire rods, tubes and wires. Its segments include Tata Steel India, Neelachal Ispat Nigam Limited, Other Indian Operations, Tata Steel Netherlands Operations, Tata Steel UK Operations, Other Trade Related Operations, South East Asian Operations and Rest of the World. It serves customers across diverse markets including construction and infrastructure, construction retail, automotive and ancillaries, energy, engineering goods, packaging, and downstream. Its products include Automotive Steels, Galvano, Tata Agrico (Agriculture, Construction, and Hand Tools), Tata Astrum and others.","mgIndustry":"Iron & Steel","isInId":"INE081A01020","officers":{"officer":[{"rank":1,"since":"NA","firstName":"Thachat","mI":"Viswanath","lastName":"Narendran","age":"61","title":{"startYear":"2017","startMonth":"10","startDay":"30","iD1":"CEO","abbr1":"CEO","iD2":"MDR","abbr2":"Mgng.Dir.","Value":"Chief Executive Officer, Managing Director, Executive Director"}},{"rank":2,"since":"NA","firstName":"Koushik","mI":null,"lastName":"Chatterjee","age":"57","title":{"startYear":"2017","startMonth":"11","startDay":"9","iD1":"CFO","abbr1":"CFO","iD2":"EDR","abbr2":"Exec. Dir.","Value":"Chief Financial Officer, Executive Director"}},{"rank":3,"since":"01/12/2015","firstName":"Parvatheesam","mI":null,"lastName":"Kanchinadham","age":null,"title":{"startYear":"2019","startMonth":"","startDay":"","iD1":"CCO","abbr1":"Chief Comp.","iD2":"SEC","abbr2":"Secy.","Value":"Company Secretary and Chief Legal Officer, Compliance Officer"}}]},"exchangeCodeBse":"500470","exchangeCodeNse":"TATASTEEL","peerCompanyList":[{"tickerId":"S0003097","companyName":"JSW Steel","priceToBookValueRatio":3.02,"priceToEarningsValueRatio":41.62,"marketCap":329402.65,"price":1347,"percentChange":-0.3,"netChange":-4.1,"returnOnAverageEquity5YearAverage":16.35,"returnOnAverageEquityTrailing12Month":null,"ltDebtPerEquityMostRecentFiscalYear":78.87,"netProfitMargin5YearAverage":7.49,"netProfitMarginPercentTrailing12Month":14.76,"dividendYieldIndicatedAnnualDividend":0.57,"totalSharesOutstanding":244.55,"languageSupport":"JSW स्टील","imageUrl":"https://www.livemint.com/lm-img/markets/logo/tr/S0003097.png","overallRating":"Bullish","ylow":1072.9,"yhigh":1368.9},{"tickerId":"S0000356","companyName":"Lloyds Metals And Energy","priceToBookValueRatio":7.58,"priceToEarningsValueRatio":27.84,"marketCap":102232.16,"price":1807,"percentChange":0.19,"netChange":3.5,"returnOnAverageEquity5YearAverage":33.77,"returnOnAverageEquity
+companyProfile.exchangeCodeBse : 500470
+companyProfile.exchangeCodeNse : TATASTEEL
+companyProfile.peerCompanyList[0].priceToBookValueRatio : 3.02
+companyProfile.peerCompanyList[0].priceToEarningsValueRatio : 41.62
+companyProfile.peerCompanyList[0].price : 1347
+companyProfile.peerCompanyList[0].percentChange : -0.3
+companyProfile.peerCompanyList[0].netChange : -4.1
+companyProfile.peerCompanyList[1].priceToBookValueRatio : 7.58
+companyProfile.peerCompanyList[1].priceToEarningsValueRatio : 27.84
+companyProfile.peerCompanyList[1].price : 1807
+companyProfile.peerCompanyList[1].percentChange : 0.19
+companyProfile.peerCompanyList[1].netChange : 3.5
+companyProfile.peerCompanyList[2].priceToBookValueRatio : 2.06
+companyProfile.peerCompanyList[2].priceToEarningsValueRatio : 25.99
+companyProfile.peerCompanyList[2].price : 1146
+companyProfile.peerCompanyList[2].percentChange : -0.78
+companyProfile.peerCompanyList[2].netChange : -9
+companyProfile.peerCompanyList[3].priceToBookValueRatio : 3.07
+companyProfile.peerCompanyList[3].priceToEarningsValueRatio : 18.79
+companyProfile.peerCompanyList[3].price : 691.05
+companyProfile.peerCompanyList[3].percentChange : -1.95
+companyProfile.peerCompanyList[3].netChange : -13.75
+companyProfile.peerCompanyList[4].priceToBookValueRatio : 4.56
+companyProfile.peerCompanyList[4].priceToEarningsValueRatio : 25.89
+companyProfile.peerCompanyList[4].price : 2202.1
+companyProfile.peerCompanyList[4].percentChange : -1.95
+companyProfile.peerCompanyList[4].netChange : -43.7
+currentPrice : {'BSE': '184.90', 'NSE': '184.85'}
+stockTechnicalData[0].bsePrice : 180.19
+stockTechnicalData[0].nsePrice : 180.42
+stockTechnicalData[1].bsePrice : 174.86
+stockTechnicalData[1].nsePrice : 174.98
+stockTechnicalData[2].bsePrice : 174.09
+stockTechnicalData[2].nsePrice : 174.19
+stockTechnicalData[3].bsePrice : 180.21
+stockTechnicalData[3].nsePrice : 180.31
+stockTechnicalData[4].bsePrice : 184.39
+stockTechnicalData[4].nsePrice : 184.50
+stockTechnicalData[5].bsePrice : 193.59
+stockTechnicalData[5].nsePrice : 193.64
+percentChange : -2.43
+keyMetrics.priceandVolume : [{'displayName': 'Market Cap', 'key': 'marketCap', 'value': '230818.86'}, {'displayName': '52 week Low Date', 'key': '52WeekLowDate', 'value': '2025-12-09T00:00:00'}, {'displayName': 'Price - 1 Day % Change', 'key': 'price1DayPercentChange', 'value': '2.09'}, {'displayName': 'Relative (S&P500) price percent change - 13 week', 'key': 'relativePricePercentChange13Week', 'value': '-3.77'}, {'displayName': 'Avg trading volume last 10 days', 'key': 'avgTradingVolumeLast10Days', 'value': '22.34'}, {'displayName': 'Price - 13 week price percent change', 'key': 'price13WeekPricePercentChange', 'value': '1.41'}, {'displayName': 'Price - 52 week price percent change', 'key': 'price52WeekPricePercentChange', 'value': '4.87'}, {'displayName': 'Avg Trading Volume Last 3 months', 'key': 'avgTradingVolumeLast3months', 'value': '526.44'}, {'displayName': 'Price - 5 Day % Change', 'key': 'price5DayPercentChange', 'value': '7.23'}, {'displayName': 'Price % Change Month To Date', 'key': 'pricePercentChangeMonthToDate', 'value': '13.48'}, {'displayName': 'Relative (S&P500) price percent change - 04 week', 'key': 'relativePricePercentChange-04week', 'value': '-4.13'}, {'displayName': '52 week High Date', 'key': '52WeekHighDate', 'value': '2026-05-15T00:00:00'}, {'displayName': 'Price - 26 week price percent change', 'key': 'price26WeekPricePercentChange', 'value': '-11.32'}, {'displayName': 'PDATE', 'key': 'PDATE', 'value': '2026-11-08T00:00:00'}, {'displayName': 'Price - YTD price percent change', 'key': 'priceYTDPricePercentChange', 'value': '5.62'}, {'displayName': 'Relative (S&P500) price percent change - 52 week', 'key': 'relativePricePercentChange52Week', 'value': '8.05'}, {'displayName': 'NPRICE', 'key': 'NPRICE', 'value': '190.20'}, {'displayName': 'Relative (S&P500) price percent change - 26 week', 'key': 'relativePricePercentChange26Week', 'value': '-17.11'}, {'displayName': '52 week Low', 'key': '52WeekLow', 'value': '160.06'}, {'displayName': '52 week High', 'key': '52WeekHigh', 'value': '224.40'}, {'displayName': 'Beta', 'key': 'beta', 'value': '1.06'}, {'displayName': 'Relative (S&P500) price percent change - Year to Date', 'key': 'relativePricePercentChangeYearToDate', 'value': '8.81'}]
+stockDetailsReusableData.price : 184.90
+stockDetailsReusableData.percentChange : -2.43
+stockDetailsReusableData.priceYTDPricePercentChange : 5.62
+stockDetailsReusableData.price5DayPercentChange : 7.23
+stockDetailsReusableData.peerCompanyList[0].priceToBookValueRatio : 3.02
+stockDetailsReusableData.peerCompanyList[0].priceToEarningsValueRatio : 41.62
+stockDetailsReusableData.peerCompanyList[0].price : 1347
+stockDetailsReusableData.peerCompanyList[0].percentChange : -0.3
+stockDetailsReusableData.peerCompanyList[0].netChange : -4.1
+stockDetailsReusableData.peerCompanyList[1].priceToBookValueRatio : 7.58
+stockDetailsReusableData.peerCompanyList[1].priceToEarningsValueRatio : 27.84
+stockDetailsReusableData.peerCompanyList[1].price : 1807
+stockDetailsReusableData.peerCompanyList[1].percentChange : 0.19
+stockDetailsReusableData.peerCompanyList[1].netChange : 3.5
+stockDetailsReusableData.peerCompanyList[2].priceToBookValueRatio : 2.06
+stockDetailsReusableData.peerCompanyList[2].priceToEarningsValueRatio : 25.99
+stockDetailsReusableData.peerCompanyList[2].price : 1146
+stockDetailsReusableData.peerCompanyList[2].percentChange : -0.78
+stockDetailsReusableData.peerCompanyList[2].netChange : -9
+stockDetailsReusableData.sectorPriceToEarningsValueRatio : 12.50
