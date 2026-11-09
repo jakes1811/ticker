@@ -1,0 +1,150 @@
+
+import os
+import json
+import time
+import requests
+
+from datetime import datetime, timezone
+
+# =====================================
+# CONFIGURATION
+# =====================================
+
+BASE_URL = "https://stock.indianapi.in/stock"
+
+API_KEY = os.getenv("INDIANAPI_KEY")
+
+if not API_KEY:
+    raise ValueError(
+        "API key not found. Set INDIANAPI_KEY first."
+    )
+
+HEADERS = {
+    "x-api-key": API_KEY
+}
+
+# 10 Indian companies to fetch
+STOCKS = [
+    "Reliance",
+    "TCS",
+    "Infosys",
+    "HDFC Bank",
+    "ICICI Bank",
+    "Wipro",
+    "ITC",
+    "Tata Motors",
+    "Bharti Airtel",
+    "Larsen and Toubro"
+]
+
+OUTPUT_FILE = "stock_data.json"
+
+
+# =====================================
+# FETCH STOCK DATA
+# =====================================
+
+def fetch_stock(stock_name):
+
+    try:
+        params = {
+            "name": stock_name
+        }
+
+        response = requests.get(
+            BASE_URL,
+            headers=HEADERS,
+            params=params,
+            timeout=20
+        )
+
+        print(f"\nFetching: {stock_name}")
+        print("Status Code:", response.status_code)
+
+        response.raise_for_status()
+
+        data = response.json()
+
+        result = {
+            "requested_stock": stock_name,
+            "ingestion_timestamp": datetime.now(
+                timezone.utc
+            ).isoformat(),
+            "source": "IndianAPI",
+            "raw_data": data
+        }
+
+        print("Successfully fetched:", stock_name)
+
+        return result
+
+    except requests.exceptions.HTTPError as e:
+        print("HTTP Error:", e)
+
+    except requests.exceptions.RequestException as e:
+        print("Connection Error:", e)
+
+    except ValueError as e:
+        print("Invalid JSON response:", e)
+
+    except Exception as e:
+        print("Unexpected Error:", e)
+
+    return None
+
+
+# =====================================
+# FETCH ALL 10 STOCKS
+# =====================================
+
+def main():
+
+    all_stock_data = []
+
+    print("=" * 50)
+    print("INDIAN STOCK MARKET DATA EXTRACTION")
+    print("=" * 50)
+
+    for stock in STOCKS:
+
+        result = fetch_stock(stock)
+
+        if result is not None:
+            all_stock_data.append(result)
+
+        # Avoid sending requests too quickly
+        time.sleep(1)
+
+    # =================================
+    # SAVE RAW DATA
+    # =================================
+
+    with open(
+        OUTPUT_FILE,
+        "w",
+        encoding="utf-8"
+    ) as file:
+
+        json.dump(
+            all_stock_data,
+            file,
+            indent=4,
+            ensure_ascii=False
+        )
+
+    print("\n" + "=" * 50)
+    print("EXTRACTION COMPLETED")
+    print("=" * 50)
+
+    print("Total stocks requested:", len(STOCKS))
+    print("Successfully fetched:", len(all_stock_data))
+    print("Failed:", len(STOCKS) - len(all_stock_data))
+    print("Saved file:", OUTPUT_FILE)
+
+
+# =====================================
+# RUN PROGRAM
+# =====================================
+
+if __name__ == "__main__":
+    main()
