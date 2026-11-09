@@ -1,15 +1,10 @@
+(.venv) C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\TESTING>python stock_producer.py
 Starting IndianAPI Stock Producer...
 Polling interval: 30 seconds
 Stocks: ['RELIANCE', 'TCS', 'INFY', 'HDFCBANK', 'ICICIBANK']
 Kafka topic: stock-prices
 
 Fetching latest stock prices...
-IndianAPI request failed: Invalid leading whitespace, reserved character(s), or return character(s) in header value: ' sk-live-XbZvehGQ9vKzj1y2I74JLUxzBaBBhG0EXC0spDhA'
+IndianAPI request failed: HTTPSConnectionPool(host='pro.indianapi.in', port=443): Max retries exceeded with url: /nse_stock_batch_live_price (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1082)')))
 Next fetch in 30 seconds.
 
-Fetching latest stock prices...
-IndianAPI request failed: Invalid leading whitespace, reserved character(s), or return character(s) in header value: ' sk-live-XbZvehGQ9vKzj1y2I74JLUxzBaBBhG0EXC0spDhA'
-Next fetch in 30 seconds.
-
-Stopping stock producer...
-Producer stopped.
