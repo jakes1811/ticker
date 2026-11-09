@@ -1,0 +1,150 @@
+
+import truststore
+truststore.inject_into_ssl()
+
+import os
+import time
+import requests
+from kafka import KafkaProducer
+from kafka.errors import KafkaError
+
+
+# CONFIGURATION
+
+API_KEY = os.getenv("INDIANAPI_KEY", "").strip()
+
+API_URL = "https://stock.indianapi.in/stock"
+
+STOCKS = [
+    "Reliance Industries",
+    "Tata Consultancy Services",
+    "Infosys",
+    "HDFC Bank",
+    "ICICI Bank",
+    "Tata Steel",
+    # Add your remaining 4 stock names here
+]
+
+KAFKA_BROKER = "localhost:9092"
+KAFKA_TOPIC = "stock-prices"
+POLL_INTERVAL = 30
+
+
+if not API_KEY:
+    raise ValueError("INDIANAPI_KEY is missing")
+
+
+# KAFKA PRODUCER
+
+producer = KafkaProducer(
+    bootstrap_servers=KAFKA_BROKER,
+    value_serializer=lambda value: __import__("json").dumps(value).encode("utf-8")
+)
+
+
+# HTTP SESSION
+
+session = requests.Session()
+
+session.headers.update({
+    "x-api-key": API_KEY
+})
+
+
+# Starts empty every time the file runs
+last_prices = {}
+
+
+def fetch_price(stock_name):
+
+    response = session.get(
+        API_URL,
+        params={"name": stock_name},
+        timeout=20
+    )
+
+    response.raise_for_status()
+
+    data = response.json()
+
+    company_name = data.get("companyName", stock_name)
+
+    current_price = data.get("currentPrice", {}).get("NSE")
+
+    if current_price is None:
+        print(f"No NSE price available for {stock_name}")
+        return None
+
+    return {
+        "name": company_name,
+        "current_price": float(current_price)
+    }
+
+
+def fetch_and_publish():
+
+    for stock in STOCKS:
+
+        try:
+            message = fetch_price(stock)
+
+            if message is None:
+                continue
+
+            name = message["name"]
+            price = message["current_price"]
+
+            if last_prices.get(name) != price:
+
+                future = producer.send(
+                    KAFKA_TOPIC,
+                    value=message
+                )
+
+                future.get(timeout=10)
+
+                last_prices[name] = price
+
+                print("Published:", message)
+
+            else:
+                print(f"No price change: {name} = {price}")
+
+        except requests.RequestException as error:
+            print(f"API error for {stock}: {error}")
+
+        except (ValueError, KeyError, TypeError) as error:
+            print(f"Invalid response for {stock}: {error}")
+
+        except KafkaError as error:
+            print(f"Kafka error for {stock}: {error}")
+
+    producer.flush()
+
+
+# MAIN LOOP
+
+if __name__ == "__main__":
+
+    print("IndianAPI Stock Producer Started")
+    print("Polling interval: 30 seconds")
+    print("Kafka topic:", KAFKA_TOPIC)
+
+    try:
+        while True:
+
+            print("\nFetching stock prices...")
+
+            fetch_and_publish()
+
+            print("\nWaiting 30 seconds...")
+            time.sleep(POLL_INTERVAL)
+
+    except KeyboardInterrupt:
+        print("\nStopping producer...")
+
+    finally:
+        producer.flush()
+        producer.close()
+        session.close()
+        print("Producer stopped.")
