@@ -1,0 +1,349 @@
+import os
+import json
+import time
+import warnings
+from datetime import datetime, timezone
+
+import requests
+import truststore
+import yfinance as yf
+from curl_cffi import requests as curl_requests
+
+from kafka import KafkaProducer
+from kafka.errors import KafkaError
+
+
+# ============================================================
+# CONFIGURATION
+# ============================================================
+
+truststore.inject_into_ssl()
+
+warnings.filterwarnings("ignore")
+
+API_KEY = os.getenv("INDIANAPI_KEY", "").strip()
+API_URL = "https://stock.indianapi.in/stock"
+
+STOCKS = {
+    "Reliance Industries": "RELIANCE.NS",
+    "Tata Consultancy Services": "TCS.NS",
+    "Infosys": "INFY.NS",
+    "HDFC Bank": "HDFCBANK.NS",
+    "ICICI Bank": "ICICIBANK.NS",
+    "Tata Steel": "TATASTEEL.NS",
+    "State Bank of India": "SBIN.NS",
+    "ITC": "ITC.NS",
+    "Sun Pharmaceutical": "SUNPHARMA.NS",
+    "Bharti Airtel": "BHARTIARTL.NS"
+}
+
+KAFKA_BROKER = "localhost:9092"
+KAFKA_TOPIC = "stock-prices"
+
+POLL_INTERVAL = 30
+YFINANCE_BACKUP_INTERVAL = 15 * 60
+
+# ============================================================
+# KAFKA PRODUCER
+# ============================================================
+
+producer = KafkaProducer(
+    bootstrap_servers=KAFKA_BROKER,
+    value_serializer=lambda value: json.dumps(value).encode("utf-8")
+)
+
+# ============================================================
+# INDIANAPI SESSION - PRIMARY SOURCE
+# ============================================================
+
+api_session = requests.Session()
+
+api_session.headers.update({
+    "x-api-key": API_KEY
+})
+
+# ============================================================
+# YFINANCE SESSION - BACKUP SOURCE
+# ============================================================
+
+# Uses curl_cffi to work around the Yahoo certificate
+# verification problem encountered on this machine.
+
+yf_session = curl_requests.Session(
+    impersonate="chrome",
+    verify=False
+)
+
+# ============================================================
+# TRACKING
+# ============================================================
+
+last_prices = {}
+
+last_sources = {}
+
+next_yfinance_attempt = {
+    stock: 0 for stock in STOCKS
+}
+
+
+def get_timestamp():
+    return datetime.now(timezone.utc).isoformat()
+
+
+# ============================================================
+# INDIANAPI PRICE RETRIEVAL
+# ============================================================
+
+def fetch_indianapi(stock_name):
+
+    if not API_KEY:
+        raise RuntimeError("INDIANAPI_KEY is missing")
+
+    response = api_session.get(
+        API_URL,
+        params={"name": stock_name},
+        timeout=20
+    )
+
+    response.raise_for_status()
+
+    data = response.json()
+
+    company_name = data.get("companyName", stock_name)
+
+    current_price = data.get("currentPrice", {}).get("NSE")
+
+    if current_price is None:
+        raise ValueError(
+            f"No NSE price available for {stock_name}"
+        )
+
+    return {
+        "name": company_name,
+        "symbol": STOCKS[stock_name],
+        "current_price": float(current_price),
+        "source": "IndianAPI",
+        "timestamp": get_timestamp()
+    }
+
+
+# ============================================================
+# YFINANCE PRICE RETRIEVAL - BACKUP
+# ============================================================
+
+def fetch_yfinance(stock_name):
+
+    symbol = STOCKS[stock_name]
+
+    ticker = yf.Ticker(
+        symbol,
+        session=yf_session
+    )
+
+    history = ticker.history(
+        period="1d",
+        interval="1m",
+        auto_adjust=False,
+        timeout=20
+    )
+
+    if history.empty or history["Close"].dropna().empty:
+        raise ValueError(
+            f"No intraday price available from YFinance: {symbol}"
+        )
+
+    latest_row = history.dropna(subset=["Close"]).iloc[-1]
+
+    price = float(latest_row["Close"])
+
+    market_timestamp = history.dropna(
+        subset=["Close"]
+    ).index[-1]
+
+    return {
+        "name": stock_name,
+        "symbol": symbol,
+        "current_price": price,
+        "source": "YFinance",
+        "timestamp": market_timestamp.isoformat(),
+        "fetched_at": get_timestamp()
+    }
+
+
+# ============================================================
+# KAFKA PUBLISHING
+# ============================================================
+
+def publish_to_kafka(message):
+
+    name = message["name"]
+    price = message["current_price"]
+    source = message["source"]
+
+    previous_price = last_prices.get(name)
+    previous_source = last_sources.get(name)
+
+    # Publish when price changes or data source changes.
+
+    if previous_price != price or previous_source != source:
+
+        future = producer.send(
+            KAFKA_TOPIC,
+            value=message
+        )
+
+        future.get(timeout=10)
+
+        last_prices[name] = price
+        last_sources[name] = source
+
+        print(
+            f"[PUBLISHED] {name} | "
+            f"Price: ₹{price} | "
+            f"Source: {source}"
+        )
+
+    else:
+
+        print(
+            f"[NO CHANGE] {name} | "
+            f"Price: ₹{price} | "
+            f"Source: {source}"
+        )
+
+
+# ============================================================
+# STOCK PROCESSING
+# ============================================================
+
+def process_stock(stock_name):
+
+    # --------------------------------------------------------
+    # STEP 1: TRY INDIANAPI
+    # --------------------------------------------------------
+
+    try:
+
+        message = fetch_indianapi(stock_name)
+
+        publish_to_kafka(message)
+
+        return
+
+    except Exception as error:
+
+        print(
+            f"[INDIANAPI FAILED] {stock_name}: {error}"
+        )
+
+    # --------------------------------------------------------
+    # STEP 2: CHECK YFINANCE BACKUP INTERVAL
+    # --------------------------------------------------------
+
+    current_time = time.monotonic()
+
+    if current_time < next_yfinance_attempt[stock_name]:
+
+        remaining = int(
+            next_yfinance_attempt[stock_name] - current_time
+        )
+
+        print(
+            f"[BACKUP WAIT] {stock_name}: "
+            f"YFinance retry in {remaining} seconds"
+        )
+
+        return
+
+    # --------------------------------------------------------
+    # STEP 3: TRY YFINANCE
+    # --------------------------------------------------------
+
+    print(
+        f"[BACKUP] Trying YFinance for {stock_name}"
+    )
+
+    try:
+
+        message = fetch_yfinance(stock_name)
+
+        publish_to_kafka(message)
+
+    except Exception as error:
+
+        print(
+            f"[BACKUP FAILED] {stock_name}: {error}"
+        )
+
+    finally:
+
+        # Do not call YFinance again for this stock
+        # until the next 15-minute backup window.
+
+        next_yfinance_attempt[stock_name] = (
+            time.monotonic() + YFINANCE_BACKUP_INTERVAL
+        )
+
+
+# ============================================================
+# MAIN FETCH AND PUBLISH
+# ============================================================
+
+def fetch_and_publish():
+
+    for stock in STOCKS:
+
+        process_stock(stock)
+
+    producer.flush()
+
+
+# ============================================================
+# MAIN LOOP
+# ============================================================
+
+if __name__ == "__main__":
+
+    print("=" * 55)
+    print("INDIAN STOCK PRICE PRODUCER")
+    print("=" * 55)
+
+    print("Primary source: IndianAPI")
+    print("Backup source: YFinance")
+    print("Primary polling interval: 30 seconds")
+    print("YFinance backup interval: 15 minutes")
+    print("Total stocks:", len(STOCKS))
+    print("Kafka topic:", KAFKA_TOPIC)
+
+    if not API_KEY:
+        print(
+            "[WARNING] INDIANAPI_KEY missing. "
+            "Only YFinance backup will be available."
+        )
+
+    try:
+
+        while True:
+
+            print("\nFetching stock prices...")
+
+            fetch_and_publish()
+
+            print("\nWaiting 30 seconds...")
+
+            time.sleep(POLL_INTERVAL)
+
+    except KeyboardInterrupt:
+
+        print("\nStopping producer...")
+
+    finally:
+
+        producer.flush()
+        producer.close()
+
+        api_session.close()
+        yf_session.close()
+
+        print("Producer stopped.")
