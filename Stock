@@ -1,46 +1,56 @@
+
+import truststore
+truststore.inject_into_ssl()
+
 import os
 import time
 import json
 import requests
+import yfinance as yf
+
+from curl_cffi import requests as curl_requests
+from datetime import datetime
+from zoneinfo import ZoneInfo
 
 from kafka import KafkaProducer
 from kafka.errors import KafkaError
 
-import urllib3
 
-urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+# ==========================================
+# CONFIGURATION
+# ==========================================
 
+API_KEY = os.getenv("INDIANAPI_KEY", "").strip()
 
-# ---------------- CONFIGURATION ----------------
-
-API_KEY = os.getenv("INDIANAPI_KEY")
-
-API_URL = (
-    "https://pro.indianapi.in/nse_stock_batch_live_price"
-)
-
-STOCK_SYMBOLS = [
-    "RELIANCE",
-    "TCS",
-    "INFY",
-    "HDFCBANK",
-    "ICICIBANK",
-    # Add your remaining 5 NSE symbols here
-]
+INDIAN_API_URL = "https://stock.indianapi.in/stock"
 
 KAFKA_BROKER = "localhost:9092"
 KAFKA_TOPIC = "stock-prices"
 
 POLL_INTERVAL = 30
 
+# IndianAPI company names mapped to Yahoo NSE symbols
 
-# ---------------- VALIDATE CONFIGURATION ----------------
+STOCKS = {
+    "Reliance Industries": "RELIANCE.NS",
+    "Tata Consultancy Services": "TCS.NS",
+    "Infosys": "INFY.NS",
+    "HDFC Bank": "HDFCBANK.NS",
+    "ICICI Bank": "ICICIBANK.NS",
+    "Tata Steel": "TATASTEEL.NS",
+    "State Bank of India": "SBIN.NS",
+    "ITC": "ITC.NS",
+    "Sun Pharmaceutical": "SUNPHARMA.NS",
+    "Bharti Airtel": "BHARTIARTL.NS"
+}
 
 if not API_KEY:
-    raise ValueError("Please configure your INDIANAPI_KEY")
+    raise ValueError("INDIANAPI_KEY is missing")
 
 
-# ---------------- KAFKA PRODUCER ----------------
+# ==========================================
+# KAFKA PRODUCER
+# ==========================================
 
 producer = KafkaProducer(
     bootstrap_servers=KAFKA_BROKER,
@@ -48,134 +58,229 @@ producer = KafkaProducer(
 )
 
 
-# ---------------- INDIANAPI REQUEST ----------------
+# ==========================================
+# HTTP SESSIONS
+# ==========================================
 
-headers = {
-    "X-API-Key": API_KEY,
-    "Content-Type": "application/json"
-}
+indian_session = requests.Session()
 
-payload = {
-    "stock_symbols": STOCK_SYMBOLS
-}
+indian_session.headers.update({
+    "x-api-key": API_KEY
+})
+
+# Yahoo Finance session.
+# Certificate verification remains enabled.
+yahoo_session = curl_requests.Session(
+    impersonate="chrome"
+)
 
 
-# Stores only the latest prices received during this run.
-# Starts empty every time the file is launched.
+# ==========================================
+# PRICE STATE
+# ==========================================
+
 last_prices = {}
 
 
-def extract_quotes(data, parent_key=None):
-    """Extract only symbol and LTP from the API response."""
+# ==========================================
+# PRIMARY: INDIANAPI
+# ==========================================
 
-    quotes = {}
+def fetch_indianapi(stock_name):
 
-    if isinstance(data, dict):
+    response = indian_session.get(
+        INDIAN_API_URL,
+        params={"name": stock_name},
+        timeout=15
+    )
 
-        if "ltp" in data:
-            symbol = (
-                data.get("symbol")
-                or data.get("stock_symbol")
-                or data.get("ticker")
-                or parent_key
-            )
+    response.raise_for_status()
 
-            if symbol:
-                try:
-                    quotes[str(symbol).upper()] = float(data["ltp"])
-                except (TypeError, ValueError):
-                    pass
+    data = response.json()
 
-        else:
-            for key, value in data.items():
-                quotes.update(extract_quotes(value, key))
+    company_name = data.get("companyName", stock_name)
 
-    elif isinstance(data, list):
-        for item in data:
-            quotes.update(extract_quotes(item))
+    price = data.get("currentPrice", {}).get("NSE")
 
-    return quotes
+    if price is None:
+        raise ValueError("NSE price missing from IndianAPI response")
+
+    price = float(price)
+
+    if price <= 0:
+        raise ValueError("Invalid IndianAPI price")
+
+    return {
+        "name": company_name,
+        "current_price": price,
+        "source": "INDIANAPI"
+    }
 
 
-# ---------------- FETCH AND PUBLISH ----------------
+# ==========================================
+# BACKUP: YFINANCE
+# ==========================================
 
-def fetch_stock_prices():
+def fetch_yfinance(stock_name, yahoo_symbol):
+
+    ticker = yf.Ticker(
+        yahoo_symbol,
+        session=yahoo_session
+    )
+
+    history = ticker.history(
+        period="1d",
+        interval="1m",
+        auto_adjust=False
+    )
+
+    if history.empty or history["Close"].dropna().empty:
+        raise ValueError("No intraday price available from YFinance")
+
+    latest_timestamp = history["Close"].dropna().index[-1]
+
+    # Avoid treating yesterday's closing price as a live price.
+    india_today = datetime.now(
+        ZoneInfo("Asia/Kolkata")
+    ).date()
+
+    if latest_timestamp.date() != india_today:
+        raise ValueError("YFinance has no price update for today's session")
+
+    price = float(history["Close"].dropna().iloc[-1])
+
+    if price <= 0:
+        raise ValueError("Invalid YFinance price")
+
+    return {
+        "name": stock_name,
+        "current_price": price,
+        "source": "YFINANCE"
+    }
+
+
+# ==========================================
+# PRICE FETCH WITH AUTOMATIC FAILOVER
+# ==========================================
+
+def fetch_stock(stock_name, yahoo_symbol):
 
     try:
-        response = requests.post(
-            API_URL,
-            headers=headers,
-            json=payload,
-            timeout=20
+        result = fetch_indianapi(stock_name)
+
+        print(f"[PRIMARY] {stock_name}: IndianAPI")
+
+        return result
+
+    except Exception as error:
+
+        print(f"[INDIANAPI FAILED] {stock_name}: {error}")
+        print(f"[BACKUP] Trying YFinance for {stock_name}")
+
+    try:
+        result = fetch_yfinance(
+            stock_name,
+            yahoo_symbol
         )
 
-        response.raise_for_status()
+        print(f"[BACKUP SUCCESS] {stock_name}: YFinance")
 
-        api_data = response.json()
+        return result
 
-        quotes = extract_quotes(api_data)
+    except Exception as error:
 
-        if not quotes:
-            print("No valid LTP values found in API response.")
-            print("Check the response structure and API subscription.")
-            return
+        print(f"[BACKUP FAILED] {stock_name}: {error}")
 
-        for symbol, price in quotes.items():
+        return None
 
-            # Publish the first price received.
-            # After that, publish only changed prices.
-            if last_prices.get(symbol) != price:
 
-                message = {
-                    "name": symbol,
-                    "current_price": price
-                }
+# ==========================================
+# KAFKA PUBLISHING
+# ==========================================
 
-                producer.send(
+def fetch_and_publish():
+
+    for stock_name, yahoo_symbol in STOCKS.items():
+
+        try:
+            message = fetch_stock(
+                stock_name,
+                yahoo_symbol
+            )
+
+            if message is None:
+                continue
+
+            name = message["name"]
+            price = message["current_price"]
+
+            if last_prices.get(name) != price:
+
+                future = producer.send(
                     KAFKA_TOPIC,
                     value=message
                 )
 
-                print("Published:", message)
+                future.get(timeout=10)
 
-                last_prices[symbol] = price
+                last_prices[name] = price
 
-        producer.flush()
+                print("[KAFKA PUBLISHED]", message)
 
-    except requests.RequestException as error:
-        print("IndianAPI request failed:", error)
+            else:
+                print(
+                    f"[NO CHANGE] {name}: {price} "
+                    f"({message['source']})"
+                )
 
-    except (ValueError, KeyError) as error:
-        print("Could not process API response:", error)
+        except KafkaError as error:
+            print(f"[KAFKA ERROR] {stock_name}: {error}")
 
-    except KafkaError as error:
-        print("Kafka error:", error)
+        except Exception as error:
+            print(f"[ERROR] {stock_name}: {error}")
+
+    producer.flush()
 
 
-# ---------------- MAIN LOOP ----------------
+# ==========================================
+# MAIN LOOP
+# ==========================================
 
 if __name__ == "__main__":
 
-    print("Starting IndianAPI Stock Producer...")
-    print("Polling interval: 30 seconds")
-    print("Stocks:", STOCK_SYMBOLS)
+    print("=" * 50)
+    print("INDIAN STOCK PRICE PRODUCER")
+    print("=" * 50)
+
+    print("Primary source: IndianAPI")
+    print("Backup source: YFinance")
+    print("Polling interval:", POLL_INTERVAL, "seconds")
+    print("Total stocks:", len(STOCKS))
     print("Kafka topic:", KAFKA_TOPIC)
 
     try:
+
         while True:
 
-            print("\nFetching latest stock prices...")
+            print("\nFetching stock prices...")
 
-            fetch_stock_prices()
+            fetch_and_publish()
 
-            print("Next fetch in 30 seconds.")
+            print("\nWaiting 30 seconds...")
 
             time.sleep(POLL_INTERVAL)
 
     except KeyboardInterrupt:
-        print("\nStopping stock producer...")
+
+        print("\nStopping producer...")
 
     finally:
+
         producer.flush()
         producer.close()
+
+        indian_session.close()
+        yahoo_session.close()
+
         print("Producer stopped.")
+
