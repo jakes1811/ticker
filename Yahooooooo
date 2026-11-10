@@ -1,0 +1,44 @@
+import requests
+
+def fetch_yahoo_price(symbol):
+    url = f"https://query1.finance.yahoo.com/v8/finance/chart/{symbol}"
+
+    response = requests.get(
+        url,
+        params={
+            "range": "1d",
+            "interval": "1m"
+        },
+        headers={"User-Agent": "Mozilla/5.0"},
+        timeout=20
+    )
+    response.raise_for_status()
+
+    data = response.json()["chart"]["result"][0]
+
+    meta = data["meta"]
+    quote = data["indicators"]["quote"][0]
+
+    valid_rows = [
+        (timestamp, close, volume)
+        for timestamp, close, volume in zip(
+            data["timestamp"],
+            quote["close"],
+            quote["volume"]
+        )
+        if close is not None
+    ]
+
+    if not valid_rows:
+        raise ValueError(f"No valid price for {symbol}")
+
+    timestamp, price, volume = valid_rows[-1]
+
+    return {
+        "name": meta.get("longName", symbol),
+        "ticker": symbol,
+        "price": float(price),
+        "volume": volume,
+        "source_timestamp": timestamp,
+        "source": "Yahoo Finance"
+    }
