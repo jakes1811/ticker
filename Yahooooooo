@@ -1,15 +1,13 @@
+
 import truststore
 truststore.inject_into_ssl()
 
-import requests
 import time
+import requests
+from datetime import datetime
+from zoneinfo import ZoneInfo
 
-from datetime import datetime, timezone
-
-
-# ==================================================
-# CONFIGURATION
-# ==================================================
+# ---------------- CONFIGURATION ----------------
 
 STOCKS = {
     "Reliance Industries": "RELIANCE.NS",
@@ -26,317 +24,180 @@ STOCKS = {
     "Coal India": "COALINDIA.NS",
     "Bajaj Finance": "BAJFINANCE.NS",
 
-    # US STOCK
-    "MARA Holdings Inc.": "MARA"
+    # US stock for testing
+    "MARA Holdings, Inc.": "MARA"
 }
 
-YAHOO_URL = (
-    "https://query1.finance.yahoo.com/"
-    "v8/finance/chart/"
-)
+YAHOO_URL = "https://query1.finance.yahoo.com/v8/finance/chart/"
 
 POLL_INTERVAL = 30
 REQUEST_TIMEOUT = 20
 REQUEST_GAP = 1
 
-
-# ==================================================
-# YAHOO FINANCE SESSION
-# ==================================================
-
 session = requests.Session()
-
 session.headers.update({
     "User-Agent": "Mozilla/5.0"
 })
 
-
-# ==================================================
-# FETCH STOCK PRICE
-# ==================================================
+# ---------------- FETCH STOCK DATA ----------------
 
 def fetch_yahoo_price(name, symbol):
 
-    url = f"{YAHOO_URL}{symbol}"
+    try:
+        url = f"{YAHOO_URL}{symbol}"
 
-    response = session.get(
-        url,
-        params={
+        params = {
             "range": "1d",
             "interval": "1m"
-        },
-        timeout=REQUEST_TIMEOUT
-    )
+        }
 
-    response.raise_for_status()
+        response = session.get(
+            url,
+            params=params,
+            timeout=REQUEST_TIMEOUT
+        )
 
-    chart = response.json().get("chart", {})
+        response.raise_for_status()
 
-    if chart.get("error"):
-        raise ValueError(chart["error"])
+        data = response.json()
 
-    results = chart.get("result")
+        result = data["chart"]["result"]
 
-    if not results:
-        raise ValueError("No chart data returned")
+        if not result:
+            raise ValueError("No stock data returned")
 
-    data = results[0]
+        stock_data = result[0]
+        meta = stock_data["meta"]
 
-    meta = data.get("meta", {})
+        price = meta.get("regularMarketPrice")
+        previous_close = meta.get("previousClose")
 
-    quote_list = (
-        data.get("indicators", {})
-        .get("quote", [])
-    )
+        if price is None:
+            raise ValueError("Current price unavailable")
 
-    if not quote_list:
-        raise ValueError("No quote data available")
+        price = float(price)
 
-    quote = quote_list[0]
-
-    timestamps = data.get("timestamp", [])
-    closes = quote.get("close", [])
-    volumes = quote.get("volume", [])
-
-    valid_rows = []
-
-    for timestamp, close, volume in zip(
-        timestamps,
-        closes,
-        volumes
-    ):
-
-        if close is not None:
-
-            valid_rows.append(
-                (timestamp, close, volume)
-            )
-
-    if not valid_rows:
-        raise ValueError("No valid price available")
-
-    timestamp, candle_price, volume = valid_rows[-1]
-
-    # ==============================================
-    # CURRENT PRICE
-    # ==============================================
-
-    current_price = meta.get("regularMarketPrice")
-
-    if current_price is None:
-        current_price = candle_price
-
-    current_price = float(current_price)
-
-    # ==============================================
-    # PREVIOUS CLOSE AND CHANGE
-    # ==============================================
-
-    previous_close = meta.get("previousClose")
-
-    if previous_close is not None and float(previous_close) > 0:
+        if previous_close is None:
+            raise ValueError("Previous closing price unavailable")
 
         previous_close = float(previous_close)
 
-        change = current_price - previous_close
+        if previous_close == 0:
+            raise ValueError("Previous close is zero")
 
-        change_percent = (
-            change / previous_close
-        ) * 100
+        change = price - previous_close
+        change_percent = (change / previous_close) * 100
 
-    else:
+        currency = meta.get("currency", "UNKNOWN")
 
-        change = None
-        change_percent = None
+        market_timestamp = meta.get("regularMarketTime")
 
-    # ==============================================
-    # TIMESTAMP
-    # ==============================================
+        if market_timestamp:
+            source_time = datetime.fromtimestamp(
+                market_timestamp,
+                tz=ZoneInfo("UTC")
+            ).isoformat()
+        else:
+            source_time = datetime.now(
+                ZoneInfo("UTC")
+            ).isoformat()
 
-    source_time = datetime.fromtimestamp(
-        timestamp,
-        timezone.utc
-    ).isoformat()
+        return {
+            "name": name,
+            "symbol": symbol,
+            "price": price,
+            "change": change,
+            "change_percent": change_percent,
+            "currency": currency,
+            "source_timestamp": source_time,
+            "source": "Yahoo Finance"
+        }
 
-    # ==============================================
-    # RETURN RESULT
-    # ==============================================
-
-    return {
-        "name": meta.get("longName", name),
-        "ticker": symbol,
-        "price": round(current_price, 2),
-        "previous_close": previous_close,
-        "change": (
-            round(change, 2)
-            if change is not None else None
-        ),
-        "change_percent": (
-            round(change_percent, 2)
-            if change_percent is not None else None
-        ),
-        "currency": meta.get("currency", "UNKNOWN"),
-        "volume": volume,
-        "source_timestamp": source_time,
-        "source": "Yahoo Finance"
-    }
+    except Exception as e:
+        print(f"[ERROR] {name} ({symbol}): {e}")
+        return None
 
 
-# ==================================================
-# FETCH ALL STOCKS
-# ==================================================
+# ---------------- DISPLAY STOCK DATA ----------------
+
+def display_stock(stock):
+
+    currency_symbol = "₹" if stock["currency"] == "INR" else "$"
+
+    price = stock["price"]
+    change = stock["change"]
+    percentage = stock["change_percent"]
+
+    sign = "+" if change >= 0 else ""
+
+    print(f"\n{stock['name']} ({stock['symbol']})")
+    print("-" * 50)
+
+    print(f"Price  : {currency_symbol}{price:,.2f}")
+
+    print(
+        f"Change : {sign}{currency_symbol}{change:,.2f} "
+        f"({sign if percentage >= 0 else ''}{percentage:.2f}%)"
+    )
+
+    print(f"Time   : {stock['source_timestamp']}")
+
+
+# ---------------- FETCH ALL STOCKS ----------------
 
 def fetch_all_stocks():
 
-    successful = 0
-    failed = 0
+    print("\n" + "=" * 60)
+    print("       YAHOO FINANCE - STOCK PRICE MONITOR")
+    print("=" * 60)
 
-    print("\n" + "=" * 100)
-
-    print("YAHOO FINANCE - STOCK PRICE MONITOR")
-
-    print(
-        "Fetch time:",
-        datetime.now().astimezone()
-    )
-
-    print("=" * 100)
+    success_count = 0
+    failure_count = 0
 
     for name, symbol in STOCKS.items():
 
-        try:
+        stock = fetch_yahoo_price(name, symbol)
 
-            result = fetch_yahoo_price(
-                name,
-                symbol
-            )
-
-            price = result["price"]
-            change = result["change"]
-            percent = result["change_percent"]
-            currency = result["currency"]
-
-            if change is not None and percent is not None:
-
-                sign = "+" if change >= 0 else ""
-
-                print(
-                    f"\n[SUCCESS] "
-                    f"{result['name']} ({symbol})"
-                )
-
-                print(
-                    f"Price  : {currency} {price:.2f}"
-                )
-
-                print(
-                    f"Change : {sign}{change:.2f} "
-                    f"({sign}{percent:.2f}%)"
-                )
-
-            else:
-
-                print(
-                    f"\n[SUCCESS] "
-                    f"{result['name']} ({symbol})"
-                )
-
-                print(
-                    f"Price  : {currency} {price:.2f}"
-                )
-
-                print(
-                    "Change : Unavailable"
-                )
-
-            print(
-                f"Volume : {result['volume']}"
-            )
-
-            print(
-                f"Source timestamp : "
-                f"{result['source_timestamp']}"
-            )
-
-            successful += 1
-
-        except Exception as error:
-
-            print(
-                f"\n[FAILED] {name} ({symbol})"
-            )
-
-            print("Error:", error)
-
-            failed += 1
+        if stock:
+            display_stock(stock)
+            success_count += 1
+        else:
+            failure_count += 1
 
         time.sleep(REQUEST_GAP)
 
-    # ==============================================
-    # SUMMARY
-    # ==============================================
-
-    print("\n" + "-" * 100)
-
-    print("FETCH SUMMARY")
-
-    print("Total stocks :", len(STOCKS))
-    print("Successful   :", successful)
-    print("Failed       :", failed)
-
-    print("-" * 100)
+    print("\n" + "=" * 60)
+    print(f"Successful : {success_count}")
+    print(f"Failed     : {failure_count}")
+    print("=" * 60)
 
 
-# ==================================================
-# CONTINUOUS EXECUTION
-# ==================================================
+# ---------------- CONTINUOUS EXECUTION ----------------
 
 if __name__ == "__main__":
 
-    print("=" * 100)
-
-    print("CONTINUOUS YAHOO FINANCE STOCK MONITOR")
-
-    print("=" * 100)
-
-    print("Total stocks     :", len(STOCKS))
-    print("Indian stocks    :", len(STOCKS) - 1)
-    print("US stocks        :", 1)
-    print("Polling interval :", POLL_INTERVAL, "seconds")
-    print("Chart interval   : 1 minute")
-    print("Data source      : Yahoo Finance")
-
-    print("\nPress CTRL + C to stop.")
+    print("Starting Yahoo Finance stock monitoring...")
+    print(f"Stocks          : {len(STOCKS)}")
+    print(f"Polling interval: {POLL_INTERVAL} seconds")
+    print("Press CTRL + C to stop.")
 
     try:
 
         while True:
 
-            cycle_start = time.monotonic()
+            cycle_start = time.time()
+
+            print("\n\nFetching stock prices...")
+            print("Fetch time:", datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
 
             fetch_all_stocks()
 
-            elapsed = time.monotonic() - cycle_start
+            elapsed = time.time() - cycle_start
+            remaining = max(0, POLL_INTERVAL - elapsed)
 
-            remaining = max(
-                0,
-                POLL_INTERVAL - elapsed
-            )
-
-            print(
-                f"\nNext fetch in "
-                f"{remaining:.1f} seconds..."
-            )
+            print(f"\nNext update in {remaining:.1f} seconds...")
 
             time.sleep(remaining)
 
     except KeyboardInterrupt:
-
-        print("\n\nStopping Yahoo Finance monitor...")
-
-    finally:
-
-        session.close()
-
-        print("Yahoo Finance session closed.")
-        print("Monitor stopped.")
+        print("\nStock monitoring stopped.")
