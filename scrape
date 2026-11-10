@@ -1,0 +1,295 @@
+import warnings
+import xml.etree.ElementTree as ET
+import time
+from datetime import datetime, timedelta, timezone
+from concurrent.futures import ThreadPoolExecutor
+
+import urllib3
+import requests
+import yfinance as yf
+from curl_cffi import requests as curl_requests
+
+warnings.filterwarnings("ignore", category=Warning)
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
+# Yahoo is behind a self-signed certificate chain on this machine.
+# curl_cffi rejects it unless verification is disabled and a browser
+# user-agent is provided.
+session = curl_requests.Session()
+session.verify = False
+session.impersonate = "chrome"
+session.headers["User-Agent"] = (
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+    "AppleWebKit/537.36 (KHTML, like Gecko) "
+    "Chrome/124.0.0.0 Safari/537.36"
+)
+
+CUTOFF_DAYS = 10
+CUTOFF_TIME = datetime.now(timezone.utc) - timedelta(days=CUTOFF_DAYS)
+
+NSE_SYMBOLS = [
+    "RELIANCE.NS",
+    "TCS.NS",
+    "INFY.NS",
+    "HDFCBANK.NS",
+    "ICICIBANK.NS",
+    "SBIN.NS",
+    "ITC.NS",
+    "SUNPHARMA.NS",
+    "BHARTIARTL.NS",
+    "WIPRO.NS",
+    "EQUITASBNK.NS",
+]
+LAST_PRICES = {}
+
+
+def parse_datetime(value):
+    if value is None:
+        return None
+    if isinstance(value, (int, float)):
+        try:
+            return datetime.fromtimestamp(value, tz=timezone.utc)
+        except Exception:
+            return None
+    if isinstance(value, str):
+        value = value.strip()
+        if not value:
+            return None
+        try:
+            return datetime.fromisoformat(value.replace("Z", "+00:00"))
+        except Exception:
+            pass
+        try:
+            from email.utils import parsedate_to_datetime
+            return parsedate_to_datetime(value)
+        except Exception:
+            return None
+    return None
+
+
+def is_recent(item):
+    published = None
+    for key in ["providerPublishTime", "published_at", "pubDate", "publishedAt", "time"]:
+        if key in item:
+            published = parse_datetime(item.get(key))
+            break
+    if published is None and "content" in item:
+        content = item.get("content", {})
+        for key in ["providerPublishTime", "pubDate", "publishedAt"]:
+            if key in content:
+                published = parse_datetime(content.get(key))
+                break
+    if published is None:
+        return True
+    return published >= CUTOFF_TIME
+
+
+def fetch_yahoo_news(symbol):
+    try:
+        ticker = yf.Ticker(symbol, session=session)
+        ns = ticker.news or []
+        items = []
+        for item in ns[:10]:
+            content = item.get("content", {})
+            title = content.get("title", "No title available")
+            link = content.get("canonicalUrl", item.get("link", "No link available"))
+            publisher = content.get("provider", {}).get("displayName", "Yahoo Finance")
+            published = content.get("providerPublishTime") or item.get("providerPublishTime") or item.get("published_at")
+            item_data = {
+                "source": "Yahoo Finance",
+                "title": title,
+                "link": link,
+                "publisher": publisher,
+                "published_at": published,
+            }
+            if is_recent(item_data):
+                items.append(item_data)
+        return items[:5]
+    except Exception:
+        return []
+
+
+def fetch_google_news(symbol):
+    try:
+        url = f"https://news.google.com/rss/search?q={symbol}&hl=en-US&gl=US&ceid=US:en"
+        response = requests.get(
+            url,
+            timeout=20,
+            verify=False,
+            headers={"User-Agent": "Mozilla/5.0"},
+        )
+        if response.status_code != 200:
+            return []
+
+        root = ET.fromstring(response.text)
+        items = []
+        for item in root.findall(".//item")[:10]:
+            title = (item.findtext("title") or "").strip()
+            link = (item.findtext("link") or "").strip()
+            pub_date = item.findtext("pubDate") or item.findtext("published") or item.findtext("isoDate")
+            if title:
+                item_data = {
+                    "source": "Google News",
+                    "title": title,
+                    "link": link,
+                    "publisher": "Google News",
+                    "published_at": pub_date,
+                }
+                if is_recent(item_data):
+                    items.append(item_data)
+        return items[:5]
+    except Exception:
+        return []
+
+
+def fetch_reuters_news(symbol):
+    try:
+        response = requests.get(
+            "https://feeds.reuters.com/reuters/businessNews",
+            timeout=20,
+            verify=False,
+            headers={"User-Agent": "Mozilla/5.0"},
+        )
+        if response.status_code != 200:
+            return []
+
+        root = ET.fromstring(response.text)
+        items = []
+        for item in root.findall(".//item")[:10]:
+            title = (item.findtext("title") or "").strip()
+            link = (item.findtext("link") or "").strip()
+            pub_date = item.findtext("pubDate") or item.findtext("published")
+            if title:
+                item_data = {
+                    "source": "Reuters",
+                    "title": title,
+                    "link": link,
+                    "publisher": "Reuters",
+                    "published_at": pub_date,
+                }
+                if is_recent(item_data):
+                    items.append(item_data)
+        return items[:5]
+    except Exception:
+        return []
+
+
+def get_close_price(symbol):
+    try:
+        ticker = yf.Ticker(symbol, session=session)
+        hist = ticker.history(period="5d", interval="1d")
+        if not hist.empty and "Close" in hist.columns and not hist["Close"].dropna().empty:
+            return float(hist["Close"].dropna().iloc[-1])
+        fast = getattr(ticker, "fast_info", None)
+        if fast is not None:
+            last = getattr(fast, "last_price", None)
+            if last is not None:
+                return float(last)
+        return None
+    except Exception:
+        return None
+
+
+def keep_item(item, symbol):
+    title = (item.get("title") or "").lower()
+    source = (item.get("source") or "").lower()
+    link = (item.get("link") or "").lower()
+    symbol_key = symbol.lower().replace(".ns", "").replace(".nse", "")
+
+    if "yahoo" in link:
+        return False
+    if "yahoo" in title and "finance" in title:
+        return False
+    if any(marker in title for marker in [
+        "yahoo! finance",
+        "yahoo finance",
+        "stock price, news, quote & history",
+        "interactive stock chart",
+        "quote & history",
+    ]):
+        return False
+
+    if symbol_key and symbol_key not in title:
+        return False
+
+    return True
+
+
+def find_recent_news(symbols):
+    fetchers = {
+        "Yahoo Finance": fetch_yahoo_news,
+        "Google News": fetch_google_news,
+        "Reuters": fetch_reuters_news,
+    }
+
+    hits = []
+    for symbol in symbols:
+        close_price = get_close_price(symbol)
+        for source_name, fetcher in fetchers.items():
+            try:
+                items = fetcher(symbol)
+                valid_items = [item for item in items if keep_item(item, symbol)]
+                if valid_items:
+                    hits.append({
+                        "symbol": symbol,
+                        "close": close_price,
+                        "source": source_name,
+                        "title": valid_items[0].get("title"),
+                        "link": valid_items[0].get("link"),
+                    })
+            except Exception:
+                pass
+    return hits
+
+
+def format_timestamp(dt=None):
+    dt = dt or datetime.now(timezone.utc)
+    return dt.astimezone(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
+
+
+def print_price_update(symbols):
+    ts = format_timestamp()
+    print(f"\n[{ts}] PRICE UPDATE")
+    for symbol in symbols:
+        close_price = get_close_price(symbol)
+        previous_price = LAST_PRICES.get(symbol)
+
+        if close_price is None:
+            print(f"[{ts}] {symbol}: N/A | change: N/A")
+            continue
+
+        if previous_price is None:
+            print(f"[{ts}] {symbol}: {close_price} | change: first reading")
+        else:
+            delta = close_price - previous_price
+            pct = (delta / previous_price) * 100 if previous_price else 0.0
+            print(f"[{ts}] {symbol}: {close_price} | change: {delta:+.2f} ({pct:+.2f}%)")
+
+        LAST_PRICES[symbol] = close_price
+
+
+def print_news_update(symbols):
+    ts = format_timestamp()
+    print(f"\n[{ts}] NEWS CHECK")
+    recent_hits = find_recent_news(symbols)
+
+    if not recent_hits:
+        print(f"[{ts}] No NSE symbol produced recent news in the last {CUTOFF_DAYS} days from the available fetchers.")
+        return
+
+    for hit in recent_hits[:10]:
+        print(f"[{ts}] Symbol: {hit['symbol']}")
+        print(f"[{ts}] Close: {hit['close']}")
+        print(f"[{ts}] Source: {hit['source']}")
+        print(f"[{ts}] Title: {hit['title']}")
+        print(f"[{ts}] Link: {hit['link']}")
+        print("-" * 60)
+
+
+print(f"Monitoring NSE symbols every 15 minutes for price and news updates.\n")
+while True:
+    print_price_update(NSE_SYMBOLS)
+    print_news_update(NSE_SYMBOLS)
+    next_run = datetime.now(timezone.utc) + timedelta(minutes=15)
+    print(f"\n[{format_timestamp()}] Sleeping until {format_timestamp(next_run)}")
+    time.sleep(900)
