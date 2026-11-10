@@ -1,4 +1,4 @@
-(.venv) C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\TESTING>python test_api.py
+(.venv) C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\TESTING>python yah.py
 Traceback (most recent call last):
   File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\TESTING\.venv\Lib\site-packages\urllib3\connectionpool.py", line 470, in _make_request
     self._validate_conn(conn)
@@ -74,15 +74,18 @@ Traceback (most recent call last):
   File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\TESTING\.venv\Lib\site-packages\urllib3\util\retry.py", line 555, in increment
     raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='pro.indianapi.in', port=443): Max retries exceeded with url: /usage (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1082)')))
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='query1.finance.yahoo.com', port=443): Max retries exceeded with url: /v8/finance/chart/INFY.NS?range=1d&interval=1m (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1082)')))
 
 During handling of the above exception, another exception occurred:
 
 Traceback (most recent call last):
-  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\TESTING\test_api.py", line 12, in <module>
+  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\TESTING\yah.py", line 45, in <module>
+    print(fetch_yahoo_price("INFY.NS"))
+          ~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\TESTING\yah.py", line 6, in fetch_yahoo_price
     response = requests.get(
         url,
-        headers=headers,
+    ...<5 lines>...
         timeout=20
     )
   File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\TESTING\.venv\Lib\site-packages\requests\api.py", line 87, in get
@@ -96,6 +99,4 @@ Traceback (most recent call last):
     r = adapter.send(request, **kwargs)
   File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\TESTING\.venv\Lib\site-packages\requests\adapters.py", line 727, in send
     raise SSLError(e, request=request)
-requests.exceptions.SSLError: HTTPSConnectionPool(host='pro.indianapi.in', port=443): Max retries exceeded with url: /usage (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1082)')))
-
-(.venv) C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\TESTING>
+requests.exceptions.SSLError: HTTPSConnectionPool(host='query1.finance.yahoo.com', port=443): Max retries exceeded with url: /v8/finance/chart/INFY.NS?range=1d&interval=1m (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1082)')))
