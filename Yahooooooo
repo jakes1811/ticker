@@ -1,44 +1,133 @@
+
+import truststore
+truststore.inject_into_ssl()
+
 import requests
+import time
+from datetime import datetime, timezone
 
-def fetch_yahoo_price(symbol):
-    url = f"https://query1.finance.yahoo.com/v8/finance/chart/{symbol}"
+STOCKS = {
+    "Reliance Industries": "RELIANCE.NS",
+    "Tata Consultancy Services": "TCS.NS",
+    "Infosys": "INFY.NS",
+    "HDFC Bank": "HDFCBANK.NS",
+    "ICICI Bank": "ICICIBANK.NS",
+    "Tata Steel": "TATASTEEL.NS",
+    "State Bank of India": "SBIN.NS",
+    "ITC": "ITC.NS",
+    "Sun Pharmaceutical": "SUNPHARMA.NS",
+    "Bharti Airtel": "BHARTIARTL.NS",
+    "Adani Enterprises": "ADANIENT.NS",
+    "Coal India": "COALINDIA.NS",
+    "Bajaj Finance": "BAJFINANCE.NS"
+}
 
-    response = requests.get(
+session = requests.Session()
+
+session.headers.update({
+    "User-Agent": "Mozilla/5.0"
+})
+
+
+def fetch_yahoo_price(name, symbol):
+
+    url = (
+        f"https://query1.finance.yahoo.com/"
+        f"v8/finance/chart/{symbol}"
+    )
+
+    response = session.get(
         url,
         params={
             "range": "1d",
             "interval": "1m"
         },
-        headers={"User-Agent": "Mozilla/5.0"},
         timeout=20
     )
+
     response.raise_for_status()
 
-    data = response.json()["chart"]["result"][0]
+    result = response.json()["chart"]["result"]
+
+    if not result:
+        raise ValueError("No chart data returned")
+
+    data = result[0]
 
     meta = data["meta"]
     quote = data["indicators"]["quote"][0]
 
-    valid_rows = [
-        (timestamp, close, volume)
-        for timestamp, close, volume in zip(
-            data["timestamp"],
-            quote["close"],
-            quote["volume"]
-        )
-        if close is not None
-    ]
+    timestamps = data.get("timestamp", [])
+    closes = quote.get("close", [])
+    volumes = quote.get("volume", [])
+
+    valid_rows = []
+
+    for timestamp, close, volume in zip(
+        timestamps, closes, volumes
+    ):
+        if close is not None:
+            valid_rows.append(
+                (timestamp, close, volume)
+            )
 
     if not valid_rows:
-        raise ValueError(f"No valid price for {symbol}")
+        raise ValueError("No valid price available")
 
     timestamp, price, volume = valid_rows[-1]
 
+    source_time = datetime.fromtimestamp(
+        timestamp,
+        timezone.utc
+    ).isoformat()
+
     return {
-        "name": meta.get("longName", symbol),
+        "name": meta.get("longName", name),
         "ticker": symbol,
-        "price": float(price),
+        "price": round(float(price), 2),
         "volume": volume,
-        "source_timestamp": timestamp,
+        "source_timestamp": source_time,
         "source": "Yahoo Finance"
     }
+
+
+print("=" * 65)
+print("YAHOO FINANCE - ALL 13 STOCKS TEST")
+print("=" * 65)
+
+successful = 0
+failed = 0
+
+for name, symbol in STOCKS.items():
+
+    try:
+        result = fetch_yahoo_price(name, symbol)
+
+        print("\n[SUCCESS]")
+        print("Company :", result["name"])
+        print("Ticker  :", result["ticker"])
+        print("Price   : ₹", result["price"])
+        print("Volume  :", result["volume"])
+        print("Time    :", result["source_timestamp"])
+
+        successful += 1
+
+    except Exception as error:
+
+        print("\n[FAILED]")
+        print("Company :", name)
+        print("Ticker  :", symbol)
+        print("Error   :", error)
+
+        failed += 1
+
+    time.sleep(1)
+
+print("\n" + "=" * 65)
+print("TEST SUMMARY")
+print("=" * 65)
+print("Total stocks :", len(STOCKS))
+print("Successful   :", successful)
+print("Failed       :", failed)
+
+session.close()
