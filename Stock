@@ -1,3 +1,4 @@
+
 import os
 import json
 import time
@@ -6,11 +7,8 @@ from datetime import datetime, timezone
 
 import requests
 import truststore
-import yfinance as yf
-from curl_cffi import requests as curl_requests
 
 from kafka import KafkaProducer
-from kafka.errors import KafkaError
 
 
 # ============================================================
@@ -22,7 +20,10 @@ truststore.inject_into_ssl()
 warnings.filterwarnings("ignore")
 
 API_KEY = os.getenv("INDIANAPI_KEY", "").strip()
-API_URL = "https://stock.indianapi.in/stock"
+
+INDIANAPI_URL = "https://stock.indianapi.in/stock"
+
+YAHOO_URL = "https://query1.finance.yahoo.com/v8/finance/chart/"
 
 STOCKS = {
     "Reliance Industries": "RELIANCE.NS",
@@ -41,7 +42,9 @@ KAFKA_BROKER = "localhost:9092"
 KAFKA_TOPIC = "stock-prices"
 
 POLL_INTERVAL = 30
-YFINANCE_BACKUP_INTERVAL = 15 * 60
+REQUEST_TIMEOUT = 20
+REQUEST_GAP = 1
+
 
 # ============================================================
 # KAFKA PRODUCER
@@ -52,9 +55,12 @@ producer = KafkaProducer(
     value_serializer=lambda value: json.dumps(value).encode("utf-8")
 )
 
+
 # ============================================================
-# INDIANAPI SESSION - PRIMARY SOURCE
+# HTTP SESSIONS
 # ============================================================
+
+# IndianAPI session
 
 api_session = requests.Session()
 
@@ -62,17 +68,15 @@ api_session.headers.update({
     "x-api-key": API_KEY
 })
 
-# ============================================================
-# YFINANCE SESSION - BACKUP SOURCE
-# ============================================================
 
-# Uses curl_cffi to work around the Yahoo certificate
-# verification problem encountered on this machine.
+# Yahoo Finance session
 
-yf_session = curl_requests.Session(
-    impersonate="chrome",
-    verify=False
-)
+yahoo_session = requests.Session()
+
+yahoo_session.headers.update({
+    "User-Agent": "Mozilla/5.0"
+})
+
 
 # ============================================================
 # TRACKING
@@ -82,17 +86,14 @@ last_prices = {}
 
 last_sources = {}
 
-next_yfinance_attempt = {
-    stock: 0 for stock in STOCKS
-}
-
 
 def get_timestamp():
+
     return datetime.now(timezone.utc).isoformat()
 
 
 # ============================================================
-# INDIANAPI PRICE RETRIEVAL
+# INDIANAPI - PRIMARY SOURCE
 # ============================================================
 
 def fetch_indianapi(stock_name):
@@ -101,9 +102,9 @@ def fetch_indianapi(stock_name):
         raise RuntimeError("INDIANAPI_KEY is missing")
 
     response = api_session.get(
-        API_URL,
+        INDIANAPI_URL,
         params={"name": stock_name},
-        timeout=20
+        timeout=REQUEST_TIMEOUT
     )
 
     response.raise_for_status()
@@ -119,54 +120,120 @@ def fetch_indianapi(stock_name):
             f"No NSE price available for {stock_name}"
         )
 
+    current_price = float(current_price)
+
+    percent_change = data.get("percentChange")
+
+    change = None
+
+    if percent_change is not None:
+
+        percent_change = float(percent_change)
+
+        if percent_change != -100:
+
+            previous_close = (
+                current_price / (1 + percent_change / 100)
+            )
+
+            change = current_price - previous_close
+
     return {
         "name": company_name,
         "symbol": STOCKS[stock_name],
-        "current_price": float(current_price),
+        "current_price": current_price,
+        "change": change,
+        "change_percent": percent_change,
+        "currency": "INR",
         "source": "IndianAPI",
         "timestamp": get_timestamp()
     }
 
 
 # ============================================================
-# YFINANCE PRICE RETRIEVAL - BACKUP
+# YAHOO FINANCE DIRECT JSON - FALLBACK 1
 # ============================================================
 
-def fetch_yfinance(stock_name):
+def fetch_yahoo(stock_name):
 
     symbol = STOCKS[stock_name]
 
-    ticker = yf.Ticker(
-        symbol,
-        session=yf_session
+    response = yahoo_session.get(
+        f"{YAHOO_URL}{symbol}",
+        params={
+            "range": "1d",
+            "interval": "1m"
+        },
+        timeout=REQUEST_TIMEOUT
     )
 
-    history = ticker.history(
-        period="1d",
-        interval="1m",
-        auto_adjust=False,
-        timeout=20
-    )
+    response.raise_for_status()
 
-    if history.empty or history["Close"].dropna().empty:
+    data = response.json()
+
+    results = data.get("chart", {}).get("result")
+
+    if not results:
         raise ValueError(
-            f"No intraday price available from YFinance: {symbol}"
+            f"No Yahoo Finance data available for {symbol}"
         )
 
-    latest_row = history.dropna(subset=["Close"]).iloc[-1]
+    stock_data = results[0]
 
-    price = float(latest_row["Close"])
+    meta = stock_data.get("meta", {})
 
-    market_timestamp = history.dropna(
-        subset=["Close"]
-    ).index[-1]
+    current_price = meta.get("regularMarketPrice")
+
+    previous_close = meta.get("previousClose")
+
+    if previous_close is None:
+        previous_close = meta.get("chartPreviousClose")
+
+    if current_price is None:
+        raise ValueError(
+            f"Current price unavailable for {symbol}"
+        )
+
+    if previous_close is None:
+        raise ValueError(
+            f"Previous closing price unavailable for {symbol}"
+        )
+
+    current_price = float(current_price)
+
+    previous_close = float(previous_close)
+
+    if previous_close == 0:
+        raise ValueError("Previous closing price is zero")
+
+    change = current_price - previous_close
+
+    change_percent = (
+        change / previous_close
+    ) * 100
+
+    market_timestamp = meta.get("regularMarketTime")
+
+    if market_timestamp:
+
+        source_timestamp = datetime.fromtimestamp(
+            market_timestamp,
+            tz=timezone.utc
+        ).isoformat()
+
+    else:
+
+        source_timestamp = get_timestamp()
 
     return {
         "name": stock_name,
         "symbol": symbol,
-        "current_price": price,
-        "source": "YFinance",
-        "timestamp": market_timestamp.isoformat(),
+        "current_price": current_price,
+        "change": change,
+        "change_percent": change_percent,
+        "currency": meta.get("currency", "INR"),
+        "source": "Yahoo Finance",
+        "timestamp": source_timestamp,
         "fetched_at": get_timestamp()
     }
 
@@ -178,13 +245,16 @@ def fetch_yfinance(stock_name):
 def publish_to_kafka(message):
 
     name = message["name"]
+
     price = message["current_price"]
+
     source = message["source"]
 
     previous_price = last_prices.get(name)
+
     previous_source = last_sources.get(name)
 
-    # Publish when price changes or data source changes.
+    # Publish if price or source changes.
 
     if previous_price != price or previous_source != source:
 
@@ -196,11 +266,36 @@ def publish_to_kafka(message):
         future.get(timeout=10)
 
         last_prices[name] = price
+
         last_sources[name] = source
+
+        currency = message.get("currency", "INR")
+
+        currency_symbol = (
+            "₹" if currency == "INR" else "$"
+        )
+
+        change = message.get("change")
+
+        percent = message.get("change_percent")
+
+        if change is not None and percent is not None:
+
+            sign = "+" if change >= 0 else ""
+
+            change_text = (
+                f"{sign}{currency_symbol}{change:.2f} "
+                f"({sign if percent >= 0 else ''}{percent:.2f}%)"
+            )
+
+        else:
+
+            change_text = "Unavailable"
 
         print(
             f"[PUBLISHED] {name} | "
-            f"Price: ₹{price} | "
+            f"Price: {currency_symbol}{price:.2f} | "
+            f"Change: {change_text} | "
             f"Source: {source}"
         )
 
@@ -208,7 +303,7 @@ def publish_to_kafka(message):
 
         print(
             f"[NO CHANGE] {name} | "
-            f"Price: ₹{price} | "
+            f"Price: {price} | "
             f"Source: {source}"
         )
 
@@ -238,63 +333,37 @@ def process_stock(stock_name):
         )
 
     # --------------------------------------------------------
-    # STEP 2: CHECK YFINANCE BACKUP INTERVAL
-    # --------------------------------------------------------
-
-    current_time = time.monotonic()
-
-    if current_time < next_yfinance_attempt[stock_name]:
-
-        remaining = int(
-            next_yfinance_attempt[stock_name] - current_time
-        )
-
-        print(
-            f"[BACKUP WAIT] {stock_name}: "
-            f"YFinance retry in {remaining} seconds"
-        )
-
-        return
-
-    # --------------------------------------------------------
-    # STEP 3: TRY YFINANCE
+    # STEP 2: TRY YAHOO IMMEDIATELY
     # --------------------------------------------------------
 
     print(
-        f"[BACKUP] Trying YFinance for {stock_name}"
+        f"[FALLBACK 1] Trying Yahoo Finance for {stock_name}"
     )
 
     try:
 
-        message = fetch_yfinance(stock_name)
+        message = fetch_yahoo(stock_name)
 
         publish_to_kafka(message)
 
     except Exception as error:
 
         print(
-            f"[BACKUP FAILED] {stock_name}: {error}"
-        )
-
-    finally:
-
-        # Do not call YFinance again for this stock
-        # until the next 15-minute backup window.
-
-        next_yfinance_attempt[stock_name] = (
-            time.monotonic() + YFINANCE_BACKUP_INTERVAL
+            f"[YAHOO FAILED] {stock_name}: {error}"
         )
 
 
 # ============================================================
-# MAIN FETCH AND PUBLISH
+# FETCH AND PUBLISH ALL STOCKS
 # ============================================================
 
 def fetch_and_publish():
 
-    for stock in STOCKS:
+    for stock_name in STOCKS:
 
-        process_stock(stock)
+        process_stock(stock_name)
+
+        time.sleep(REQUEST_GAP)
 
     producer.flush()
 
@@ -305,34 +374,59 @@ def fetch_and_publish():
 
 if __name__ == "__main__":
 
-    print("=" * 55)
-    print("INDIAN STOCK PRICE PRODUCER")
-    print("=" * 55)
+    print("=" * 60)
 
-    print("Primary source: IndianAPI")
-    print("Backup source: YFinance")
-    print("Primary polling interval: 30 seconds")
-    print("YFinance backup interval: 15 minutes")
-    print("Total stocks:", len(STOCKS))
-    print("Kafka topic:", KAFKA_TOPIC)
+    print("       INDIAN STOCK PRICE KAFKA PRODUCER")
+
+    print("=" * 60)
+
+    print("Primary source : IndianAPI")
+
+    print("Fallback 1     : Yahoo Finance Direct JSON")
+
+    print("Polling interval: 30 seconds")
+
+    print("Total stocks   :", len(STOCKS))
+
+    print("Kafka broker   :", KAFKA_BROKER)
+
+    print("Kafka topic    :", KAFKA_TOPIC)
 
     if not API_KEY:
+
         print(
             "[WARNING] INDIANAPI_KEY missing. "
-            "Only YFinance backup will be available."
+            "Yahoo fallback will be used."
         )
 
     try:
 
         while True:
 
-            print("\nFetching stock prices...")
+            cycle_start = time.monotonic()
+
+            print("\n" + "=" * 60)
+
+            print("FETCHING STOCK PRICES")
+
+            print("Fetch time:", get_timestamp())
+
+            print("=" * 60)
 
             fetch_and_publish()
 
-            print("\nWaiting 30 seconds...")
+            elapsed = time.monotonic() - cycle_start
 
-            time.sleep(POLL_INTERVAL)
+            remaining = max(
+                0,
+                POLL_INTERVAL - elapsed
+            )
+
+            print(
+                f"\nNext update in {remaining:.1f} seconds..."
+            )
+
+            time.sleep(remaining)
 
     except KeyboardInterrupt:
 
@@ -341,9 +435,11 @@ if __name__ == "__main__":
     finally:
 
         producer.flush()
+
         producer.close()
 
         api_session.close()
-        yf_session.close()
+
+        yahoo_session.close()
 
         print("Producer stopped.")
