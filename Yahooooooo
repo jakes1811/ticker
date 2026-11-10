@@ -6,6 +6,10 @@ import requests
 import time
 from datetime import datetime, timezone
 
+# ==================================================
+# CONFIGURATION
+# ==================================================
+
 STOCKS = {
     "Reliance Industries": "RELIANCE.NS",
     "Tata Consultancy Services": "TCS.NS",
@@ -20,7 +24,18 @@ STOCKS = {
     "Adani Enterprises": "ADANIENT.NS",
     "Coal India": "COALINDIA.NS",
     "Bajaj Finance": "BAJFINANCE.NS"
+    "MARA Holdings Inc.": "MARA"
 }
+
+YAHOO_URL = "https://query1.finance.yahoo.com/v8/finance/chart/"
+
+POLL_INTERVAL = 30
+REQUEST_TIMEOUT = 20
+
+
+# ==================================================
+# YAHOO FINANCE SESSION
+# ==================================================
 
 session = requests.Session()
 
@@ -29,12 +44,13 @@ session.headers.update({
 })
 
 
+# ==================================================
+# FETCH STOCK PRICE
+# ==================================================
+
 def fetch_yahoo_price(name, symbol):
 
-    url = (
-        f"https://query1.finance.yahoo.com/"
-        f"v8/finance/chart/{symbol}"
-    )
+    url = f"{YAHOO_URL}{symbol}"
 
     response = session.get(
         url,
@@ -42,20 +58,30 @@ def fetch_yahoo_price(name, symbol):
             "range": "1d",
             "interval": "1m"
         },
-        timeout=20
+        timeout=REQUEST_TIMEOUT
     )
 
     response.raise_for_status()
 
-    result = response.json()["chart"]["result"]
+    chart = response.json().get("chart", {})
 
-    if not result:
+    if chart.get("error"):
+        raise ValueError(chart["error"])
+
+    results = chart.get("result")
+
+    if not results:
         raise ValueError("No chart data returned")
 
-    data = result[0]
+    data = results[0]
 
-    meta = data["meta"]
-    quote = data["indicators"]["quote"][0]
+    meta = data.get("meta", {})
+    quote_list = data.get("indicators", {}).get("quote", [])
+
+    if not quote_list:
+        raise ValueError("No quote data available")
+
+    quote = quote_list[0]
 
     timestamps = data.get("timestamp", [])
     closes = quote.get("close", [])
@@ -66,7 +92,9 @@ def fetch_yahoo_price(name, symbol):
     for timestamp, close, volume in zip(
         timestamps, closes, volumes
     ):
+
         if close is not None:
+
             valid_rows.append(
                 (timestamp, close, volume)
             )
@@ -91,43 +119,98 @@ def fetch_yahoo_price(name, symbol):
     }
 
 
-print("=" * 65)
-print("YAHOO FINANCE - ALL 13 STOCKS TEST")
-print("=" * 65)
+# ==================================================
+# FETCH ALL STOCKS
+# ==================================================
 
-successful = 0
-failed = 0
+def fetch_all_stocks():
 
-for name, symbol in STOCKS.items():
+    successful = 0
+    failed = 0
+
+    print("\n" + "=" * 75)
+    print("YAHOO FINANCE - STOCK PRICE MONITOR")
+    print("Fetch time:", datetime.now().astimezone())
+    print("=" * 75)
+
+    for name, symbol in STOCKS.items():
+
+        try:
+
+            result = fetch_yahoo_price(name, symbol)
+
+            print(
+                f"[SUCCESS] {result['name']} | "
+                f"{result['ticker']} | "
+                f"Price: Rs.{result['price']} | "
+                f"Volume: {result['volume']} | "
+                f"Source time: {result['source_timestamp']}"
+            )
+
+            successful += 1
+
+        except Exception as error:
+
+            print(
+                f"[FAILED] {name} | "
+                f"{symbol} | Error: {error}"
+            )
+
+            failed += 1
+
+        # Small gap between Yahoo requests
+        time.sleep(1)
+
+    print("\n" + "-" * 75)
+    print("Total stocks :", len(STOCKS))
+    print("Successful   :", successful)
+    print("Failed       :", failed)
+    print("-" * 75)
+
+
+# ==================================================
+# CONTINUOUS EXECUTION
+# ==================================================
+
+if __name__ == "__main__":
+
+    print("=" * 75)
+    print("CONTINUOUS YAHOO FINANCE STOCK PRICE TEST")
+    print("=" * 75)
+
+    print("Stocks          :", len(STOCKS))
+    print("Fetch interval  :", POLL_INTERVAL, "seconds")
+    print("Data interval   : 1 minute")
+    print("Source          : Yahoo Finance")
+    print("\nPress CTRL + C to stop.")
 
     try:
-        result = fetch_yahoo_price(name, symbol)
 
-        print("\n[SUCCESS]")
-        print("Company :", result["name"])
-        print("Ticker  :", result["ticker"])
-        print("Price   : ₹", result["price"])
-        print("Volume  :", result["volume"])
-        print("Time    :", result["source_timestamp"])
+        while True:
 
-        successful += 1
+            cycle_start = time.monotonic()
 
-    except Exception as error:
+            fetch_all_stocks()
 
-        print("\n[FAILED]")
-        print("Company :", name)
-        print("Ticker  :", symbol)
-        print("Error   :", error)
+            elapsed = time.monotonic() - cycle_start
 
-        failed += 1
+            remaining = max(
+                0,
+                POLL_INTERVAL - elapsed
+            )
 
-    time.sleep(1)
+            print(
+                f"\nNext fetch in {remaining:.1f} seconds..."
+            )
 
-print("\n" + "=" * 65)
-print("TEST SUMMARY")
-print("=" * 65)
-print("Total stocks :", len(STOCKS))
-print("Successful   :", successful)
-print("Failed       :", failed)
+            time.sleep(remaining)
 
-session.close()
+    except KeyboardInterrupt:
+
+        print("\n\nStopping Yahoo Finance monitor...")
+
+    finally:
+
+        session.close()
+
+        print("Yahoo Finance session closed.")
