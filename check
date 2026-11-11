@@ -1,0 +1,215 @@
+(.venv) C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\TESTING>python stock_producer.py
+============================================================
+       INDIAN STOCK PRICE KAFKA PRODUCER
+============================================================
+Primary source : IndianAPI
+Fallback 1     : Yahoo Finance Direct JSON
+Polling interval: 30 seconds
+Total stocks   : 10
+Kafka broker   : localhost:9092
+Kafka topic    : stock-prices
+[WARNING] INDIANAPI_KEY missing. Yahoo fallback will be used.
+
+============================================================
+FETCHING STOCK PRICES
+Fetch time: 2026-11-11T04:26:00.088285+00:00
+============================================================
+[INDIANAPI FAILED] Reliance Industries: INDIANAPI_KEY is missing
+[FALLBACK 1] Trying Yahoo Finance for Reliance Industries
+[PUBLISHED] Reliance Industries | Price: ₹1339.40 | Change: +₹15.00 (+1.13%) | Source: Yahoo Finance
+[INDIANAPI FAILED] Tata Consultancy Services: INDIANAPI_KEY is missing
+[FALLBACK 1] Trying Yahoo Finance for Tata Consultancy Services
+[PUBLISHED] Tata Consultancy Services | Price: ₹2483.00 | Change: +₹7.60 (+0.31%) | Source: Yahoo Finance
+[INDIANAPI FAILED] Infosys: INDIANAPI_KEY is missing
+[FALLBACK 1] Trying Yahoo Finance for Infosys
+[PUBLISHED] Infosys | Price: ₹1159.20 | Change: +₹5.10 (+0.44%) | Source: Yahoo Finance
+[INDIANAPI FAILED] HDFC Bank: INDIANAPI_KEY is missing
+[FALLBACK 1] Trying Yahoo Finance for HDFC Bank
+[PUBLISHED] HDFC Bank | Price: ₹813.20 | Change: +₹15.05 (+1.89%) | Source: Yahoo Finance
+[INDIANAPI FAILED] ICICI Bank: INDIANAPI_KEY is missing
+[FALLBACK 1] Trying Yahoo Finance for ICICI Bank
+[PUBLISHED] ICICI Bank | Price: ₹1606.60 | Change: +₹17.60 (+1.11%) | Source: Yahoo Finance
+[INDIANAPI FAILED] Tata Steel: INDIANAPI_KEY is missing
+[FALLBACK 1] Trying Yahoo Finance for Tata Steel
+[PUBLISHED] Tata Steel | Price: ₹187.06 | Change: +₹2.21 (+1.20%) | Source: Yahoo Finance
+[INDIANAPI FAILED] State Bank of India: INDIANAPI_KEY is missing
+[FALLBACK 1] Trying Yahoo Finance for State Bank of India
+[PUBLISHED] State Bank of India | Price: ₹1066.25 | Change: +₹24.25 (+2.33%) | Source: Yahoo Finance
+[INDIANAPI FAILED] ITC: INDIANAPI_KEY is missing
+[FALLBACK 1] Trying Yahoo Finance for ITC
+[PUBLISHED] ITC | Price: ₹282.45 | Change: +₹3.65 (+1.31%) | Source: Yahoo Finance
+[INDIANAPI FAILED] Sun Pharmaceutical: INDIANAPI_KEY is missing
+[FALLBACK 1] Trying Yahoo Finance for Sun Pharmaceutical
+[PUBLISHED] Sun Pharmaceutical | Price: ₹1905.20 | Change: +₹0.70 (+0.04%) | Source: Yahoo Finance
+[INDIANAPI FAILED] Bharti Airtel: INDIANAPI_KEY is missing
+[FALLBACK 1] Trying Yahoo Finance for Bharti Airtel
+[PUBLISHED] Bharti Airtel | Price: ₹2100.60 | Change: +₹28.50 (+1.38%) | Source: Yahoo Finance
+
+Next update in 18.3 seconds...
+
+============================================================
+FETCHING STOCK PRICES
+Fetch time: 2026-11-11T04:26:30.089950+00:00
+============================================================
+[INDIANAPI FAILED] Reliance Industries: INDIANAPI_KEY is missing
+[FALLBACK 1] Trying Yahoo Finance for Reliance Industries
+[PUBLISHED] Reliance Industries | Price: ₹1339.60 | Change: +₹15.20 (+1.15%) | Source: Yahoo Finance
+[INDIANAPI FAILED] Tata Consultancy Services: INDIANAPI_KEY is missing
+[FALLBACK 1] Trying Yahoo Finance for Tata Consultancy Services
+[PUBLISHED] Tata Consultancy Services | Price: ₹2480.20 | Change: +₹4.80 (+0.19%) | Source: Yahoo Finance
+[INDIANAPI FAILED] Infosys: INDIANAPI_KEY is missing
+[FALLBACK 1] Trying Yahoo Finance for Infosys
+[PUBLISHED] Infosys | Price: ₹1157.60 | Change: +₹3.50 (+0.30%) | Source: Yahoo Finance
+[INDIANAPI FAILED] HDFC Bank: INDIANAPI_KEY is missing
+[FALLBACK 1] Trying Yahoo Finance for HDFC Bank
+[PUBLISHED] HDFC Bank | Price: ₹813.35 | Change: +₹15.20 (+1.90%) | Source: Yahoo Finance
+[INDIANAPI FAILED] ICICI Bank: INDIANAPI_KEY is missing
+[FALLBACK 1] Trying Yahoo Finance for ICICI Bank
+[PUBLISHED] ICICI Bank | Price: ₹1607.50 | Change: +₹18.50 (+1.16%) | Source: Yahoo Finance
+[INDIANAPI FAILED] Tata Steel: INDIANAPI_KEY is missing
+[FALLBACK 1] Trying Yahoo Finance for Tata Steel
+[PUBLISHED] Tata Steel | Price: ₹187.08 | Change: +₹2.23 (+1.21%) | Source: Yahoo Finance
+[INDIANAPI FAILED] State Bank of India: INDIANAPI_KEY is missing
+[FALLBACK 1] Trying Yahoo Finance for State Bank of India
+[PUBLISHED] State Bank of India | Price: ₹1067.50 | Change: +₹25.50 (+2.45%) | Source: Yahoo Finance
+[INDIANAPI FAILED] ITC: INDIANAPI_KEY is missing
+[FALLBACK 1] Trying Yahoo Finance for ITC
+[PUBLISHED] ITC | Price: ₹282.30 | Change: +₹3.50 (+1.26%) | Source: Yahoo Finance
+[INDIANAPI FAILED] Sun Pharmaceutical: INDIANAPI_KEY is missing
+[FALLBACK 1] Trying Yahoo Finance for Sun Pharmaceutical
+[PUBLISHED] Sun Pharmaceutical | Price: ₹1903.10 | Change: ₹-1.40 (-0.07%) | Source: Yahoo Finance
+[INDIANAPI FAILED] Bharti Airtel: INDIANAPI_KEY is missing
+[FALLBACK 1] Trying Yahoo Finance for Bharti Airtel
+[PUBLISHED] Bharti Airtel | Price: ₹2098.50 | Change: +₹26.40 (+1.27%) | Source: Yahoo Finance
+
+Next update in 18.8 seconds...
+
+Stopping producer...
+Producer stopped.
+
+(.venv) C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\TESTING>python stock_producer.py
+============================================================
+       INDIAN STOCK PRICE KAFKA PRODUCER
+============================================================
+Primary source : IndianAPI
+Fallback 1     : Yahoo Finance Direct JSON
+Polling interval: 30 seconds
+Total stocks   : 10
+Kafka broker   : localhost:9092
+Kafka topic    : stock-prices
+
+============================================================
+FETCHING STOCK PRICES
+Fetch time: 2026-11-11T04:27:39.276074+00:00
+============================================================
+[PUBLISHED] Reliance Industries | Price: ₹1339.90 | Change: +₹15.50 (+1.17%) | Source: IndianAPI
+[PUBLISHED] Tata Consultancy Services | Price: ₹2483.30 | Change: +₹7.92 (+0.32%) | Source: IndianAPI
+[PUBLISHED] Infosys | Price: ₹1159.10 | Change: +₹4.96 (+0.43%) | Source: IndianAPI
+[PUBLISHED] HDFC Bank | Price: ₹813.15 | Change: +₹15.01 (+1.88%) | Source: IndianAPI
+[PUBLISHED] ICICI Bank | Price: ₹1606.10 | Change: +₹17.16 (+1.08%) | Source: IndianAPI
+[PUBLISHED] Tata Steel | Price: ₹187.00 | Change: +₹2.14 (+1.16%) | Source: IndianAPI
+[PUBLISHED] State Bank of India | Price: ₹1065.70 | Change: +₹23.65 (+2.27%) | Source: IndianAPI
+[PUBLISHED] ITC | Price: ₹282.30 | Change: +₹3.51 (+1.26%) | Source: IndianAPI
+[PUBLISHED] Sun Pharmaceutical Industries | Price: ₹1903.70 | Change: ₹-0.76 (-0.04%) | Source: IndianAPI
+[PUBLISHED] Bharti Airtel | Price: ₹2100.40 | Change: +₹28.39 (+1.37%) | Source: IndianAPI
+
+Next update in 9.6 seconds...
+
+============================================================
+FETCHING STOCK PRICES
+Fetch time: 2026-11-11T04:28:09.277644+00:00
+============================================================
+[NO CHANGE] Reliance Industries | Price: 1339.9 | Source: IndianAPI
+[NO CHANGE] Tata Consultancy Services | Price: 2483.3 | Source: IndianAPI
+[NO CHANGE] Infosys | Price: 1159.1 | Source: IndianAPI
+[NO CHANGE] HDFC Bank | Price: 813.15 | Source: IndianAPI
+[NO CHANGE] ICICI Bank | Price: 1606.1 | Source: IndianAPI
+[NO CHANGE] Tata Steel | Price: 187.0 | Source: IndianAPI
+[NO CHANGE] State Bank of India | Price: 1065.7 | Source: IndianAPI
+[NO CHANGE] ITC | Price: 282.3 | Source: IndianAPI
+[NO CHANGE] Sun Pharmaceutical Industries | Price: 1903.7 | Source: IndianAPI
+[NO CHANGE] Bharti Airtel | Price: 2100.4 | Source: IndianAPI
+
+Next update in 18.9 seconds...
+
+============================================================
+FETCHING STOCK PRICES
+Fetch time: 2026-11-11T04:28:39.278150+00:00
+============================================================
+[NO CHANGE] Reliance Industries | Price: 1339.9 | Source: IndianAPI
+[NO CHANGE] Tata Consultancy Services | Price: 2483.3 | Source: IndianAPI
+[NO CHANGE] Infosys | Price: 1159.1 | Source: IndianAPI
+[NO CHANGE] HDFC Bank | Price: 813.15 | Source: IndianAPI
+[NO CHANGE] ICICI Bank | Price: 1606.1 | Source: IndianAPI
+[NO CHANGE] Tata Steel | Price: 187.0 | Source: IndianAPI
+[NO CHANGE] State Bank of India | Price: 1065.7 | Source: IndianAPI
+[NO CHANGE] ITC | Price: 282.3 | Source: IndianAPI
+[NO CHANGE] Sun Pharmaceutical Industries | Price: 1903.7 | Source: IndianAPI
+[NO CHANGE] Bharti Airtel | Price: 2100.4 | Source: IndianAPI
+
+Next update in 18.6 seconds...
+
+============================================================
+FETCHING STOCK PRICES
+Fetch time: 2026-11-11T04:29:09.278795+00:00
+============================================================
+[PUBLISHED] Reliance Industries | Price: ₹1340.10 | Change: +₹15.76 (+1.19%) | Source: IndianAPI
+[PUBLISHED] Tata Consultancy Services | Price: ₹2478.00 | Change: +₹2.72 (+0.11%) | Source: IndianAPI
+[PUBLISHED] Infosys | Price: ₹1157.80 | Change: +₹3.69 (+0.32%) | Source: IndianAPI
+[PUBLISHED] HDFC Bank | Price: ₹812.75 | Change: +₹14.61 (+1.83%) | Source: IndianAPI
+[PUBLISHED] ICICI Bank | Price: ₹1607.30 | Change: +₹18.27 (+1.15%) | Source: IndianAPI
+[PUBLISHED] Tata Steel | Price: ₹187.07 | Change: +₹2.22 (+1.20%) | Source: IndianAPI
+[PUBLISHED] State Bank of India | Price: ₹1066.80 | Change: +₹24.80 (+2.38%) | Source: IndianAPI
+[PUBLISHED] ITC | Price: ₹281.90 | Change: +₹3.09 (+1.11%) | Source: IndianAPI
+[PUBLISHED] Sun Pharmaceutical Industries | Price: ₹1898.00 | Change: ₹-6.48 (-0.34%) | Source: IndianAPI
+[PUBLISHED] Bharti Airtel | Price: ₹2100.00 | Change: +₹27.97 (+1.35%) | Source: IndianAPI
+
+Next update in 12.3 seconds...
+
+============================================================
+FETCHING STOCK PRICES
+Fetch time: 2026-11-11T04:29:39.279644+00:00
+============================================================
+[NO CHANGE] Reliance Industries | Price: 1340.1 | Source: IndianAPI
+[NO CHANGE] Tata Consultancy Services | Price: 2478.0 | Source: IndianAPI
+[NO CHANGE] Infosys | Price: 1157.8 | Source: IndianAPI
+[NO CHANGE] HDFC Bank | Price: 812.75 | Source: IndianAPI
+[NO CHANGE] ICICI Bank | Price: 1607.3 | Source: IndianAPI
+[NO CHANGE] Tata Steel | Price: 187.07 | Source: IndianAPI
+[NO CHANGE] State Bank of India | Price: 1066.8 | Source: IndianAPI
+[NO CHANGE] ITC | Price: 281.9 | Source: IndianAPI
+[NO CHANGE] Sun Pharmaceutical Industries | Price: 1898.0 | Source: IndianAPI
+[NO CHANGE] Bharti Airtel | Price: 2100.0 | Source: IndianAPI
+
+Next update in 19.1 seconds...
+
+============================================================
+FETCHING STOCK PRICES
+Fetch time: 2026-11-11T04:30:09.280840+00:00
+============================================================
+[NO CHANGE] Reliance Industries | Price: 1340.1 | Source: IndianAPI
+[NO CHANGE] Tata Consultancy Services | Price: 2478.0 | Source: IndianAPI
+[NO CHANGE] Infosys | Price: 1157.8 | Source: IndianAPI
+[NO CHANGE] HDFC Bank | Price: 812.75 | Source: IndianAPI
+[NO CHANGE] ICICI Bank | Price: 1607.3 | Source: IndianAPI
+[NO CHANGE] Tata Steel | Price: 187.07 | Source: IndianAPI
+[NO CHANGE] State Bank of India | Price: 1066.8 | Source: IndianAPI
+[NO CHANGE] ITC | Price: 281.9 | Source: IndianAPI
+[NO CHANGE] Sun Pharmaceutical Industries | Price: 1898.0 | Source: IndianAPI
+[NO CHANGE] Bharti Airtel | Price: 2100.0 | Source: IndianAPI
+
+Next update in 18.9 seconds...
+
+============================================================
+FETCHING STOCK PRICES
+Fetch time: 2026-11-11T04:30:39.281132+00:00
+============================================================
+[NO CHANGE] Reliance Industries | Price: 1340.1 | Source: IndianAPI
+[NO CHANGE] Tata Consultancy Services | Price: 2478.0 | Source: IndianAPI
+[NO CHANGE] Infosys | Price: 1157.8 | Source: IndianAPI
+[NO CHANGE] HDFC Bank | Price: 812.75 | Source: IndianAPI
+
+Stopping producer...
+Producer stopped.
+
+(.venv) C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\TESTING>
