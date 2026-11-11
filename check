@@ -3,3 +3,15 @@ set HADOOP_HOME=C:\hadoop
 set PATH=%HADOOP_HOME%\bin;%PATH%
 
 where winutils
+
+(silver_venv) C:\>$env:HADOOP_HOME = "C:\hadoop"
+The filename, directory name, or volume label syntax is incorrect.
+
+(silver_venv) C:\>set HADOOP_HOME = C:\hadoop   
+
+(silver_venv) C:\>set PATH=%HADOOP_HOME%\bin;%PATH%
+
+(silver_venv) C:\>where winutils
+INFO: Could not find files for the given pattern(s).
+
+(silver_venv) C:\>
