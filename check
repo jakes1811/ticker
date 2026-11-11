@@ -1,161 +1,232 @@
-Optimized tool selectionI’m checking the actual Kafka install, config, and environment first so I can pinpoint why it keeps reverting to the old raft log directory before making the safe fix.
-
-Read [](file:///c%3A/kafka_2.13-4.4.0)
-
-Read [](file:///c%3A/kafka_2.13-4.4.0/config)
-
-Read [](file:///c%3A/kafka_2.13-4.4.0/config/server-new.properties)
-
-Searched for regex `kafka_raft_logs|metadata\.log\.dir|log\.dirs\s*=` (`C:\kafka_2.13-4.4.0\**\*`), 1 result
-
-Read [](file:///c%3A/kafka_2.13-4.4.0/config/server.properties)
-
-The config is confirming the original root cause: the default KRaft config still points at the old path in the main server config, and I’m now checking the exact Windows scripts and filesystem state to fix it without touching any of the existing Kafka data.
-
-Read [](file:///c%3A/kafka_2.13-4.4.0/bin)
-
-Read [](file:///c%3A/kafka_2.13-4.4.0/bin/windows)
-
-Read [](file:///c%3A/kafka_2.13-4.4.0/bin/windows/kafka-storage.bat)
-
-Read [](file:///c%3A/kafka_2.13-4.4.0/bin/windows/kafka-server-start.bat)
-
-Read [](file:///c%3A/kafka_2.13-4.4.0/bin/kafka-storage.sh)
-
-Read [](file:///c%3A/kafka_2.13-4.4.0/bin/windows/kafka-run-class.bat)
-
-Ran terminal command: $ErrorActionPreference='Stop'; Write-Host 'WHOAMI:'; whoami; Write-Host 'JAVA:'; java -version 2>&1; Write-Host 'KAFKA_CLUSTER_ID:'; $env:KAFKA_CLUSTER_ID; Write-Host '--- old dir ---'; if (Test-Path 'C:\kafka_raft_logs') { Get-Acl 'C:\kafka_raft_logs' | Format-List *; Write-Host 'DIR'; Get-ChildItem 'C:\kafka_raft_logs' -Force | Select-Object Name,Length,Attributes; } else { 'MISSING' }; Write-Host '--- new dir ---'; if (Test-Path 'C:\Users\2000209445\kafka_new_storage') { Get-Acl 'C:\Users\2000209445\kafka_new_storage' | Format-List *; Write-Host 'DIR'; Get-ChildItem 'C:\Users\2000209445\kafka_new_storage' -Force | Select-Object Name,Length,Attributes; } else { 'MISSING' }; Write-Host '--- java procs ---'; Get-CimInstance Win32_Process | Where-Object { $_.Name -match 'java|kafka' } | Select-Object Name,ProcessId,CommandLine | Format-Table -AutoSize; Write-Host '--- ports ---'; netstat -ano | findstr ':9092|:9093' ; true; Write-Host '--- storage file status ---'; $f='C:\kafka_2.13-4.4.0\bin\windows\kafka-storage.bat'; if (Test-Path $f) { Write-Host "Size: $( (Get-Item $f).Length )"; Write-Host "Attributes: $((Get-Item $f).Attributes)"; } else { Write-Host 'missing' };
-
-Ran terminal command: cmd /c "echo USER:%USERNAME% & echo WHOAMI:%USERDOMAIN%\\%USERNAME% & echo JAVA_VERSION: & java -version 2>&1 & echo KAFKA_CLUSTER_ID:%KAFKA_CLUSTER_ID% & echo. & if exist C:\kafka_raft_logs (echo OLD_DIR_EXISTS & dir /a /q C:\kafka_raft_logs & echo. & icacls C:\kafka_raft_logs) else (echo OLD_DIR_MISSING) & echo. & if exist C:\Users\2000209445\kafka_new_storage (echo NEW_DIR_EXISTS & dir /a /q C:\Users\2000209445\kafka_new_storage & echo. & icacls C:\Users\2000209445\kafka_new_storage) else (echo NEW_DIR_MISSING) & echo. & wmic PROCESS where "Name LIKE 'java%%' OR Name LIKE 'kafka%%'" get Name,ProcessId,CommandLine 2>nul | findstr /i "java kafka" & echo. & netstat -ano | findstr ":9092 :9093" ; echo NO_LISTENER"
-
-Ran terminal command: cmd /c "echo NEW_DIR: & if exist C:\Users\2000209445\kafka_new_storage (dir /a /q C:\Users\2000209445\kafka_new_storage & icacls C:\Users\2000209445\kafka_new_storage) else (echo MISSING) & echo. & echo META_EXISTENCE: & if exist C:\Users\2000209445\kafka_new_storage\meta.properties (echo yes) else (echo no) & echo. & echo SERVER_NEW_DIR: & if exist C:\kafka_2.13-4.4.0\config\server-new.properties (findstr /i /n "process.roles\|node.id\|controller.quorum.bootstrap.servers\|listeners\|advertised.listeners\|controller.listener.names\|log.dirs\|metadata.log.dir\|log.dirs\|metadata.log.dir" C:\kafka_2.13-4.4.0\config\server-new.properties) else (echo missing)"
-
-Ran terminal command: $new = 'C:\Users\2000209445\kafka_new_storage'; $cfg = 'C:\kafka_2.13-4.4.0\config\server-new.properties'; Write-Host 'NEW_DIR:'; if (Test-Path $new) { Get-ChildItem $new -Force | Select-Object Name,Length,Attributes; Get-Acl $new | Format-List *; } else { 'MISSING' }; Write-Host 'META_EXISTS:'; if (Test-Path (Join-Path $new 'meta.properties')) { 'yes' } else { 'no' }; Write-Host 'CONFIG_KEYS:'; if (Test-Path $cfg) { Get-Content $cfg | Select-String -Pattern '^(process\.roles|node\.id|controller\.quorum\.bootstrap\.servers|listeners|advertised\.listeners|controller\.listener\.names|log\.dirs|metadata\.log\.dir)\s*=' -CaseSensitive | ForEach-Object { $_.Line } } else { 'missing' }
-
-Read [](file:///c%3A/kafka_raft_logs/meta.properties)
-
-Searched for regex `kafka_raft_logs|metadata\.log\.dir|C:/kafka_raft_logs|C:\\kafka_raft_logs` (`C:\kafka_2.13-4.4.0\**\*`), no results
-
-Ran terminal command: cmd /c "echo FILE_INFO: & dir /a C:\kafka_2.13-4.4.0\bin\windows\kafka-storage.bat & echo. & echo FILE_SIZE_BYTES: & powershell -NoProfile -Command "(Get-Item 'C:\kafka_2.13-4.4.0\bin\windows\kafka-storage.bat').Length" & echo. & echo CONTENT_PREVIEW: & more C:\kafka_2.13-4.4.0\bin\windows\kafka-storage.bat 2>nul | findstr /n . ; echo EMPTY"
-
-I’ve confirmed the real causes: the default KRaft config still points at the old directory, and the Windows storage formatter script is empty, so it exits immediately without creating metadata. I’m now fixing only the active storage settings and restoring the formatter wrapper without touching the old data.
-
-Replacing 20 lines with 22 lines in [](file:///c%3A/kafka_2.13-4.4.0/config/server.properties), [](file:///c%3A/kafka_2.13-4.4.0/config/server-new.properties)
-
-
-```
-
-```
-
-```
-
-```
-
-
-Replacing 1 lines with 18 lines in [](file:///c%3A/kafka_2.13-4.4.0/bin/windows/kafka-storage.bat)
-
-
-```
-
-```
-
-
-Ran terminal command: cmd /c "C:\kafka_2.13-4.4.0\bin\windows\kafka-storage.bat --help"
-
-Ran terminal command: cmd /c "C:\kafka_2.13-4.4.0\bin\windows\kafka-storage.bat format --help"
-
-Ran terminal command: cmd /c "set KAFKA_CLUSTER_ID=aMtH406NQFyMw9MzjbP6jg && C:\kafka_2.13-4.4.0\bin\windows\kafka-storage.bat format --config C:\kafka_2.13-4.4.0\config\server-new.properties --cluster-id aMtH406NQFyMw9MzjbP6jg"
-
-Ran terminal command: cmd /c "echo META_FILES: & dir /a C:\Users\2000209445\kafka_new_storage & echo. & echo META_PROPERTIES: & type C:\Users\2000209445\kafka_new_storage\meta.properties"
-
-Ran terminal command: cmd /c "set KAFKA_CLUSTER_ID=aMtH406NQFyMw9MzjbP6jg && C:\kafka_2.13-4.4.0\bin\windows\kafka-server-start.bat C:\kafka_2.13-4.4.0\config\server-new.properties"
-
-The broker was started with the corrected config, but the batch wrapper still emits a warning because it calls the deprecated `wmic` command to detect the OS bitness. I’m verifying whether Kafka actually bound to the port despite that warning, since the real startup result is what matters.
-
-Ran terminal command: cmd /c "echo PORT_9092: & netstat -ano | findstr :9092 || echo NOT_LISTENING_9092 & echo. & echo PORT_9093: & netstat -ano | findstr :9093 || echo NOT_LISTENING_9093 & echo. & echo JAVA_PROCESSES: & wmic PROCESS where "Name LIKE 'java%%' OR Name LIKE 'kafka%%'" get Name,ProcessId,CommandLine 2>nul | findstr /i "java kafka" || echo NO_KAFKA_JAVA_PROCS"
-
-Read [](file:///c%3A/kafka_2.13-4.4.0/logs)
-
-Read [](file:///c%3A/kafka_2.13-4.4.0/logs/server.log.2026-11-11-15)
-
-Searched for regex `ERROR|Exception|Caused by|Failed to|BindException|AccessDeniedException|KafkaStorageException` (`C:\kafka_2.13-4.4.0\logs\**\*`), no results
-
-Checked terminal output
-
-Read [](file:///c%3A/kafka_2.13-4.4.0/libs)
-
-Ran terminal command: cmd /c "C:\kafka_2.13-4.4.0\bin\windows\kafka-server-start.bat C:\kafka_2.13-4.4.0\config\server-new.properties"
-
-Ran terminal command: cmd /c "set KAFKA_CLUSTER_ID=aMtH406NQFyMw9MzjbP6jg && set KAFKA_HEAP_OPTS=-Xmx1G -Xms1G && C:\kafka_2.13-4.4.0\bin\windows\kafka-server-start.bat C:\kafka_2.13-4.4.0\config\server-new.properties"
-
-Read [](file:///c%3A/Users/2000209445/AppData/Roaming/Code/User/workspaceStorage/751b94767ae523b2304ce904ac69cf51/GitHub.copilot-chat/chat-session-resources/1eb739d4-f52e-4a41-8da8-744c9bdf4a3d/call_DUfYFNMhyIMKDDRb9dk7Bxl7__vscode-1794392199163/content.txt#1-1), lines 1 to 220
-
-Ran terminal command: cmd /c "echo PORT_9092: & netstat -ano | findstr :9092 || echo NOT_LISTENING_9092 & echo. & echo PORT_9093: & netstat -ano | findstr :9093 || echo NOT_LISTENING_9093 & echo. & echo JAVA_PROCS: & powershell -NoProfile -Command "Get-CimInstance Win32_Process | Where-Object { $_.Name -match 'java' } | Select-Object Name,ProcessId,CommandLine | Format-Table -AutoSize""
-
-Ran terminal command: powershell -NoProfile -Command "Get-Content 'C:\kafka_2.13-4.4.0\logs\server.log' -Tail 120 | Out-String -Width 500"
-
-Ran terminal command: powershell -NoProfile -Command "Get-NetTCPConnection -State Listen | Where-Object { $_.LocalPort -in 9092,9093 } | Select-Object LocalAddress,LocalPort,State | Format-Table -AutoSize; Get-CimInstance Win32_Process | Where-Object { $_.Name -match 'java' } | Select-Object Name,ProcessId,CommandLine | Format-Table -AutoSize"
-
-Ran terminal command: cmd /c "netstat -ano | findstr ":9092" & echo. & netstat -ano | findstr ":9093""
-
-## ✅ Kafka is now running in KRaft mode on the new user-writable storage
-
-I verified the actual root cause and made the minimum safe changes:
-
-- The default KRaft config was still pointing at the old raft log directory.
-- The Windows storage formatter script was empty, so the format command exited immediately and never created metadata.
-- The Windows 11 batch wrapper also used the deprecated `wmic` check, which fails on newer systems and prevents startup unless the heap opts are pre-set.
-
----
-
-## Root cause
-
-I checked the real Kafka installation and found:
-
-- The original metadata in the old directory still contains the cluster ID:
-  - `cluster.id = aMtH406NQFyMw9MzjbP6jg`
-- The old raft directory was still populated and was the source of the offline log-dir error.
-- The new user-writable storage directory existed but was empty, and no meta.properties had been created there.
-- The Kafka storage tool Windows wrapper was zero bytes, so formatting silently returned to the prompt without doing anything.
-- The old default config still had the old log path set in the KRaft server config.
-
----
-
-## What I changed
-
-I corrected the active KRaft config to use only the new storage directory and explicitly set the metadata log directory to the same location:
-
-- `log.dirs = C:/Users/2000209445/kafka_new_storage`
-- `metadata.log.dir = C:/Users/2000209445/kafka_new_storage`
-
-I also restored the Windows storage formatter wrapper so it calls the real Kafka storage tool again, and I used the existing cluster ID instead of creating a new one.
-
-I did not touch the old Kafka data or request admin rights.
-
----
-
-## Verification
-
-I verified the format created the metadata file in the new directory:
-
-- meta.properties exists in the new storage directory
-- contents include:
-  - `cluster.id=aMtH406NQFyMw9MzjbP6jg`
-
-I then started Kafka in KRaft mode and verified the broker is listening on the expected port:
-
-- `netstat -ano | findstr ":9092"` returned:
-  - `TCP 0.0.0.0:9092 0.0.0.0:0 LISTENING`
-- The broker also bound to controller port `9093`
-
-This is fresh runtime evidence that the broker is active.
-
----
-
-## Important note
-
-The startup script on Windows 11 still contains a deprecated `wmic` check. To avoid that failure in this environment, Kafka was started with the heap setting set explicitly in the same session. This does not require administrator access and leaves the organisation policy untouched.
-
-If you want, I can also give you a clean one-shot Windows command sequence to restart Kafka reliably in a fresh CMD session without re-running the fixes.
-
-Made changes.
+(silver_venv) C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\Ticker>python .\silver\test_spark.py
+WARNING: Using incubator modules: jdk.incubator.vector
+:: loading settings :: url = jar:file:/C:/Users/2000209445/OneDrive%20-%20Hexaware%20Technologies/Desktop/Ticker/silver_venv/Lib/site-packages/pyspark/jars/ivy-2.5.3.jar!/org/apache/ivy/core/settings/ivysettings.xml
+Ivy Default Cache set to: C:\Users\2000209445\.ivy2.5.2\cache
+The jars for the packages stored in: C:\Users\2000209445\.ivy2.5.2\jars
+org.apache.spark#spark-sql-kafka-0-10_2.13 added as a dependency
+:: resolving dependencies :: org.apache.spark#spark-submit-parent-03eaf66d-5592-45f8-b31d-b739724a5a90;1.0
+        confs: [default]
+        found org.apache.spark#spark-sql-kafka-0-10_2.13;4.1.1 in central
+        found org.apache.spark#spark-token-provider-kafka-0-10_2.13;4.1.1 in central
+        found org.apache.kafka#kafka-clients;3.9.1 in central
+        found org.lz4#lz4-java;1.8.0 in central
+        found org.xerial.snappy#snappy-java;1.1.10.8 in central
+        found org.slf4j#slf4j-api;2.0.17 in central
+        found org.apache.hadoop#hadoop-client-runtime;3.4.2 in central
+        found org.apache.hadoop#hadoop-client-api;3.4.2 in central
+        found com.google.code.findbugs#jsr305;3.0.0 in central
+        found org.scala-lang.modules#scala-parallel-collections_2.13;1.2.0 in central
+        found org.apache.commons#commons-pool2;2.12.1 in central
+downloading https://repo1.maven.org/maven2/org/apache/spark/spark-sql-kafka-0-10_2.13/4.1.1/spark-sql-kafka-0-10_2.13-4.1.1.jar ...
+        [SUCCESSFUL ] org.apache.spark#spark-sql-kafka-0-10_2.13;4.1.1!spark-sql-kafka-0-10_2.13.jar (419ms)
+downloading https://repo1.maven.org/maven2/org/apache/spark/spark-token-provider-kafka-0-10_2.13/4.1.1/spark-token-provider-kafka-0-10_2.13-4.1.1.jar ...
+        [SUCCESSFUL ] org.apache.spark#spark-token-provider-kafka-0-10_2.13;4.1.1!spark-token-provider-kafka-0-10_2.13.jar (333ms)
+downloading https://repo1.maven.org/maven2/org/scala-lang/modules/scala-parallel-collections_2.13/1.2.0/scala-parallel-collections_2.13-1.2.0.jar ...
+        [SUCCESSFUL ] org.scala-lang.modules#scala-parallel-collections_2.13;1.2.0!scala-parallel-collections_2.13.jar (188ms)
+downloading https://repo1.maven.org/maven2/org/apache/kafka/kafka-clients/3.9.1/kafka-clients-3.9.1.jar ...
+        [SUCCESSFUL ] org.apache.kafka#kafka-clients;3.9.1!kafka-clients.jar (542ms)
+downloading https://repo1.maven.org/maven2/com/google/code/findbugs/jsr305/3.0.0/jsr305-3.0.0.jar ...
+        [SUCCESSFUL ] com.google.code.findbugs#jsr305;3.0.0!jsr305.jar (95ms)
+downloading https://repo1.maven.org/maven2/org/apache/commons/commons-pool2/2.12.1/commons-pool2-2.12.1.jar ...
+        [SUCCESSFUL ] org.apache.commons#commons-pool2;2.12.1!commons-pool2.jar (105ms)
+downloading https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-client-runtime/3.4.2/hadoop-client-runtime-3.4.2.jar ...
+        [SUCCESSFUL ] org.apache.hadoop#hadoop-client-runtime;3.4.2!hadoop-client-runtime.jar (1433ms)
+downloading https://repo1.maven.org/maven2/org/lz4/lz4-java/1.8.0/lz4-java-1.8.0.jar ...
+        [SUCCESSFUL ] org.lz4#lz4-java;1.8.0!lz4-java.jar (110ms)
+downloading https://repo1.maven.org/maven2/org/xerial/snappy/snappy-java/1.1.10.8/snappy-java-1.1.10.8.jar ...
+        [SUCCESSFUL ] org.xerial.snappy#snappy-java;1.1.10.8!snappy-java.jar(bundle) (186ms)
+downloading https://repo1.maven.org/maven2/org/slf4j/slf4j-api/2.0.17/slf4j-api-2.0.17.jar ...
+        [SUCCESSFUL ] org.slf4j#slf4j-api;2.0.17!slf4j-api.jar (90ms)
+downloading https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-client-api/3.4.2/hadoop-client-api-3.4.2.jar ...
+        [SUCCESSFUL ] org.apache.hadoop#hadoop-client-api;3.4.2!hadoop-client-api.jar (892ms)
+:: resolution report :: resolve 16360ms :: artifacts dl 4420ms
+        :: modules in use:
+        com.google.code.findbugs#jsr305;3.0.0 from central in [default]
+        org.apache.commons#commons-pool2;2.12.1 from central in [default]
+        org.apache.hadoop#hadoop-client-api;3.4.2 from central in [default]
+        org.apache.hadoop#hadoop-client-runtime;3.4.2 from central in [default]
+        org.apache.kafka#kafka-clients;3.9.1 from central in [default]
+        org.apache.spark#spark-sql-kafka-0-10_2.13;4.1.1 from central in [default]
+        org.apache.spark#spark-token-provider-kafka-0-10_2.13;4.1.1 from central in [default]
+        org.lz4#lz4-java;1.8.0 from central in [default]
+        org.scala-lang.modules#scala-parallel-collections_2.13;1.2.0 from central in [default]
+        org.slf4j#slf4j-api;2.0.17 from central in [default]
+        org.xerial.snappy#snappy-java;1.1.10.8 from central in [default]
+        ---------------------------------------------------------------------
+        |                  |            modules            ||   artifacts   |
+        |       conf       | number| search|dwnlded|evicted|| number|dwnlded|
+        ---------------------------------------------------------------------
+        |      default     |   11  |   11  |   11  |   0   ||   11  |   11  |
+        ---------------------------------------------------------------------
+:: retrieving :: org.apache.spark#spark-submit-parent-03eaf66d-5592-45f8-b31d-b739724a5a90
+        confs: [default]
+        11 artifacts copied, 0 already retrieved (62936kB/1188ms)
+26/11/11 21:27:10 WARN Shell: Did not find winutils.exe: java.io.FileNotFoundException: java.io.FileNotFoundException: HADOOP_HOME and hadoop.home.dir are unset. -see https://cwiki.apache.org/confluence/display/HADOOP2/WindowsProblems
+26/11/11 21:27:10 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Using Spark's default log4j profile: org/apache/spark/log4j2-defaults.properties
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+26/11/11 21:27:12 ERROR SparkContext: Error initializing SparkContext.
+java.lang.RuntimeException: java.io.FileNotFoundException: java.io.FileNotFoundException: HADOOP_HOME and hadoop.home.dir are unset. -see https://cwiki.apache.org/confluence/display/HADOOP2/WindowsProblems
+        at org.apache.hadoop.util.Shell.getWinUtilsPath(Shell.java:789)
+        at org.apache.hadoop.util.Shell.getSetPermissionCommand(Shell.java:298)
+        at org.apache.hadoop.fs.FileUtil.chmod(FileUtil.java:1305)
+        at org.apache.hadoop.fs.FileUtil.chmod(FileUtil.java:1291)
+        at org.apache.spark.util.Utils$.fetchFile(Utils.scala:432)
+        at org.apache.spark.SparkContext.addFile(SparkContext.scala:1875)
+        at org.apache.spark.SparkContext.$anonfun$new$17(SparkContext.scala:551)
+        at org.apache.spark.SparkContext.$anonfun$new$17$adapted(SparkContext.scala:551)
+        at scala.collection.immutable.List.foreach(List.scala:323)
+        at org.apache.spark.SparkContext.<init>(SparkContext.scala:551)
+        at org.apache.spark.api.java.JavaSparkContext.<init>(JavaSparkContext.scala:59)
+        at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+        at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:77)
+        at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+        at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:500)
+        at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:481)
+        at py4j.reflection.MethodInvoker.invoke(MethodInvoker.java:247)
+        at py4j.reflection.ReflectionEngine.invoke(ReflectionEngine.java:374)
+        at py4j.Gateway.invoke(Gateway.java:238)
+        at py4j.commands.ConstructorCommand.invokeConstructor(ConstructorCommand.java:80)
+        at py4j.commands.ConstructorCommand.execute(ConstructorCommand.java:69)
+        at py4j.ClientServerConnection.waitForCommands(ClientServerConnection.java:184)
+        at py4j.ClientServerConnection.run(ClientServerConnection.java:108)
+        at java.base/java.lang.Thread.run(Thread.java:840)
+Caused by: java.io.FileNotFoundException: java.io.FileNotFoundException: HADOOP_HOME and hadoop.home.dir are unset. -see https://cwiki.apache.org/confluence/display/HADOOP2/WindowsProblems
+        at org.apache.hadoop.util.Shell.fileNotFoundException(Shell.java:601)
+        at org.apache.hadoop.util.Shell.getHadoopHomeDir(Shell.java:622)
+        at org.apache.hadoop.util.Shell.getQualifiedBin(Shell.java:645)
+        at org.apache.hadoop.util.Shell.<clinit>(Shell.java:742)
+        at org.apache.hadoop.util.StringUtils.<clinit>(StringUtils.java:80)
+        at org.apache.hadoop.conf.Configuration.getTimeDurationHelper(Configuration.java:1954)
+        at org.apache.hadoop.conf.Configuration.getTimeDuration(Configuration.java:1912)
+        at org.apache.hadoop.conf.Configuration.getTimeDuration(Configuration.java:1885)
+        at org.apache.hadoop.util.ShutdownHookManager.getShutdownTimeout(ShutdownHookManager.java:183)
+        at org.apache.hadoop.util.ShutdownHookManager$HookEntry.<init>(ShutdownHookManager.java:207)
+        at org.apache.hadoop.util.ShutdownHookManager.addShutdownHook(ShutdownHookManager.java:304)
+        at org.apache.spark.util.SparkShutdownHookManager.$anonfun$install$1(ShutdownHookManager.scala:194)
+        at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.scala:18)
+        at scala.Option.fold(Option.scala:263)
+        at org.apache.spark.util.SparkShutdownHookManager.install(ShutdownHookManager.scala:195)
+        at org.apache.spark.util.ShutdownHookManager$.shutdownHooks$lzycompute(ShutdownHookManager.scala:55)
+        at org.apache.spark.util.ShutdownHookManager$.shutdownHooks(ShutdownHookManager.scala:53)
+        at org.apache.spark.util.ShutdownHookManager$.addShutdownHook(ShutdownHookManager.scala:159)
+        at org.apache.spark.util.ShutdownHookManager$.<clinit>(ShutdownHookManager.scala:63)
+        at org.apache.spark.util.Utils$.createTempDir(Utils.scala:249)
+        at org.apache.spark.util.SparkFileUtils.createTempDir(SparkFileUtils.scala:125)
+        at org.apache.spark.util.SparkFileUtils.createTempDir$(SparkFileUtils.scala:124)
+        at org.apache.spark.util.Utils$.createTempDir(Utils.scala:97)
+        at org.apache.spark.deploy.SparkSubmit.prepareSubmitEnvironment(SparkSubmit.scala:378)
+        at org.apache.spark.deploy.SparkSubmit.org$apache$spark$deploy$SparkSubmit$$runMain(SparkSubmit.scala:962)
+        at org.apache.spark.deploy.SparkSubmit.doRunMain$1(SparkSubmit.scala:203)
+        at org.apache.spark.deploy.SparkSubmit.submit(SparkSubmit.scala:226)
+        at org.apache.spark.deploy.SparkSubmit.doSubmit(SparkSubmit.scala:95)
+        at org.apache.spark.deploy.SparkSubmit$$anon$2.doSubmit(SparkSubmit.scala:1168)
+        at org.apache.spark.deploy.SparkSubmit$.main(SparkSubmit.scala:1177)
+        at org.apache.spark.deploy.SparkSubmit.main(SparkSubmit.scala)
+Caused by: java.io.FileNotFoundException: HADOOP_HOME and hadoop.home.dir are unset.
+        at org.apache.hadoop.util.Shell.checkHadoopHomeInner(Shell.java:521)
+        at org.apache.hadoop.util.Shell.checkHadoopHome(Shell.java:492)
+        at org.apache.hadoop.util.Shell.<clinit>(Shell.java:569)
+        ... 27 more
+26/11/11 21:27:12 WARN MetricsSystem: Stopping a MetricsSystem that is not running
+Traceback (most recent call last):
+  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\Ticker\silver\test_spark.py", line 10, in <module>
+    .getOrCreate()
+     ~~~~~~~~~~~^^
+  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\Ticker\silver_venv\Lib\site-packages\pyspark\sql\session.py", line 557, in getOrCreate
+    sc = SparkContext.getOrCreate(sparkConf)
+  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\Ticker\silver_venv\Lib\site-packages\pyspark\core\context.py", line 542, in getOrCreate
+    SparkContext(conf=conf or SparkConf())
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\Ticker\silver_venv\Lib\site-packages\pyspark\core\context.py", line 208, in __init__
+    self._do_init(
+    ~~~~~~~~~~~~~^
+        master,
+        ^^^^^^^
+    ...<10 lines>...
+        memory_profiler_cls,
+        ^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\Ticker\silver_venv\Lib\site-packages\pyspark\core\context.py", line 301, in _do_init
+    self._jsc = jsc or self._initialize_context(self._conf._jconf)
+                       ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\Ticker\silver_venv\Lib\site-packages\pyspark\core\context.py", line 448, in _initialize_context
+    return self._jvm.JavaSparkContext(jconf)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\Ticker\silver_venv\Lib\site-packages\py4j\java_gateway.py", line 1627, in __call__
+    return_value = get_return_value(
+        answer, self._gateway_client, None, self._fqn)
+  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\Ticker\silver_venv\Lib\site-packages\py4j\protocol.py", line 327, in get_return_value
+    raise Py4JJavaError(
+        "An error occurred while calling {0}{1}{2}.\n".
+        format(target_id, ".", name), value)
+py4j.protocol.Py4JJavaError: An error occurred while calling None.org.apache.spark.api.java.JavaSparkContext.
+: java.lang.RuntimeException: java.io.FileNotFoundException: java.io.FileNotFoundException: HADOOP_HOME and hadoop.home.dir are unset. -see https://cwiki.apache.org/confluence/display/HADOOP2/WindowsProblems
+        at org.apache.hadoop.util.Shell.getWinUtilsPath(Shell.java:789)
+        at org.apache.hadoop.util.Shell.getSetPermissionCommand(Shell.java:298)
+        at org.apache.hadoop.fs.FileUtil.chmod(FileUtil.java:1305)
+        at org.apache.hadoop.fs.FileUtil.chmod(FileUtil.java:1291)
+        at org.apache.spark.util.Utils$.fetchFile(Utils.scala:432)
+        at org.apache.spark.SparkContext.addFile(SparkContext.scala:1875)
+        at org.apache.spark.SparkContext.$anonfun$new$17(SparkContext.scala:551)
+        at org.apache.spark.SparkContext.$anonfun$new$17$adapted(SparkContext.scala:551)
+        at scala.collection.immutable.List.foreach(List.scala:323)
+        at org.apache.spark.SparkContext.<init>(SparkContext.scala:551)
+        at org.apache.spark.api.java.JavaSparkContext.<init>(JavaSparkContext.scala:59)
+        at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+        at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:77)
+        at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+        at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:500)
+        at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:481)
+        at py4j.reflection.MethodInvoker.invoke(MethodInvoker.java:247)
+        at py4j.reflection.ReflectionEngine.invoke(ReflectionEngine.java:374)
+        at py4j.Gateway.invoke(Gateway.java:238)
+        at py4j.commands.ConstructorCommand.invokeConstructor(ConstructorCommand.java:80)
+        at py4j.commands.ConstructorCommand.execute(ConstructorCommand.java:69)
+        at py4j.ClientServerConnection.waitForCommands(ClientServerConnection.java:184)
+        at py4j.ClientServerConnection.run(ClientServerConnection.java:108)
+        at java.base/java.lang.Thread.run(Thread.java:840)
+Caused by: java.io.FileNotFoundException: java.io.FileNotFoundException: HADOOP_HOME and hadoop.home.dir are unset. -see https://cwiki.apache.org/confluence/display/HADOOP2/WindowsProblems
+        at org.apache.hadoop.util.Shell.fileNotFoundException(Shell.java:601)
+        at org.apache.hadoop.util.Shell.getHadoopHomeDir(Shell.java:622)
+        at org.apache.hadoop.util.Shell.getQualifiedBin(Shell.java:645)
+        at org.apache.hadoop.util.Shell.<clinit>(Shell.java:742)
+        at org.apache.hadoop.util.StringUtils.<clinit>(StringUtils.java:80)
+        at org.apache.hadoop.conf.Configuration.getTimeDurationHelper(Configuration.java:1954)
+        at org.apache.hadoop.conf.Configuration.getTimeDuration(Configuration.java:1912)
+        at org.apache.hadoop.conf.Configuration.getTimeDuration(Configuration.java:1885)
+        at org.apache.hadoop.util.ShutdownHookManager.getShutdownTimeout(ShutdownHookManager.java:183)
+        at org.apache.hadoop.util.ShutdownHookManager$HookEntry.<init>(ShutdownHookManager.java:207)
+        at org.apache.hadoop.util.ShutdownHookManager.addShutdownHook(ShutdownHookManager.java:304)
+        at org.apache.spark.util.SparkShutdownHookManager.$anonfun$install$1(ShutdownHookManager.scala:194)
+        at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.scala:18)
+        at scala.Option.fold(Option.scala:263)
+        at org.apache.spark.util.SparkShutdownHookManager.install(ShutdownHookManager.scala:195)
+        at org.apache.spark.util.ShutdownHookManager$.shutdownHooks$lzycompute(ShutdownHookManager.scala:55)
+        at org.apache.spark.util.ShutdownHookManager$.shutdownHooks(ShutdownHookManager.scala:53)
+        at org.apache.spark.util.ShutdownHookManager$.addShutdownHook(ShutdownHookManager.scala:159)
+        at org.apache.spark.util.ShutdownHookManager$.<clinit>(ShutdownHookManager.scala:63)
+        at org.apache.spark.util.Utils$.createTempDir(Utils.scala:249)
+        at org.apache.spark.util.SparkFileUtils.createTempDir(SparkFileUtils.scala:125)
+        at org.apache.spark.util.SparkFileUtils.createTempDir$(SparkFileUtils.scala:124)
+        at org.apache.spark.util.Utils$.createTempDir(Utils.scala:97)
+        at org.apache.spark.deploy.SparkSubmit.prepareSubmitEnvironment(SparkSubmit.scala:378)
+        at org.apache.spark.deploy.SparkSubmit.org$apache$spark$deploy$SparkSubmit$$runMain(SparkSubmit.scala:962)
+        at org.apache.spark.deploy.SparkSubmit.doRunMain$1(SparkSubmit.scala:203)
+        at org.apache.spark.deploy.SparkSubmit.submit(SparkSubmit.scala:226)
+        at org.apache.spark.deploy.SparkSubmit.doSubmit(SparkSubmit.scala:95)
+        at org.apache.spark.deploy.SparkSubmit$$anon$2.doSubmit(SparkSubmit.scala:1168)
+        at org.apache.spark.deploy.SparkSubmit$.main(SparkSubmit.scala:1177)
+        at org.apache.spark.deploy.SparkSubmit.main(SparkSubmit.scala)
+Caused by: java.io.FileNotFoundException: HADOOP_HOME and hadoop.home.dir are unset.
+        at org.apache.hadoop.util.Shell.checkHadoopHomeInner(Shell.java:521)
+        at org.apache.hadoop.util.Shell.checkHadoopHome(Shell.java:492)
+        at org.apache.hadoop.util.Shell.<clinit>(Shell.java:569)
+        ... 27 more
+
+
+(silver_venv) C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\Ticker>SUCCESS: The process with PID 29616 (child process of PID 25648) has been terminated.
+SUCCESS: The process with PID 25648 (child process of PID 21872) has been terminated.
+SUCCESS: The process with PID 21872 (child process of PID 34400) has been terminated.
