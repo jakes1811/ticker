@@ -1,1 +1,5 @@
-findstr /n /i "spark.jars.packages spark-sql-kafka configure_spark_with_delta" silver\stock_silver.py
+(silver_venv) C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\Ticker>findstr /n /i "spark.jars.packages spark-sql-kafka configure_spark_with_delta" silver\stock_silver.py
+18:from delta import configure_spark_with_delta_pip
+96:            "spark.jars.packages",
+97:            "org.apache.spark:spark-sql-kafka-0-10_2.13:4.1.1"
+115:    spark = configure_spark_with_delta_pip(
