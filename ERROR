@@ -4,7 +4,7 @@ WARNING: Using incubator modules: jdk.incubator.vector
 Ivy Default Cache set to: C:\Users\2000209445\.ivy2.5.2\cache
 The jars for the packages stored in: C:\Users\2000209445\.ivy2.5.2\jars
 org.apache.spark#spark-sql-kafka-0-10_2.13 added as a dependency
-:: resolving dependencies :: org.apache.spark#spark-submit-parent-ba0aba45-048e-4075-9f6b-9cdae6faec55;1.0
+:: resolving dependencies :: org.apache.spark#spark-submit-parent-90bfd623-377a-4fad-9723-16eb93d001ae;1.0
         confs: [default]
         found org.apache.spark#spark-sql-kafka-0-10_2.13;4.1.1 in central
         found org.apache.spark#spark-token-provider-kafka-0-10_2.13;4.1.1 in central
@@ -17,7 +17,7 @@ org.apache.spark#spark-sql-kafka-0-10_2.13 added as a dependency
         found com.google.code.findbugs#jsr305;3.0.0 in central
         found org.scala-lang.modules#scala-parallel-collections_2.13;1.2.0 in central
         found org.apache.commons#commons-pool2;2.12.1 in central
-:: resolution report :: resolve 879ms :: artifacts dl 41ms
+:: resolution report :: resolve 864ms :: artifacts dl 48ms
         :: modules in use:
         com.google.code.findbugs#jsr305;3.0.0 from central in [default]
         org.apache.commons#commons-pool2;2.12.1 from central in [default]
@@ -36,9 +36,9 @@ org.apache.spark#spark-sql-kafka-0-10_2.13 added as a dependency
         ---------------------------------------------------------------------
         |      default     |   11  |   0   |   0   |   0   ||   11  |   0   |
         ---------------------------------------------------------------------
-:: retrieving :: org.apache.spark#spark-submit-parent-ba0aba45-048e-4075-9f6b-9cdae6faec55
+:: retrieving :: org.apache.spark#spark-submit-parent-90bfd623-377a-4fad-9723-16eb93d001ae
         confs: [default]
-        0 artifacts copied, 11 already retrieved (0kB/18ms)
+        0 artifacts copied, 11 already retrieved (0kB/24ms)
 Using Spark's default log4j profile: org/apache/spark/log4j2-defaults.properties
 Setting default log level to "WARN".
 To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
@@ -54,8 +54,8 @@ Kafka connection successful!
 |{"symbol": "ICICIBANK", "yahoo_symbol": "ICICIBANK.NS", "current_price": 1571.6, "change": -17.40000000000009, "change_percent": -1.095028319697929, "currency": "INR", "source": "Yahoo Finance", "timestamp": "2026-11-11T09:59:54+00:00", "fetched_at": "2026-11-11T11:41:36.146423+00:00", "ingested_at": "2026-11-11T11:41:39.500035+00:00"}|
 +-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 only showing top 5 rows
-26/11/11 21:51:58 WARN SparkEnv: Exception while deleting Spark temp dir: C:\Users\2000209445\AppData\Local\Temp\spark-87e323d5-fe43-444b-99e8-1a98f74c1325\userFiles-777a9da6-24f1-46dd-a97b-9ae5e225d49f
-java.io.IOException: Failed to delete: C:\Users\2000209445\AppData\Local\Temp\spark-87e323d5-fe43-444b-99e8-1a98f74c1325\userFiles-777a9da6-24f1-46dd-a97b-9ae5e225d49f\org.xerial.snappy_snappy-java-1.1.10.8.jar
+26/11/11 22:10:11 WARN SparkEnv: Exception while deleting Spark temp dir: C:\Users\2000209445\AppData\Local\Temp\spark-23bb28f8-4463-433c-b493-887fff9f35f1\userFiles-6bd5e2b9-34ba-4516-8c25-0db637f999ff
+java.io.IOException: Failed to delete: C:\Users\2000209445\AppData\Local\Temp\spark-23bb28f8-4463-433c-b493-887fff9f35f1\userFiles-6bd5e2b9-34ba-4516-8c25-0db637f999ff\org.xerial.snappy_snappy-java-1.1.10.8.jar
         at org.apache.spark.network.util.JavaUtils.deleteRecursivelyUsingJavaIO(JavaUtils.java:308)
         at org.apache.spark.network.util.JavaUtils.deleteRecursively(JavaUtils.java:277)
         at org.apache.spark.network.util.JavaUtils.deleteRecursivelyUsingJavaIO(JavaUtils.java:291)
@@ -82,39 +82,9 @@ java.io.IOException: Failed to delete: C:\Users\2000209445\AppData\Local\Temp\sp
         at py4j.ClientServerConnection.waitForCommands(ClientServerConnection.java:184)
         at py4j.ClientServerConnection.run(ClientServerConnection.java:108)
         at java.base/java.lang.Thread.run(Thread.java:840)
-26/11/11 21:51:58 ERROR ShutdownHookManager: Exception while deleting Spark temp dir: C:\Users\2000209445\AppData\Local\Temp\spark-87e323d5-fe43-444b-99e8-1a98f74c1325\userFiles-777a9da6-24f1-46dd-a97b-9ae5e225d49f
-java.io.IOException: Failed to delete: C:\Users\2000209445\AppData\Local\Temp\spark-87e323d5-fe43-444b-99e8-1a98f74c1325\userFiles-777a9da6-24f1-46dd-a97b-9ae5e225d49f\org.xerial.snappy_snappy-java-1.1.10.8.jar
+26/11/11 22:10:12 ERROR ShutdownHookManager: Exception while deleting Spark temp dir: C:\Users\2000209445\AppData\Local\Temp\spark-23bb28f8-4463-433c-b493-887fff9f35f1\userFiles-6bd5e2b9-34ba-4516-8c25-0db637f999ff
+java.io.IOException: Failed to delete: C:\Users\2000209445\AppData\Local\Temp\spark-23bb28f8-4463-433c-b493-887fff9f35f1\userFiles-6bd5e2b9-34ba-4516-8c25-0db637f999ff\org.xerial.snappy_snappy-java-1.1.10.8.jar
         at org.apache.spark.network.util.JavaUtils.deleteRecursivelyUsingJavaIO(JavaUtils.java:308)
-        at org.apache.spark.network.util.JavaUtils.deleteRecursively(JavaUtils.java:277)
-        at org.apache.spark.network.util.JavaUtils.deleteRecursivelyUsingJavaIO(JavaUtils.java:291)
-        at org.apache.spark.network.util.JavaUtils.deleteRecursively(JavaUtils.java:277)
-        at org.apache.spark.network.util.JavaUtils.deleteRecursively(JavaUtils.java:248)
-        at org.apache.spark.util.SparkFileUtils.deleteRecursively(SparkFileUtils.scala:158)
-        at org.apache.spark.util.SparkFileUtils.deleteRecursively$(SparkFileUtils.scala:157)
-        at org.apache.spark.util.Utils$.deleteRecursively(Utils.scala:1062)
-        at org.apache.spark.util.ShutdownHookManager$.$anonfun$new$4(ShutdownHookManager.scala:70)
-        at org.apache.spark.util.ShutdownHookManager$.$anonfun$new$4$adapted(ShutdownHookManager.scala:67)
-        at scala.collection.ArrayOps$.foreach$extension(ArrayOps.scala:1324)
-        at org.apache.spark.util.ShutdownHookManager$.$anonfun$new$2(ShutdownHookManager.scala:67)
-        at org.apache.spark.util.SparkShutdownHook.run(ShutdownHookManager.scala:231)
-        at org.apache.spark.util.SparkShutdownHookManager.$anonfun$runAll$2(ShutdownHookManager.scala:205)
-        at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.scala:18)
-        at org.apache.spark.util.Utils$.logUncaughtExceptions(Utils.scala:1941)
-        at org.apache.spark.util.SparkShutdownHookManager.$anonfun$runAll$1(ShutdownHookManager.scala:205)
-        at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.scala:18)
-        at scala.util.Try$.apply(Try.scala:217)
-        at org.apache.spark.util.SparkShutdownHookManager.runAll(ShutdownHookManager.scala:205)
-        at org.apache.spark.util.SparkShutdownHookManager$$anon$2.run(ShutdownHookManager.scala:184)
-        at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539)
-        at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
-        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
-        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
-        at java.base/java.lang.Thread.run(Thread.java:840)
-26/11/11 21:51:58 ERROR ShutdownHookManager: Exception while deleting Spark temp dir: C:\Users\2000209445\AppData\Local\Temp\spark-87e323d5-fe43-444b-99e8-1a98f74c1325
-java.io.IOException: Failed to delete: C:\Users\2000209445\AppData\Local\Temp\spark-87e323d5-fe43-444b-99e8-1a98f74c1325\userFiles-777a9da6-24f1-46dd-a97b-9ae5e225d49f\org.xerial.snappy_snappy-java-1.1.10.8.jar
-        at org.apache.spark.network.util.JavaUtils.deleteRecursivelyUsingJavaIO(JavaUtils.java:308)
-        at org.apache.spark.network.util.JavaUtils.deleteRecursively(JavaUtils.java:277)
-        at org.apache.spark.network.util.JavaUtils.deleteRecursivelyUsingJavaIO(JavaUtils.java:291)
         at org.apache.spark.network.util.JavaUtils.deleteRecursively(JavaUtils.java:277)
         at org.apache.spark.network.util.JavaUtils.deleteRecursivelyUsingJavaIO(JavaUtils.java:291)
         at org.apache.spark.network.util.JavaUtils.deleteRecursively(JavaUtils.java:277)
@@ -141,6 +111,38 @@ java.io.IOException: Failed to delete: C:\Users\2000209445\AppData\Local\Temp\sp
         at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
         at java.base/java.lang.Thread.run(Thread.java:840)
 
-(silver_venv) C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\Ticker>SUCCESS: The process with PID 15864 (child process of PID 33164) has been terminated.
-SUCCESS: The process with PID 33164 (child process of PID 10532) has been terminated.
-SUCCESS: The process with PID 10532 (child process of PID 27388) has been terminated.
+(silver_venv) C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\Ticker>26/11/11 22:10:12 ERROR ShutdownHookManager: Exception while deleting Spark temp dir: C:\Users\2000209445\AppData\Local\Temp\spark-23bb28f8-4463-433c-b493-887fff9f35f1
+java.io.IOException: Failed to delete: C:\Users\2000209445\AppData\Local\Temp\spark-23bb28f8-4463-433c-b493-887fff9f35f1\userFiles-6bd5e2b9-34ba-4516-8c25-0db637f999ff\org.xerial.snappy_snappy-java-1.1.10.8.jar
+        at org.apache.spark.network.util.JavaUtils.deleteRecursivelyUsingJavaIO(JavaUtils.java:308)
+        at org.apache.spark.network.util.JavaUtils.deleteRecursively(JavaUtils.java:277)
+        at org.apache.spark.network.util.JavaUtils.deleteRecursivelyUsingJavaIO(JavaUtils.java:291)
+        at org.apache.spark.network.util.JavaUtils.deleteRecursively(JavaUtils.java:277)
+        at org.apache.spark.network.util.JavaUtils.deleteRecursivelyUsingJavaIO(JavaUtils.java:291)
+        at org.apache.spark.network.util.JavaUtils.deleteRecursively(JavaUtils.java:277)
+        at org.apache.spark.network.util.JavaUtils.deleteRecursively(JavaUtils.java:248)
+        at org.apache.spark.util.SparkFileUtils.deleteRecursively(SparkFileUtils.scala:158)
+        at org.apache.spark.util.SparkFileUtils.deleteRecursively$(SparkFileUtils.scala:157)
+        at org.apache.spark.util.Utils$.deleteRecursively(Utils.scala:1062)
+        at org.apache.spark.util.ShutdownHookManager$.$anonfun$new$4(ShutdownHookManager.scala:70)
+        at org.apache.spark.util.ShutdownHookManager$.$anonfun$new$4$adapted(ShutdownHookManager.scala:67)
+        at scala.collection.ArrayOps$.foreach$extension(ArrayOps.scala:1324)
+        at org.apache.spark.util.ShutdownHookManager$.$anonfun$new$2(ShutdownHookManager.scala:67)
+        at org.apache.spark.util.SparkShutdownHook.run(ShutdownHookManager.scala:231)
+        at org.apache.spark.util.SparkShutdownHookManager.$anonfun$runAll$2(ShutdownHookManager.scala:205)
+        at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.scala:18)
+        at org.apache.spark.util.Utils$.logUncaughtExceptions(Utils.scala:1941)
+        at org.apache.spark.util.SparkShutdownHookManager.$anonfun$runAll$1(ShutdownHookManager.scala:205)
+        at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.scala:18)
+        at scala.util.Try$.apply(Try.scala:217)
+        at org.apache.spark.util.SparkShutdownHookManager.runAll(ShutdownHookManager.scala:205)
+        at org.apache.spark.util.SparkShutdownHookManager$$anon$2.run(ShutdownHookManager.scala:184)
+        at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539)
+        at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+        at java.base/java.lang.Thread.run(Thread.java:840)
+SUCCESS: The process with PID 33760 (child process of PID 31740) has been terminated.
+SUCCESS: The process with PID 31740 (child process of PID 17896) has been terminated.
+SUCCESS: The process with PID 17896 (child process of PID 30096) has been terminated.
+
+(silver_venv) C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\Ticker>
