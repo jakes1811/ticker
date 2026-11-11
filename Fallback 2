@@ -3,11 +3,12 @@ import truststore
 truststore.inject_into_ssl()
 
 import requests
-import json
+import time
 from datetime import datetime
 
-# SBI company details
+# Configuration
 COMPANY_ID = "11984"
+POLL_INTERVAL = 30
 
 URL = "https://marketservices.indiatimes.com/marketservices/company"
 
@@ -22,49 +23,77 @@ HEADERS = {
 }
 
 
-def fetch_sbi_price():
+def fetch_sbi_price(session):
 
-    print("\nFetching SBI data from Economic Times...")
-
-    response = requests.get(
+    response = session.get(
         URL,
         params=PARAMS,
         headers=HEADERS,
         timeout=15
     )
 
-    print("HTTP Status:", response.status_code)
-
     response.raise_for_status()
 
     data = response.json()
+    nse = data.get("nse")
 
-    if data.get("nse") is None:
+    if not nse:
         raise ValueError("NSE data not available")
 
-    nse = data["nse"]
+    name = data.get("companyName", "State Bank of India")
+    price = nse.get("current")
+    change_percent = nse.get("percentChange")
 
-    result = {
-        "company": data.get("companyName"),
-        "symbol": data.get("nseScripCode"),
-        "current_price": nse.get("current"),
-        "change": nse.get("absoluteChange"),
-        "change_percent": nse.get("percentChange"),
-        "updated_at": nse.get("updatedDateTime"),
-        "source": "Economic Times"
+    if price is None or change_percent is None:
+        raise ValueError("Price or percentage change missing")
+
+    return {
+        "name": name,
+        "price": float(price),
+        "change_percent": float(change_percent)
     }
 
-    print("\n========== SBI STOCK PRICE ==========")
-    print(json.dumps(result, indent=4))
-    print("=====================================")
 
-    return result
+def main():
+
+    print("=" * 55)
+    print("       ECONOMIC TIMES - LIVE PRICE FETCHER")
+    print("=" * 55)
+    print("Stock       : State Bank of India")
+    print("Interval    : 30 seconds")
+    print("Source      : Economic Times")
+    print("Press Ctrl+C to stop")
+    print("=" * 55)
+
+    with requests.Session() as session:
+
+        while True:
+
+            try:
+                result = fetch_sbi_price(session)
+
+                print(
+                    f"\n[{datetime.now().strftime('%H:%M:%S')}] "
+                    f"{result['name']} | "
+                    f"Price: ₹{result['price']:.2f} | "
+                    f"Change: {result['change_percent']:+.2f}%"
+                )
+
+            except requests.RequestException as error:
+                print(f"\n[REQUEST ERROR] {error}")
+
+            except (ValueError, KeyError, TypeError) as error:
+                print(f"\n[DATA ERROR] {error}")
+
+            except Exception as error:
+                print(f"\n[ERROR] {error}")
+
+            print(f"Next fetch in {POLL_INTERVAL} seconds...")
+            time.sleep(POLL_INTERVAL)
 
 
 if __name__ == "__main__":
-
     try:
-        fetch_sbi_price()
-
-    except Exception as error:
-        print("\n[ERROR]", error)
+        main()
+    except KeyboardInterrupt:
+        print("\n\nFetcher stopped.")
