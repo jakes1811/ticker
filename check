@@ -1,87 +1,63 @@
-[2026-11-11 15:36:18,506] INFO [LogLoader partition=kraft-demo-topic-0, dir=C:\kafka_raft_logs] Reloading from producer snapshot and rebuilding producer state from offset 10 (org.apache.kafka.storage.internals.log.UnifiedLog)
-[2026-11-11 15:36:18,508] INFO Deleted producer state snapshot C:\kafka_raft_logs\kraft-demo-topic-0\00000000000000000010.snapshot (org.apache.kafka.storage.internals.log.SnapshotFile)
-[2026-11-11 15:36:18,508] INFO [LogLoader partition=kraft-demo-topic-0, dir=C:\kafka_raft_logs] Producer state recovery took 1ms for snapshot load and 0ms for segment recovery from offset 10 (org.apache.kafka.storage.internals.log.UnifiedLog)
-[2026-11-11 15:36:18,513] INFO Completed load of Log(dir=C:\kafka_raft_logs\kraft-demo-topic-0, topicId=9UP9T7bxScmDgENW5lS1pA, topic=kraft-demo-topic, partition=0, highWatermark=10, lastStableOffset=10, logStartOffset=10, logEndOffset=10) with 1 segments, local-log-start-offset 10 and log-end-offset 10 in 66ms (1/54 completed in C:\kafka_raft_logs) (org.apache.kafka.storage.internals.log.LogManager)
-[2026-11-11 15:36:18,532] INFO [ProducerStateManager partition=stock-prices-0] Wrote producer snapshot at offset 3987 with 18 producer ids in 4 ms. (org.apache.kafka.storage.internals.log.ProducerStateManager)
-[2026-11-11 15:36:18,540] INFO [LogLoader partition=stock-prices-1, dir=C:\kafka_raft_logs] Recovering unflushed segment 0. 0 recovered for stock-prices-1. (org.apache.kafka.storage.internals.log.LogLoader)
-[2026-11-11 15:36:18,542] INFO [LogLoader partition=stock-prices-1, dir=C:\kafka_raft_logs] Loading producer state till offset 0 (org.apache.kafka.storage.internals.log.UnifiedLog)
-[2026-11-11 15:36:18,543] INFO [LogLoader partition=stock-prices-1, dir=C:\kafka_raft_logs] Reloading from producer snapshot and rebuilding producer state from offset 0 (org.apache.kafka.storage.internals.log.UnifiedLog)
-[2026-11-11 15:36:18,544] INFO Deleted producer state snapshot C:\kafka_raft_logs\stock-prices-1\00000000000000003958.snapshot (org.apache.kafka.storage.internals.log.SnapshotFile)
-[2026-11-11 15:36:18,545] INFO [LogLoader partition=stock-prices-1, dir=C:\kafka_raft_logs] Producer state recovery took 2ms for snapshot load and 0ms for segment recovery from offset 0 (org.apache.kafka.storage.internals.log.UnifiedLog)
-[2026-11-11 15:36:18,545] INFO [LogLoader partition=stock-prices-0, dir=C:\kafka_raft_logs] Loading producer state till offset 3987 (org.apache.kafka.storage.internals.log.UnifiedLog)
-[2026-11-11 15:36:18,545] INFO [LogLoader partition=stock-prices-0, dir=C:\kafka_raft_logs] Reloading from producer snapshot and rebuilding producer state from offset 3987 (org.apache.kafka.storage.internals.log.UnifiedLog)
-[2026-11-11 15:36:18,547] INFO [ProducerStateManager partition=stock-prices-0] Loading producer state from snapshot file 'SnapshotFile(offset=3987, file=C:\kafka_raft_logs\stock-prices-0\00000000000000003987.snapshot)' (org.apache.kafka.storage.internals.log.ProducerStateManager)
-[2026-11-11 15:36:18,557] INFO [LogLoader partition=stock-prices-0, dir=C:\kafka_raft_logs] Producer state recovery took 10ms for snapshot load and 0ms for segment recovery from offset 3987 (org.apache.kafka.storage.internals.log.UnifiedLog)
-[2026-11-11 15:36:18,560] INFO Found stray log dir Log(dir=C:\kafka_raft_logs\stock-prices-0, topicId=uM_7twaMSOKPTo0LQSvK7A, topic=stock-prices, partition=0, highWatermark=0, lastStableOffset=0, logStartOffset=0, logEndOffset=3987): the topicId uM_7twaMSOKPTo0LQSvK7A does not exist in the metadata image. (org.apache.kafka.storage.internals.log.LogManager)
-[2026-11-11 15:36:18,574] WARN Failed atomic move of C:\kafka_raft_logs\stock-prices-0 to C:\kafka_raft_logs\stock-prices-0.8a6f0b142b55461d8ce88a637938c565-stray retrying with a non-atomic move (org.apache.kafka.common.utils.Utils)
-java.nio.file.AccessDeniedException: C:\kafka_raft_logs\stock-prices-0 -> C:\kafka_raft_logs\stock-prices-0.8a6f0b142b55461d8ce88a637938c565-stray
-        at java.base/sun.nio.fs.WindowsException.translateToIOException(WindowsException.java:89)
-        at java.base/sun.nio.fs.WindowsException.rethrowAsIOException(WindowsException.java:103)
-        at java.base/sun.nio.fs.WindowsFileCopy.move(WindowsFileCopy.java:317)
-        at java.base/sun.nio.fs.WindowsFileSystemProvider.move(WindowsFileSystemProvider.java:293)
-        at java.base/java.nio.file.Files.move(Files.java:1432)
-        at org.apache.kafka.common.utils.Utils.atomicMoveWithFallback(Utils.java:943)
-        at org.apache.kafka.common.utils.Utils.atomicMoveWithFallback(Utils.java:929)
-        at org.apache.kafka.storage.internals.log.LocalLog.lambda$renameDir$1(LocalLog.java:204)
-        at org.apache.kafka.storage.internals.log.LocalLog.maybeHandleIOException(LocalLog.java:821)
-        at org.apache.kafka.storage.internals.log.LocalLog.maybeHandleIOException(LocalLog.java:191)
-        at org.apache.kafka.storage.internals.log.LocalLog.renameDir(LocalLog.java:200)
-        at org.apache.kafka.storage.internals.log.UnifiedLog.lambda$renameDir$1(UnifiedLog.java:1000)
-        at org.apache.kafka.storage.internals.log.LocalLog.maybeHandleIOException(LocalLog.java:821)
-        at org.apache.kafka.storage.internals.log.UnifiedLog.maybeHandleIOException(UnifiedLog.java:2521)
-        at org.apache.kafka.storage.internals.log.UnifiedLog.renameDir(UnifiedLog.java:995)
-        at org.apache.kafka.storage.internals.log.LogManager.loadLog(LogManager.java:551)
-        at org.apache.kafka.storage.internals.log.LogManager.lambda$loadLogs$2(LogManager.java:680)
-        at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539)
-        at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
-        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
-        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
-        at java.base/java.lang.Thread.run(Thread.java:840)
-[2026-11-11 15:36:18,580] ERROR Error while renaming dir for stock-prices-0 in log dir C:\kafka_raft_logs (org.apache.kafka.storage.internals.log.LogDirFailureChannel)
-java.nio.file.AccessDeniedException: C:\kafka_raft_logs\stock-prices-0 -> C:\kafka_raft_logs\stock-prices-0.8a6f0b142b55461d8ce88a637938c565-stray
-        at java.base/sun.nio.fs.WindowsException.translateToIOException(WindowsException.java:89)
-        at java.base/sun.nio.fs.WindowsException.rethrowAsIOException(WindowsException.java:103)
-        at java.base/sun.nio.fs.WindowsFileCopy.move(WindowsFileCopy.java:403)
-        at java.base/sun.nio.fs.WindowsFileSystemProvider.move(WindowsFileSystemProvider.java:293)
-        at java.base/java.nio.file.Files.move(Files.java:1432)
-        at org.apache.kafka.common.utils.Utils.atomicMoveWithFallback(Utils.java:947)
-        at org.apache.kafka.common.utils.Utils.atomicMoveWithFallback(Utils.java:929)
-        at org.apache.kafka.storage.internals.log.LocalLog.lambda$renameDir$1(LocalLog.java:204)
-        at org.apache.kafka.storage.internals.log.LocalLog.maybeHandleIOException(LocalLog.java:821)
-        at org.apache.kafka.storage.internals.log.LocalLog.maybeHandleIOException(LocalLog.java:191)
-        at org.apache.kafka.storage.internals.log.LocalLog.renameDir(LocalLog.java:200)
-        at org.apache.kafka.storage.internals.log.UnifiedLog.lambda$renameDir$1(UnifiedLog.java:1000)
-        at org.apache.kafka.storage.internals.log.LocalLog.maybeHandleIOException(LocalLog.java:821)
-        at org.apache.kafka.storage.internals.log.UnifiedLog.maybeHandleIOException(UnifiedLog.java:2521)
-        at org.apache.kafka.storage.internals.log.UnifiedLog.renameDir(UnifiedLog.java:995)
-        at org.apache.kafka.storage.internals.log.LogManager.loadLog(LogManager.java:551)
-        at org.apache.kafka.storage.internals.log.LogManager.lambda$loadLogs$2(LogManager.java:680)
-        at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539)
-        at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
-        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
-        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
-        at java.base/java.lang.Thread.run(Thread.java:840)
-        Suppressed: java.nio.file.AccessDeniedException: C:\kafka_raft_logs\stock-prices-0 -> C:\kafka_raft_logs\stock-prices-0.8a6f0b142b55461d8ce88a637938c565-stray
-                at java.base/sun.nio.fs.WindowsException.translateToIOException(WindowsException.java:89)
-                at java.base/sun.nio.fs.WindowsException.rethrowAsIOException(WindowsException.java:103)
-                at java.base/sun.nio.fs.WindowsFileCopy.move(WindowsFileCopy.java:317)
-                at java.base/sun.nio.fs.WindowsFileSystemProvider.move(WindowsFileSystemProvider.java:293)
-                at java.base/java.nio.file.Files.move(Files.java:1432)
-                at org.apache.kafka.common.utils.Utils.atomicMoveWithFallback(Utils.java:943)
-                ... 16 more
-[2026-11-11 15:36:18,583] INFO Error while loading logs in C:\kafka_raft_logs\stock-prices-0 in 136ms (2/54 completed in C:\kafka_raft_logs) (org.apache.kafka.storage.internals.log.LogManager)
-[2026-11-11 15:36:18,596] INFO [LogLoader partition=stock-prices-2, dir=C:\kafka_raft_logs] Recovering unflushed segment 0. 0 recovered for stock-prices-2. (org.apache.kafka.storage.internals.log.LogLoader)
-[2026-11-11 15:36:18,601] INFO [ProducerStateManager partition=stock-prices-1] Wrote producer snapshot at offset 3958 with 18 producer ids in 4 ms. (org.apache.kafka.storage.internals.log.ProducerStateManager)
-[2026-11-11 15:36:18,601] INFO [LogLoader partition=stock-prices-2, dir=C:\kafka_raft_logs] Loading producer state till offset 0 (org.apache.kafka.storage.internals.log.UnifiedLog)
-[2026-11-11 15:36:18,603] INFO [LogLoader partition=stock-prices-2, dir=C:\kafka_raft_logs] Reloading from producer snapshot and rebuilding producer state from offset 0 (org.apache.kafka.storage.internals.log.UnifiedLog)
-[2026-11-11 15:36:18,604] INFO [LogLoader partition=stock-prices-2, dir=C:\kafka_raft_logs] Producer state recovery took 0ms for snapshot load and 0ms for segment recovery from offset 0 (org.apache.kafka.storage.internals.log.UnifiedLog)
-[2026-11-11 15:36:18,611] INFO [LogLoader partition=stock-prices-1, dir=C:\kafka_raft_logs] Loading producer state till offset 3958 (org.apache.kafka.storage.internals.log.UnifiedLog)
-[2026-11-11 15:36:18,612] INFO [LogLoader partition=stock-prices-1, dir=C:\kafka_raft_logs] Reloading from producer snapshot and rebuilding producer state from offset 3958 (org.apache.kafka.storage.internals.log.UnifiedLog)
-[2026-11-11 15:36:18,613] INFO [ProducerStateManager partition=stock-prices-1] Loading producer state from snapshot file 'SnapshotFile(offset=3958, file=C:\kafka_raft_logs\stock-prices-1\00000000000000003958.snapshot)' (org.apache.kafka.storage.internals.log.ProducerStateManager)
-[2026-11-11 15:36:18,616] INFO [LogLoader partition=stock-prices-1, dir=C:\kafka_raft_logs] Producer state recovery took 3ms for snapshot load and 0ms for segment recovery from offset 3958 (org.apache.kafka.storage.internals.log.UnifiedLog)
-[2026-11-11 15:36:18,623] INFO Found stray log dir Log(dir=C:\kafka_raft_logs\stock-prices-1, topicId=uM_7twaMSOKPTo0LQSvK7A, topic=stock-prices, partition=1, highWatermark=0, lastStableOffset=0, logStartOffset=0, logEndOffset=3958): the topicId uM_7twaMSOKPTo0LQSvK7A does not exist in the metadata image. (org.apache.kafka.storage.internals.log.LogManager)
-[2026-11-11 15:36:18,624] INFO Error while loading logs in C:\kafka_raft_logs\stock-prices-1 in 109ms (3/54 completed in C:\kafka_raft_logs) (org.apache.kafka.storage.internals.log.LogManager)
-[2026-11-11 15:36:18,625] ERROR There was an error in one of the threads during logs loading (org.apache.kafka.storage.internals.log.LogManager)
-org.apache.kafka.common.errors.KafkaStorageException: The log dir C:\kafka_raft_logs is already offline due to a previous IO exception.
-[2026-11-11 15:36:18,628] ERROR Encountered fatal fault: Error starting LogManager (org.apache.kafka.server.fault.ProcessTerminatingFaultHandler)
-org.apache.kafka.common.errors.KafkaStorageException: The log dir C:\kafka_raft_logs is already offline due to a previous IO exception.
+I am configuring Apache Kafka 4.4.0 on a Windows 11 organisation-managed laptop. I do not have administrator privileges.
+
+Project environment:
+
+- Kafka installation: "C:\kafka_2.13-4.4.0"
+- Kafka version: 4.4.0
+- Java is installed.
+- Kafka uses KRaft mode (no ZooKeeper).
+- Kafka configuration file: "config\server-new.properties"
+- Intended Kafka storage directory: "C:\Users\2000209445\kafka_new_storage"
+- Kafka broker address: "localhost:9092"
+- Controller address: "localhost:9093"
+- Cluster ID is stored in the CMD environment variable "KAFKA_CLUSTER_ID".
+
+Problem:
+
+Kafka server repeatedly terminates during startup with:
+
+"KafkaStorageException: The log dir C:\kafka_raft_logs is already offline due to a previous IO exception."
+
+Earlier, Kafka failed with:
+
+"java.nio.file.AccessDeniedException"
+
+The old directory "C:\kafka_raft_logs" has permission and file-attribute issues.
+
+I created a new storage directory and a separate configuration file named "server-new.properties".
+
+I updated its "log.dirs" property to:
+
+"log.dirs=C:/Users/2000209445/kafka_new_storage"
+
+However, the new storage directory remains empty. Kafka formatting appears to return to the CMD prompt without creating "meta.properties".
+
+What I need you to do:
+
+1. Inspect my actual Kafka installation and "config\server-new.properties".
+2. Identify every configuration property that could still point to the old storage directory, including "log.dirs" and "metadata.log.dir".
+3. Check that the new configuration is valid for Kafka 4.4.0 KRaft standalone mode.
+4. Inspect the Kafka storage formatting command and determine why it is not creating metadata files.
+5. Check the Java version, Kafka scripts, environment variables, directory permissions, and file attributes.
+6. Check whether any existing Java/Kafka process is interfering with startup.
+7. Correct the configuration so Kafka uses ONLY "C:\Users\2000209445\kafka_new_storage".
+8. Ensure the storage formatting process uses the existing "KAFKA_CLUSTER_ID" and the correct configuration file.
+9. Verify that "meta.properties" is created in the new storage directory.
+10. Start Kafka and verify that the broker successfully listens on port 9092.
+
+Important restrictions:
+
+- Do not require administrator privileges.
+- Do not modify organisation security policies.
+- Do not delete the existing Kafka installation or old Kafka data.
+- Do not overwrite or format existing data without checking first.
+- Do not generate a new cluster ID unnecessarily.
+- Do not switch to ZooKeeper. Keep KRaft mode.
+- Do not change my stock producer's Kafka topic or broker configuration.
+- Do not claim success unless you verify it.
+
+Working approach:
+
+First inspect the existing files and environment. Explain the root cause. Then make the minimum necessary safe changes. Show me each change and verify it before proceeding.
+
+I want a working Kafka broker using the new user-writable storage directory, without administrator access.
