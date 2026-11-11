@@ -1,4 +1,3 @@
-
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import (
     col,
@@ -56,3 +55,22 @@ spark.sparkContext.setLogLevel("WARN")
 
 print("Spark Version:", spark.version)
 print("Silver Spark Session Started!")
+
+# -----------------------------
+# KAFKA JSON SCHEMA
+# -----------------------------
+
+stock_schema = StructType([
+    StructField("symbol", StringType(), True),
+    StructField("yahoo_symbol", StringType(), True),
+    StructField("current_price", DoubleType(), True),
+    StructField("change", DoubleType(), True),
+    StructField("change_percent", DoubleType(), True),
+    StructField("currency", StringType(), True),
+    StructField("source", StringType(), True),
+    StructField("timestamp", StringType(), True),
+    StructField("fetched_at", StringType(), True),
+    StructField("ingested_at", StringType(), True)
+])
+
+print("Stock JSON schema defined successfully!")
