@@ -1,12 +1,3 @@
-
-"""
-INDIAN STOCK SILVER LAYER
-Kafka -> PySpark Structured Streaming -> Delta Lake
-
-Run from the Ticker project root:
-python .\silver\stock_silver.py
-"""
-
 import os
 from pathlib import Path
 
@@ -100,11 +91,13 @@ def create_spark_session():
         SparkSession.builder
         .appName("Indian-Stock-Silver-Layer")
 
+        # Kafka connector
         .config(
             "spark.jars.packages",
             "org.apache.spark:spark-sql-kafka-0-10_2.13:4.1.1"
         )
 
+        # Delta Lake configuration
         .config(
             "spark.sql.extensions",
             "io.delta.sql.DeltaSparkSessionExtension"
@@ -120,7 +113,10 @@ def create_spark_session():
     )
 
     spark = configure_spark_with_delta_pip(
-        builder
+        builder,
+        extra_packages=[
+            "org.apache.spark:spark-sql-kafka-0-10_2.13:4.1.1"
+        ]            
     ).getOrCreate()
 
     spark.sparkContext.setLogLevel("WARN")
