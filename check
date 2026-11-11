@@ -25,3 +25,15 @@ C:\hadoop\bin\winutils.exe
 ```
 
 These settings apply to the current terminal session, regardless of whether `(silver_venv)` is activated. If you close the terminal, you'll need to run them again.
+
+
+
+
+
+
+
+
+(silver_venv) C:\>$env:HADOOP_HOME = "C:\hadoop"
+The filename, directory name, or volume label syntax is incorrect.
+
+(silver_venv) C:\>
