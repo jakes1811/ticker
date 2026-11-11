@@ -1,99 +1,67 @@
 
+import requests
 import truststore
+
 truststore.inject_into_ssl()
 
-import requests
-import time
-from datetime import datetime
+ET_COMPANY_URL = (
+    "https://marketservices.indiatimes.com/marketservices/company"
+)
 
-# Configuration
-COMPANY_ID = "11984"
-POLL_INTERVAL = 30
-
-URL = "https://marketservices.indiatimes.com/marketservices/company"
-
-PARAMS = {
-    "companyid": COMPANY_ID,
-    "companytype": "equity"
+ET_COMPANY_IDS = {
+    "Reliance Industries": "13215",
+    "Tata Consultancy Services": "8345",
+    "Infosys": "10960",
+    "HDFC Bank": "9195",
+    "ICICI Bank": "9194",
+    "Tata Steel": "12902",
+    "State Bank of India": "11984",
+    "ITC": "13554",
+    "Sun Pharmaceutical": "9134",
+    "Bharti Airtel": "2718"
 }
 
-HEADERS = {
+session = requests.Session()
+session.headers.update({
     "User-Agent": "Mozilla/5.0",
     "Accept": "application/json"
-}
+})
 
+for expected_name, company_id in ET_COMPANY_IDS.items():
 
-def fetch_sbi_price(session):
-
-    response = session.get(
-        URL,
-        params=PARAMS,
-        headers=HEADERS,
-        timeout=15
-    )
-
-    response.raise_for_status()
-
-    data = response.json()
-    nse = data.get("nse")
-
-    if not nse:
-        raise ValueError("NSE data not available")
-
-    name = data.get("companyName", "State Bank of India")
-    price = nse.get("current")
-    change_percent = nse.get("percentChange")
-
-    if price is None or change_percent is None:
-        raise ValueError("Price or percentage change missing")
-
-    return {
-        "name": name,
-        "price": float(price),
-        "change_percent": float(change_percent)
-    }
-
-
-def main():
-
-    print("=" * 55)
-    print("       ECONOMIC TIMES - LIVE PRICE FETCHER")
-    print("=" * 55)
-    print("Stock       : State Bank of India")
-    print("Interval    : 30 seconds")
-    print("Source      : Economic Times")
-    print("Press Ctrl+C to stop")
-    print("=" * 55)
-
-    with requests.Session() as session:
-
-        while True:
-
-            try:
-                result = fetch_sbi_price(session)
-
-                print(
-                    f"\n[{datetime.now().strftime('%H:%M:%S')}] "
-                    f"{result['name']} | "
-                    f"Price: ₹{result['price']:.2f} | "
-                    f"Change: {result['change_percent']:+.2f}%"
-                )
-
-            except requests.RequestException as error:
-                print(f"\n[REQUEST ERROR] {error}")
-
-            except (ValueError, KeyError, TypeError) as error:
-                print(f"\n[DATA ERROR] {error}")
-
-            except Exception as error:
-                print(f"\n[ERROR] {error}")
-
-            print(f"Next fetch in {POLL_INTERVAL} seconds...")
-            time.sleep(POLL_INTERVAL)
-
-
-if __name__ == "__main__":
     try:
-        main()
-    except KeyboardInterrupt:
-        print("\n\nFetcher stopped.")
+        response = session.get(
+            ET_COMPANY_URL,
+            params={
+                "companyid": company_id,
+                "companytype": "equity"
+            },
+            timeout=15
+        )
+        response.raise_for_status()
+
+        data = response.json()
+        nse = data.get("nse") or {}
+
+        actual_name = data.get("companyName", "Unknown")
+        price = nse.get("current")
+
+        if (
+            expected_name.lower() in actual_name.lower()
+            and price is not None
+        ):
+            print(
+                f"[VALID] {expected_name} | "
+                f"₹{float(price):.2f}"
+            )
+        else:
+            print(
+                f"[VERIFY] Expected: {expected_name} | "
+                f"Received: {actual_name} | "
+                f"Price: {price}"
+            )
+
+    except Exception as error:
+        print(f"[FAILED] {expected_name}: {error}")
+
+session.close()
