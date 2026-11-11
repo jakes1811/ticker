@@ -1,39 +1,5 @@
-Yes bro! ❤️ But don't put it inside your Python code or `.env` file.
+set HADOOP_HOME=C:\hadoop
 
-Run it directly in your VS Code PowerShell terminal, where `(silver_venv)` is activated.
+set PATH=%HADOOP_HOME%\bin;%PATH%
 
-```
-$env:HADOOP_HOME = "C:\hadoop"
-```
-
-Then run:
-
-```
-$env:PATH = "$env:HADOOP_HOME\bin;$env:PATH"
-```
-
-Verify:
-
-```
-where.exe winutils
-```
-
-Expected output:
-
-```
-C:\hadoop\bin\winutils.exe
-```
-
-These settings apply to the current terminal session, regardless of whether `(silver_venv)` is activated. If you close the terminal, you'll need to run them again.
-
-
-
-
-
-
-
-
-(silver_venv) C:\>$env:HADOOP_HOME = "C:\hadoop"
-The filename, directory name, or volume label syntax is incorrect.
-
-(silver_venv) C:\>
+where winutils
