@@ -1,13 +1,2 @@
-C:\>cd C:\kafka_2.13-4.4.0                                                           
-
-C:\kafka_2.13-4.4.0>cd /d C:\kafka
-
-C:\kafka>bin\windows\zookeeper-server-start.bat config\zookeeper.properties
-The system cannot find the path specified.
-
-C:\kafka>cd /d C:\kafka
-
-C:\kafka>bin\windows\kafka-server-start.bat config\server.properties
-The system cannot find the path specified.
-
-C:\kafka>
+bin\windows\kafka-server-start.bat config\server.properties
+set KAFKA_HEAP_OPTS=-Xmx1G -Xms1G
