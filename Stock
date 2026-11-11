@@ -35,38 +35,82 @@ ET_COMPANY_URL = (
 
 
 # ============================================================
-# STOCKS
+# FINAL STOCK MASTER - 13 STOCKS
 # ============================================================
 
 STOCKS = {
-    "Reliance Industries": "RELIANCE.NS",
-    "Tata Consultancy Services": "TCS.NS",
-    "Infosys": "INFY.NS",
-    "HDFC Bank": "HDFCBANK.NS",
-    "ICICI Bank": "ICICIBANK.NS",
-    "Tata Steel": "TATASTEEL.NS",
-    "State Bank of India": "SBIN.NS",
-    "ITC": "ITC.NS",
-    "Sun Pharmaceutical": "SUNPHARMA.NS",
-    "Bharti Airtel": "BHARTIARTL.NS"
+    "RELIANCE": {
+        "name": "Reliance Industries",
+        "yahoo_symbol": "RELIANCE.NS"
+    },
+    "TCS": {
+        "name": "Tata Consultancy Services",
+        "yahoo_symbol": "TCS.NS"
+    },
+    "INFY": {
+        "name": "Infosys",
+        "yahoo_symbol": "INFY.NS"
+    },
+    "HDFCBANK": {
+        "name": "HDFC Bank",
+        "yahoo_symbol": "HDFCBANK.NS"
+    },
+    "ICICIBANK": {
+        "name": "ICICI Bank",
+        "yahoo_symbol": "ICICIBANK.NS"
+    },
+    "TATASTEEL": {
+        "name": "Tata Steel",
+        "yahoo_symbol": "TATASTEEL.NS"
+    },
+    "SBIN": {
+        "name": "State Bank of India",
+        "yahoo_symbol": "SBIN.NS"
+    },
+    "ITC": {
+        "name": "ITC",
+        "yahoo_symbol": "ITC.NS"
+    },
+    "SUNPHARMA": {
+        "name": "Sun Pharmaceutical",
+        "yahoo_symbol": "SUNPHARMA.NS"
+    },
+    "BHARTIARTL": {
+        "name": "Bharti Airtel",
+        "yahoo_symbol": "BHARTIARTL.NS"
+    },
+    "ADANIENT": {
+        "name": "Adani Enterprises",
+        "yahoo_symbol": "ADANIENT.NS"
+    },
+    "COALINDIA": {
+        "name": "Coal India",
+        "yahoo_symbol": "COALINDIA.NS"
+    },
+    "BAJFINANCE": {
+        "name": "Bajaj Finance",
+        "yahoo_symbol": "BAJFINANCE.NS"
+    }
 }
 
 
 # ============================================================
 # ECONOMIC TIMES COMPANY IDS
+# Existing mappings retained from your implementation.
+# Additional IDs must be verified before adding.
 # ============================================================
 
 ET_COMPANY_IDS = {
-    "Reliance Industries": "13215",
-    "Tata Consultancy Services": "8345",
-    "Infosys": "10960",
-    "HDFC Bank": "9195",
-    "ICICI Bank": "9194",
-    "Tata Steel": "12902",
-    "State Bank of India": "11984",
+    "RELIANCE": "13215",
+    "TCS": "8345",
+    "INFY": "10960",
+    "HDFCBANK": "9195",
+    "ICICIBANK": "9194",
+    "TATASTEEL": "12902",
+    "SBIN": "11984",
     "ITC": "13554",
-    "Sun Pharmaceutical": "9134",
-    "Bharti Airtel": "2718"
+    "SUNPHARMA": "9134",
+    "BHARTIARTL": "2718"
 }
 
 
@@ -163,26 +207,19 @@ def update_cache(message):
 # INDIANAPI - PRIMARY SOURCE
 # ============================================================
 
-def fetch_indianapi(stock_name):
+def fetch_indianapi(symbol):
 
-    if not API_KEY:
-
-        raise RuntimeError("INDIANAPI_KEY is missing")
+    stock = STOCKS[symbol]
 
     response = api_session.get(
         INDIANAPI_URL,
-        params={"name": stock_name},
+        params={"name": stock["name"]},
         timeout=REQUEST_TIMEOUT
     )
 
     response.raise_for_status()
 
     data = response.json()
-
-    company_name = data.get(
-        "companyName",
-        stock_name
-    )
 
     current_price = (
         data.get("currentPrice", {}).get("NSE")
@@ -211,8 +248,8 @@ def fetch_indianapi(stock_name):
             change = current_price - previous_close
 
     return {
-        "name": company_name,
-        "symbol": STOCKS[stock_name],
+        "symbol": symbol,
+        "yahoo_symbol": stock["yahoo_symbol"],
         "current_price": current_price,
         "change": change,
         "change_percent": percent_change,
@@ -226,12 +263,14 @@ def fetch_indianapi(stock_name):
 # YAHOO FINANCE - FALLBACK 1
 # ============================================================
 
-def fetch_yahoo(stock_name):
+def fetch_yahoo(symbol):
 
-    symbol = STOCKS[stock_name]
+    stock = STOCKS[symbol]
+
+    yahoo_symbol = stock["yahoo_symbol"]
 
     response = yahoo_session.get(
-        f"{YAHOO_URL}{symbol}",
+        f"{YAHOO_URL}{yahoo_symbol}",
         params={
             "range": "1d",
             "interval": "1m"
@@ -297,8 +336,8 @@ def fetch_yahoo(stock_name):
         source_timestamp = get_timestamp()
 
     return {
-        "name": stock_name,
         "symbol": symbol,
+        "yahoo_symbol": yahoo_symbol,
         "current_price": current_price,
         "change": change,
         "change_percent": change_percent,
@@ -313,14 +352,16 @@ def fetch_yahoo(stock_name):
 # ECONOMIC TIMES - FALLBACK 2
 # ============================================================
 
-def fetch_economic_times(stock_name):
+def fetch_economic_times(symbol):
 
-    company_id = ET_COMPANY_IDS.get(stock_name)
+    stock = STOCKS[symbol]
+
+    company_id = ET_COMPANY_IDS.get(symbol)
 
     if not company_id:
 
         raise ValueError(
-            f"ET company ID missing for {stock_name}"
+            f"ET company ID not configured for {symbol}"
         )
 
     response = et_session.get(
@@ -357,8 +398,8 @@ def fetch_economic_times(stock_name):
         raise ValueError("ET percentage change missing")
 
     return {
-        "name": data.get("companyName", stock_name),
-        "symbol": STOCKS[stock_name],
+        "symbol": symbol,
+        "yahoo_symbol": stock["yahoo_symbol"],
         "current_price": float(current_price),
         "change": (
             float(change) if change is not None else None
@@ -368,7 +409,8 @@ def fetch_economic_times(stock_name):
         "source": "Economic Times",
         "timestamp": (
             nse.get("updatedDateTime") or get_timestamp()
-        )
+        ),
+        "fetched_at": get_timestamp()
     }
 
 
@@ -376,7 +418,7 @@ def fetch_economic_times(stock_name):
 # STOCK FETCHING WITH FALLBACK
 # ============================================================
 
-def process_stock(stock_name):
+def process_stock(symbol):
 
     # --------------------------------------------------------
     # STEP 1: INDIANAPI
@@ -384,7 +426,7 @@ def process_stock(stock_name):
 
     try:
 
-        message = fetch_indianapi(stock_name)
+        message = fetch_indianapi(symbol)
 
         update_cache(message)
 
@@ -393,7 +435,7 @@ def process_stock(stock_name):
     except Exception as error:
 
         print(
-            f"[INDIANAPI FAILED] {stock_name}: {error}"
+            f"[INDIANAPI FAILED] {symbol}: {error}"
         )
 
     # --------------------------------------------------------
@@ -402,7 +444,7 @@ def process_stock(stock_name):
 
     try:
 
-        message = fetch_yahoo(stock_name)
+        message = fetch_yahoo(symbol)
 
         update_cache(message)
 
@@ -411,7 +453,7 @@ def process_stock(stock_name):
     except Exception as error:
 
         print(
-            f"[YAHOO FAILED] {stock_name}: {error}"
+            f"[YAHOO FAILED] {symbol}: {error}"
         )
 
     # --------------------------------------------------------
@@ -420,7 +462,7 @@ def process_stock(stock_name):
 
     try:
 
-        message = fetch_economic_times(stock_name)
+        message = fetch_economic_times(symbol)
 
         update_cache(message)
 
@@ -429,18 +471,18 @@ def process_stock(stock_name):
     except Exception as error:
 
         print(
-            f"[ET FAILED] {stock_name}: {error}"
+            f"[ET FAILED] {symbol}: {error}"
         )
 
     print(
-        f"[ALL SOURCES FAILED] {stock_name}"
+        f"[ALL SOURCES FAILED] {symbol}"
     )
 
     return None
 
 
 # ============================================================
-# FETCHER THREAD - EVERY 10 SECONDS
+# STOCK FETCHER THREAD - EVERY 10 SECONDS
 # ============================================================
 
 def stock_fetcher():
@@ -459,28 +501,33 @@ def stock_fetcher():
 
         print("=" * 65)
 
-        for stock_name in STOCKS:
+        for symbol in STOCKS:
 
             if stop_event.is_set():
 
                 break
 
-            message = process_stock(stock_name)
+            message = process_stock(symbol)
 
             if message:
 
-                print(
-                    f"[FETCHED] {message['name']} | "
-                    f"Price: ₹{message['current_price']:.2f} | "
-                    f"Change: {message['change_percent']:+.2f}% "
-                    f"| Source: {message['source']}"
-                    if message.get("change_percent") is not None
-                    else (
-                        f"[FETCHED] {message['name']} | "
-                        f"Price: ₹{message['current_price']:.2f} "
-                        f"| Change: Unavailable"
+                if message.get("change_percent") is not None:
+
+                    print(
+                        f"[FETCHED] {message['symbol']} | "
+                        f"Price: ₹{message['current_price']:.2f} | "
+                        f"Change: {message['change_percent']:+.2f}% | "
+                        f"Source: {message['source']}"
                     )
-                )
+
+                else:
+
+                    print(
+                        f"[FETCHED] {message['symbol']} | "
+                        f"Price: ₹{message['current_price']:.2f} | "
+                        f"Change: Unavailable | "
+                        f"Source: {message['source']}"
+                    )
 
             if stop_event.wait(REQUEST_GAP):
 
@@ -527,7 +574,7 @@ def kafka_publisher():
 
             continue
 
-        # Take a thread-safe snapshot of latest stock data.
+        # Take a thread-safe snapshot.
 
         with cache_lock:
 
@@ -536,14 +583,11 @@ def kafka_publisher():
                 for message in latest_stock_data.values()
             ]
 
-        # Wait until all 10 stocks have been fetched once.
+        # Wait until all 13 stocks have been fetched once.
 
         if len(stock_snapshot) == len(STOCKS):
 
             for message in stock_snapshot:
-
-                # Preserve original market observation timestamp.
-                # Add a separate timestamp for Kafka ingestion.
 
                 message["ingested_at"] = get_timestamp()
 
@@ -611,11 +655,17 @@ if __name__ == "__main__":
 
     print("Total stocks         :", len(STOCKS))
 
-    print("Expected message rate:", len(STOCKS) * 10, "messages/sec")
+    print(
+        "Expected message rate:",
+        len(STOCKS) * 10,
+        "messages/sec"
+    )
 
     print("Kafka broker         :", KAFKA_BROKER)
 
     print("Kafka topic          :", KAFKA_TOPIC)
+
+    print("\nDisplay format       : Canonical NSE symbols")
 
     print("\nPress Ctrl+C to stop.")
 
@@ -640,13 +690,9 @@ if __name__ == "__main__":
 
     try:
 
-        # Start independent threads.
-
         fetcher_thread.start()
 
         publisher_thread.start()
-
-        # Keep the main thread alive.
 
         while (
             fetcher_thread.is_alive()
@@ -674,10 +720,8 @@ if __name__ == "__main__":
         producer.close()
 
         api_session.close()
-
         yahoo_session.close()
 
         et_session.close()
 
         print("\nProducer stopped successfully.")
-
