@@ -1,14 +1,5 @@
-yfinance
-PyPDF2
-pypdf
 kafka-python
-requests 
-urllib3  
-curl_cffi 
-beautifulsoup4 
-lxml 
-pandas 
-numpy 
-kafka-python 
-pyspark
+requests
 truststore
+pyspark==4.1.4
+delta-spark==4.3.1
