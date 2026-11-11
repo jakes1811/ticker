@@ -8,3 +8,5 @@ https://etapi.indiatimes.com/charts/mrkts/history?symbol=SBINEQ&resolution=1
 cd /d C:\kafka_2.13-4.4.0
 
 bin\windows\kafka-topics.bat --bootstrap-server localhost:9092 --list
+
+bin\windows\kafka-topics.bat --bootstrap-server localhost:9092 --list
