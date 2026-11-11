@@ -1,0 +1,70 @@
+
+import truststore
+truststore.inject_into_ssl()
+
+import requests
+import json
+from datetime import datetime
+
+# SBI company details
+COMPANY_ID = "11984"
+
+URL = "https://marketservices.indiatimes.com/marketservices/company"
+
+PARAMS = {
+    "companyid": COMPANY_ID,
+    "companytype": "equity"
+}
+
+HEADERS = {
+    "User-Agent": "Mozilla/5.0",
+    "Accept": "application/json"
+}
+
+
+def fetch_sbi_price():
+
+    print("\nFetching SBI data from Economic Times...")
+
+    response = requests.get(
+        URL,
+        params=PARAMS,
+        headers=HEADERS,
+        timeout=15
+    )
+
+    print("HTTP Status:", response.status_code)
+
+    response.raise_for_status()
+
+    data = response.json()
+
+    if data.get("nse") is None:
+        raise ValueError("NSE data not available")
+
+    nse = data["nse"]
+
+    result = {
+        "company": data.get("companyName"),
+        "symbol": data.get("nseScripCode"),
+        "current_price": nse.get("current"),
+        "change": nse.get("absoluteChange"),
+        "change_percent": nse.get("percentChange"),
+        "updated_at": nse.get("updatedDateTime"),
+        "source": "Economic Times"
+    }
+
+    print("\n========== SBI STOCK PRICE ==========")
+    print(json.dumps(result, indent=4))
+    print("=====================================")
+
+    return result
+
+
+if __name__ == "__main__":
+
+    try:
+        fetch_sbi_price()
+
+    except Exception as error:
+        print("\n[ERROR]", error)
