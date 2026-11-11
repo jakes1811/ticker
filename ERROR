@@ -145,4 +145,274 @@ SUCCESS: The process with PID 33760 (child process of PID 31740) has been termin
 SUCCESS: The process with PID 31740 (child process of PID 17896) has been terminated.
 SUCCESS: The process with PID 17896 (child process of PID 30096) has been terminated.
 
+(silver_venv) C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\Ticker>python .\silver\stock_silver.py
+WARNING: Using incubator modules: jdk.incubator.vector
+:: loading settings :: url = jar:file:/C:/Users/2000209445/OneDrive%20-%20Hexaware%20Technologies/Desktop/Ticker/silver_venv/Lib/site-packages/pyspark/jars/ivy-2.5.3.jar!/org/apache/ivy/core/settings/ivysettings.xml
+Ivy Default Cache set to: C:\Users\2000209445\.ivy2.5.2\cache
+The jars for the packages stored in: C:\Users\2000209445\.ivy2.5.2\jars
+io.delta#delta-spark_4.1_2.13 added as a dependency
+:: resolving dependencies :: org.apache.spark#spark-submit-parent-03bc2f5f-5ed2-4628-adbf-8b8ec06df08c;1.0
+        confs: [default]
+        found io.delta#delta-spark_4.1_2.13;4.3.1 in central
+        found io.delta#delta-storage;4.3.1 in central
+        found io.unitycatalog#unitycatalog-client;0.5.0 in central
+        found org.slf4j#slf4j-api;2.0.13 in central
+        found org.apache.logging.log4j#log4j-slf4j2-impl;2.25.3 in central
+        found org.apache.logging.log4j#log4j-api;2.25.3 in central
+        found com.google.code.findbugs#jsr305;3.0.2 in central
+        found io.unitycatalog#unitycatalog-hadoop;0.5.0 in central
+        found org.apache.logging.log4j#log4j-core;2.25.3 in central
+        found io.delta#delta-kernel-api;4.3.1 in central
+        found org.roaringbitmap#RoaringBitmap;0.9.25 in central
+        found com.fasterxml.jackson.core#jackson-databind;2.13.5 in central
+        found com.fasterxml.jackson.core#jackson-annotations;2.13.5 in central
+        found com.fasterxml.jackson.core#jackson-core;2.13.5 in central
+        found com.fasterxml.jackson.datatype#jackson-datatype-jdk8;2.13.5 in central
+        found org.roaringbitmap#shims;0.9.25 in central
+        found io.delta#delta-kernel-defaults;4.3.1 in central
+        found org.apache.hadoop#hadoop-client-runtime;3.4.2 in central
+        found org.apache.parquet#parquet-hadoop;1.16.0 in central
+        found org.apache.parquet#parquet-column;1.16.0 in central
+        found org.apache.parquet#parquet-common;1.16.0 in central
+        found org.apache.parquet#parquet-format-structures;1.16.0 in central
+        found javax.annotation#javax.annotation-api;1.3.2 in central
+        found org.apache.parquet#parquet-encoding;1.16.0 in central
+        found org.locationtech.jts#jts-core;1.20.0 in central
+        found org.xerial.snappy#snappy-java;1.1.10.7 in central
+        found io.airlift#aircompressor;2.0.2 in central
+        found commons-pool#commons-pool;1.6 in central
+        found com.github.luben#zstd-jni;1.5.7-3 in central
+        found org.apache.hadoop#hadoop-client-api;3.4.2 in central
+        found commons-logging#commons-logging;1.3.0 in central
+        found org.apache.parquet#parquet-jackson;1.16.0 in central
+        found io.delta#delta-kernel-unitycatalog;4.3.1 in central
+downloading https://repo1.maven.org/maven2/io/delta/delta-spark_4.1_2.13/4.3.1/delta-spark_4.1_2.13-4.3.1.jar ...
+        [SUCCESSFUL ] io.delta#delta-spark_4.1_2.13;4.3.1!delta-spark_4.1_2.13.jar (1236ms)
+downloading https://repo1.maven.org/maven2/io/delta/delta-storage/4.3.1/delta-storage-4.3.1.jar ...
+        [SUCCESSFUL ] io.delta#delta-storage;4.3.1!delta-storage.jar (126ms)
+downloading https://repo1.maven.org/maven2/io/delta/delta-kernel-api/4.3.1/delta-kernel-api-4.3.1.jar ...
+        [SUCCESSFUL ] io.delta#delta-kernel-api;4.3.1!delta-kernel-api.jar (539ms)
+downloading https://repo1.maven.org/maven2/io/delta/delta-kernel-defaults/4.3.1/delta-kernel-defaults-4.3.1.jar ...
+        [SUCCESSFUL ] io.delta#delta-kernel-defaults;4.3.1!delta-kernel-defaults.jar (137ms)
+downloading https://repo1.maven.org/maven2/io/delta/delta-kernel-unitycatalog/4.3.1/delta-kernel-unitycatalog-4.3.1.jar ...
+        [SUCCESSFUL ] io.delta#delta-kernel-unitycatalog;4.3.1!delta-kernel-unitycatalog.jar (196ms)
+downloading https://repo1.maven.org/maven2/io/unitycatalog/unitycatalog-client/0.5.0/unitycatalog-client-0.5.0.jar ...
+        [SUCCESSFUL ] io.unitycatalog#unitycatalog-client;0.5.0!unitycatalog-client.jar (318ms)
+downloading https://repo1.maven.org/maven2/io/unitycatalog/unitycatalog-hadoop/0.5.0/unitycatalog-hadoop-0.5.0.jar ...
+        [SUCCESSFUL ] io.unitycatalog#unitycatalog-hadoop;0.5.0!unitycatalog-hadoop.jar (193ms)
+downloading https://repo1.maven.org/maven2/org/slf4j/slf4j-api/2.0.13/slf4j-api-2.0.13.jar ...
+        [SUCCESSFUL ] org.slf4j#slf4j-api;2.0.13!slf4j-api.jar (139ms)
+downloading https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-slf4j2-impl/2.25.3/log4j-slf4j2-impl-2.25.3.jar ...
+        [SUCCESSFUL ] org.apache.logging.log4j#log4j-slf4j2-impl;2.25.3!log4j-slf4j2-impl.jar (127ms)
+downloading https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-api/2.25.3/log4j-api-2.25.3.jar ...
+        [SUCCESSFUL ] org.apache.logging.log4j#log4j-api;2.25.3!log4j-api.jar (150ms)
+downloading https://repo1.maven.org/maven2/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.jar ...
+        [SUCCESSFUL ] com.google.code.findbugs#jsr305;3.0.2!jsr305.jar (150ms)
+downloading https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-core/2.25.3/log4j-core-2.25.3.jar ...
+        [SUCCESSFUL ] org.apache.logging.log4j#log4j-core;2.25.3!log4j-core.jar (292ms)
+downloading https://repo1.maven.org/maven2/org/roaringbitmap/RoaringBitmap/0.9.25/RoaringBitmap-0.9.25.jar ...
+        [SUCCESSFUL ] org.roaringbitmap#RoaringBitmap;0.9.25!RoaringBitmap.jar (353ms)
+downloading https://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-databind/2.13.5/jackson-databind-2.13.5.jar ...
+        [SUCCESSFUL ] com.fasterxml.jackson.core#jackson-databind;2.13.5!jackson-databind.jar(bundle) (259ms)
+downloading https://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-core/2.13.5/jackson-core-2.13.5.jar ...
+        [SUCCESSFUL ] com.fasterxml.jackson.core#jackson-core;2.13.5!jackson-core.jar(bundle) (140ms)
+downloading https://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-annotations/2.13.5/jackson-annotations-2.13.5.jar ...
+        [SUCCESSFUL ] com.fasterxml.jackson.core#jackson-annotations;2.13.5!jackson-annotations.jar(bundle) (135ms)
+downloading https://repo1.maven.org/maven2/com/fasterxml/jackson/datatype/jackson-datatype-jdk8/2.13.5/jackson-datatype-jdk8-2.13.5.jar ...
+        [SUCCESSFUL ] com.fasterxml.jackson.datatype#jackson-datatype-jdk8;2.13.5!jackson-datatype-jdk8.jar(bundle) (133ms)
+downloading https://repo1.maven.org/maven2/org/roaringbitmap/shims/0.9.25/shims-0.9.25.jar ...
+        [SUCCESSFUL ] org.roaringbitmap#shims;0.9.25!shims.jar (141ms)
+downloading https://repo1.maven.org/maven2/org/apache/parquet/parquet-hadoop/1.16.0/parquet-hadoop-1.16.0.jar ...
+        [SUCCESSFUL ] org.apache.parquet#parquet-hadoop;1.16.0!parquet-hadoop.jar (251ms)
+downloading https://repo1.maven.org/maven2/org/apache/parquet/parquet-column/1.16.0/parquet-column-1.16.0.jar ...
+        [SUCCESSFUL ] org.apache.parquet#parquet-column;1.16.0!parquet-column.jar (434ms)
+downloading https://repo1.maven.org/maven2/org/apache/parquet/parquet-format-structures/1.16.0/parquet-format-structures-1.16.0.jar ...
+        [SUCCESSFUL ] org.apache.parquet#parquet-format-structures;1.16.0!parquet-format-structures.jar (178ms)
+downloading https://repo1.maven.org/maven2/org/apache/parquet/parquet-common/1.16.0/parquet-common-1.16.0.jar ...
+        [SUCCESSFUL ] org.apache.parquet#parquet-common;1.16.0!parquet-common.jar (144ms)
+downloading https://repo1.maven.org/maven2/org/xerial/snappy/snappy-java/1.1.10.7/snappy-java-1.1.10.7.jar ...
+        [SUCCESSFUL ] org.xerial.snappy#snappy-java;1.1.10.7!snappy-java.jar(bundle) (340ms)
+downloading https://repo1.maven.org/maven2/io/airlift/aircompressor/2.0.2/aircompressor-2.0.2.jar ...
+        [SUCCESSFUL ] io.airlift#aircompressor;2.0.2!aircompressor.jar (370ms)
+downloading https://repo1.maven.org/maven2/commons-pool/commons-pool/1.6/commons-pool-1.6.jar ...
+        [SUCCESSFUL ] commons-pool#commons-pool;1.6!commons-pool.jar (138ms)
+downloading https://repo1.maven.org/maven2/com/github/luben/zstd-jni/1.5.7-3/zstd-jni-1.5.7-3.jar ...
+        [SUCCESSFUL ] com.github.luben#zstd-jni;1.5.7-3!zstd-jni.jar (835ms)
+downloading https://repo1.maven.org/maven2/org/apache/parquet/parquet-encoding/1.16.0/parquet-encoding-1.16.0.jar ...
+        [SUCCESSFUL ] org.apache.parquet#parquet-encoding;1.16.0!parquet-encoding.jar (203ms)
+downloading https://repo1.maven.org/maven2/org/locationtech/jts/jts-core/1.20.0/jts-core-1.20.0.jar ...
+        [SUCCESSFUL ] org.locationtech.jts#jts-core;1.20.0!jts-core.jar(bundle) (219ms)
+downloading https://repo1.maven.org/maven2/javax/annotation/javax.annotation-api/1.3.2/javax.annotation-api-1.3.2.jar ...
+        [SUCCESSFUL ] javax.annotation#javax.annotation-api;1.3.2!javax.annotation-api.jar (131ms)
+downloading https://repo1.maven.org/maven2/commons-logging/commons-logging/1.3.0/commons-logging-1.3.0.jar ...
+        [SUCCESSFUL ] commons-logging#commons-logging;1.3.0!commons-logging.jar (108ms)
+downloading https://repo1.maven.org/maven2/org/apache/parquet/parquet-jackson/1.16.0/parquet-jackson-1.16.0.jar ...
+        [SUCCESSFUL ] org.apache.parquet#parquet-jackson;1.16.0!parquet-jackson.jar (351ms)
+:: resolution report :: resolve 45928ms :: artifacts dl 8556ms
+        :: modules in use:
+        com.fasterxml.jackson.core#jackson-annotations;2.13.5 from central in [default]
+        com.fasterxml.jackson.core#jackson-core;2.13.5 from central in [default]
+        com.fasterxml.jackson.core#jackson-databind;2.13.5 from central in [default]
+        com.fasterxml.jackson.datatype#jackson-datatype-jdk8;2.13.5 from central in [default]
+        com.github.luben#zstd-jni;1.5.7-3 from central in [default]
+        com.google.code.findbugs#jsr305;3.0.2 from central in [default]
+        commons-logging#commons-logging;1.3.0 from central in [default]
+        commons-pool#commons-pool;1.6 from central in [default]
+        io.airlift#aircompressor;2.0.2 from central in [default]
+        io.delta#delta-kernel-api;4.3.1 from central in [default]
+        io.delta#delta-kernel-defaults;4.3.1 from central in [default]
+        io.delta#delta-kernel-unitycatalog;4.3.1 from central in [default]
+        io.delta#delta-spark_4.1_2.13;4.3.1 from central in [default]
+        io.delta#delta-storage;4.3.1 from central in [default]
+        io.unitycatalog#unitycatalog-client;0.5.0 from central in [default]
+        io.unitycatalog#unitycatalog-hadoop;0.5.0 from central in [default]
+        javax.annotation#javax.annotation-api;1.3.2 from central in [default]
+        org.apache.hadoop#hadoop-client-api;3.4.2 from central in [default]
+        org.apache.hadoop#hadoop-client-runtime;3.4.2 from central in [default]
+        org.apache.logging.log4j#log4j-api;2.25.3 from central in [default]
+        org.apache.logging.log4j#log4j-core;2.25.3 from central in [default]
+        org.apache.logging.log4j#log4j-slf4j2-impl;2.25.3 from central in [default]
+        org.apache.parquet#parquet-column;1.16.0 from central in [default]
+        org.apache.parquet#parquet-common;1.16.0 from central in [default]
+        org.apache.parquet#parquet-encoding;1.16.0 from central in [default]
+        org.apache.parquet#parquet-format-structures;1.16.0 from central in [default]
+        org.apache.parquet#parquet-hadoop;1.16.0 from central in [default]
+        org.apache.parquet#parquet-jackson;1.16.0 from central in [default]
+        org.locationtech.jts#jts-core;1.20.0 from central in [default]
+        org.roaringbitmap#RoaringBitmap;0.9.25 from central in [default]
+        org.roaringbitmap#shims;0.9.25 from central in [default]
+        org.slf4j#slf4j-api;2.0.13 from central in [default]
+        org.xerial.snappy#snappy-java;1.1.10.7 from central in [default]
+        :: evicted modules:
+        org.slf4j#slf4j-api;2.0.17 by [org.slf4j#slf4j-api;2.0.13] in [default]
+        org.slf4j#slf4j-api;1.7.36 by [org.slf4j#slf4j-api;2.0.13] in [default]
+        org.slf4j#slf4j-api;1.7.33 by [org.slf4j#slf4j-api;2.0.13] in [default]
+        org.xerial.snappy#snappy-java;1.1.10.4 by [org.xerial.snappy#snappy-java;1.1.10.7] in [default]
+        ---------------------------------------------------------------------
+        |                  |            modules            ||   artifacts   |
+        |       conf       | number| search|dwnlded|evicted|| number|dwnlded|
+        ---------------------------------------------------------------------
+        |      default     |   37  |   31  |   31  |   4   ||   33  |   31  |
+        ---------------------------------------------------------------------
+:: retrieving :: org.apache.spark#spark-submit-parent-03bc2f5f-5ed2-4628-adbf-8b8ec06df08c
+        confs: [default]
+        31 artifacts copied, 2 already retrieved (37545kB/866ms)
+Using Spark's default log4j profile: org/apache/spark/log4j2-defaults.properties
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+26/11/11 22:14:04 ERROR Inbox: Ignoring error
+java.lang.NullPointerException: Cannot invoke "org.apache.spark.storage.BlockManagerId.executorId()" because "idWithoutTopologyInfo" is null
+        at org.apache.spark.storage.BlockManagerMasterEndpoint.org$apache$spark$storage$BlockManagerMasterEndpoint$$register(BlockManagerMasterEndpoint.scala:696)
+        at org.apache.spark.storage.BlockManagerMasterEndpoint$$anonfun$receiveAndReply$1.applyOrElse(BlockManagerMasterEndpoint.scala:141)
+        at org.apache.spark.rpc.netty.Inbox.$anonfun$process$1(Inbox.scala:104)
+        at org.apache.spark.rpc.netty.Inbox.safelyCall(Inbox.scala:216)
+        at org.apache.spark.rpc.netty.Inbox.process(Inbox.scala:101)
+        at org.apache.spark.rpc.netty.MessageLoop.org$apache$spark$rpc$netty$MessageLoop$$receiveLoop(MessageLoop.scala:76)
+        at org.apache.spark.rpc.netty.MessageLoop$$anon$1.run(MessageLoop.scala:42)
+        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+        at java.base/java.lang.Thread.run(Thread.java:840)
+26/11/11 22:14:04 WARN Executor: Issue communicating with driver in heartbeater
+org.apache.spark.SparkException: Exception thrown in awaitResult: 
+        at org.apache.spark.util.SparkThreadUtils$.awaitResult(SparkThreadUtils.scala:53)
+        at org.apache.spark.util.ThreadUtils$.awaitResult(ThreadUtils.scala:359)
+        at org.apache.spark.rpc.RpcTimeout.awaitResult(RpcTimeout.scala:75)
+        at org.apache.spark.rpc.RpcEndpointRef.askSync(RpcEndpointRef.scala:101)
+        at org.apache.spark.rpc.RpcEndpointRef.askSync(RpcEndpointRef.scala:85)
+        at org.apache.spark.storage.BlockManagerMaster.registerBlockManager(BlockManagerMaster.scala:81)
+        at org.apache.spark.storage.BlockManager.reregister(BlockManager.scala:674)
+        at org.apache.spark.executor.Executor.reportHeartBeat(Executor.scala:1363)
+        at org.apache.spark.executor.Executor.$anonfun$heartbeater$1(Executor.scala:356)
+        at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.scala:18)
+        at org.apache.spark.util.Utils$.logUncaughtExceptions(Utils.scala:1941)
+        at org.apache.spark.Heartbeater$$anon$1.run(Heartbeater.scala:46)
+        at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539)
+        at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:305)
+        at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:305)
+        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+        at java.base/java.lang.Thread.run(Thread.java:840)
+Caused by: java.lang.NullPointerException: Cannot invoke "org.apache.spark.storage.BlockManagerId.executorId()" because "idWithoutTopologyInfo" is null
+        at org.apache.spark.storage.BlockManagerMasterEndpoint.org$apache$spark$storage$BlockManagerMasterEndpoint$$register(BlockManagerMasterEndpoint.scala:696)
+        at org.apache.spark.storage.BlockManagerMasterEndpoint$$anonfun$receiveAndReply$1.applyOrElse(BlockManagerMasterEndpoint.scala:141)
+        at org.apache.spark.rpc.netty.Inbox.$anonfun$process$1(Inbox.scala:104)
+        at org.apache.spark.rpc.netty.Inbox.safelyCall(Inbox.scala:216)
+        at org.apache.spark.rpc.netty.Inbox.process(Inbox.scala:101)
+        at org.apache.spark.rpc.netty.MessageLoop.org$apache$spark$rpc$netty$MessageLoop$$receiveLoop(MessageLoop.scala:76)
+        at org.apache.spark.rpc.netty.MessageLoop$$anon$1.run(MessageLoop.scala:42)
+        ... 3 more
+26/11/11 22:14:13 ERROR Inbox: Ignoring error
+java.lang.NullPointerException: Cannot invoke "org.apache.spark.storage.BlockManagerId.executorId()" because "idWithoutTopologyInfo" is null
+        at org.apache.spark.storage.BlockManagerMasterEndpoint.org$apache$spark$storage$BlockManagerMasterEndpoint$$register(BlockManagerMasterEndpoint.scala:696)
+        at org.apache.spark.storage.BlockManagerMasterEndpoint$$anonfun$receiveAndReply$1.applyOrElse(BlockManagerMasterEndpoint.scala:141)
+        at org.apache.spark.rpc.netty.Inbox.$anonfun$process$1(Inbox.scala:104)
+        at org.apache.spark.rpc.netty.Inbox.safelyCall(Inbox.scala:216)
+        at org.apache.spark.rpc.netty.Inbox.process(Inbox.scala:101)
+        at org.apache.spark.rpc.netty.MessageLoop.org$apache$spark$rpc$netty$MessageLoop$$receiveLoop(MessageLoop.scala:76)
+        at org.apache.spark.rpc.netty.MessageLoop$$anon$1.run(MessageLoop.scala:42)
+        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+        at java.base/java.lang.Thread.run(Thread.java:840)
+26/11/11 22:14:13 WARN Executor: Issue communicating with driver in heartbeater
+org.apache.spark.SparkException: Exception thrown in awaitResult: 
+        at org.apache.spark.util.SparkThreadUtils$.awaitResult(SparkThreadUtils.scala:53)
+        at org.apache.spark.util.ThreadUtils$.awaitResult(ThreadUtils.scala:359)
+        at org.apache.spark.rpc.RpcTimeout.awaitResult(RpcTimeout.scala:75)
+        at org.apache.spark.rpc.RpcEndpointRef.askSync(RpcEndpointRef.scala:101)
+        at org.apache.spark.rpc.RpcEndpointRef.askSync(RpcEndpointRef.scala:85)
+        at org.apache.spark.storage.BlockManagerMaster.registerBlockManager(BlockManagerMaster.scala:81)
+        at org.apache.spark.storage.BlockManager.reregister(BlockManager.scala:674)
+        at org.apache.spark.executor.Executor.reportHeartBeat(Executor.scala:1363)
+        at org.apache.spark.executor.Executor.$anonfun$heartbeater$1(Executor.scala:356)
+        at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.scala:18)
+        at org.apache.spark.util.Utils$.logUncaughtExceptions(Utils.scala:1941)
+        at org.apache.spark.Heartbeater$$anon$1.run(Heartbeater.scala:46)
+        at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539)
+        at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:305)
+        at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:305)
+        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+        at java.base/java.lang.Thread.run(Thread.java:840)
+Caused by: java.lang.NullPointerException: Cannot invoke "org.apache.spark.storage.BlockManagerId.executorId()" because "idWithoutTopologyInfo" is null
+        at org.apache.spark.storage.BlockManagerMasterEndpoint.org$apache$spark$storage$BlockManagerMasterEndpoint$$register(BlockManagerMasterEndpoint.scala:696)
+        at org.apache.spark.storage.BlockManagerMasterEndpoint$$anonfun$receiveAndReply$1.applyOrElse(BlockManagerMasterEndpoint.scala:141)
+        at org.apache.spark.rpc.netty.Inbox.$anonfun$process$1(Inbox.scala:104)
+        at org.apache.spark.rpc.netty.Inbox.safelyCall(Inbox.scala:216)
+        at org.apache.spark.rpc.netty.Inbox.process(Inbox.scala:101)
+        at org.apache.spark.rpc.netty.MessageLoop.org$apache$spark$rpc$netty$MessageLoop$$receiveLoop(MessageLoop.scala:76)
+        at org.apache.spark.rpc.netty.MessageLoop$$anon$1.run(MessageLoop.scala:42)
+        ... 3 more
+============================================================
+INDIAN STOCK SILVER STREAMING JOB
+============================================================
+Spark version: 4.1.1
+Kafka broker: localhost:9092
+Kafka topic: stock-prices
+Silver path: C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\Ticker\silver\data\stock_silver
+Quarantine path: C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\Ticker\silver\data\stock_quarantine
+============================================================
+Traceback (most recent call last):
+  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\Ticker\silver\stock_silver.py", line 500, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\Ticker\silver\stock_silver.py", line 453, in main
+    kafka_stream = read_kafka_stream(spark)
+  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\Ticker\silver\stock_silver.py", line 149, in read_kafka_stream
+    .load()
+     ~~~~^^
+  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\Ticker\silver_venv\Lib\site-packages\pyspark\sql\streaming\readwriter.py", line 307, in load
+    return self._df(self._jreader.load())
+                    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\Ticker\silver_venv\Lib\site-packages\py4j\java_gateway.py", line 1362, in __call__
+    return_value = get_return_value(
+        answer, self.gateway_client, self.target_id, self.name)
+  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\Ticker\silver_venv\Lib\site-packages\pyspark\errors\exceptions\captured.py", line 269, in deco
+    raise converted from None
+pyspark.errors.exceptions.captured.AnalysisException: Failed to find data source: kafka. Please deploy the application as per the deployment section of Structured Streaming + Kafka Integration Guide.
+
+(silver_venv) C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\Ticker>SUCCESS: The process with PID 27812 (child process of PID 29820) has been terminated.
+SUCCESS: The process with PID 29820 (child process of PID 11288) has been terminated.
+SUCCESS: The process with PID 11288 (child process of PID 28472) has been terminated.
+
+
 (silver_venv) C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\Ticker>
