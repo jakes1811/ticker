@@ -1,24 +1,16 @@
-(silver_venv) C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\Ticker>dir silver\data\stock_silver
+ Directory of C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\Ticker\silver\data
+
+File Not Found
+
+(silver_venv) C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\Ticker>dir silver\data
  Volume in drive C has no label.
  Volume Serial Number is 8EFC-765E
 
- Directory of C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\Ticker\silver\data\stock_silver
-
-11-11-2026  22:27    <DIR>          .
-11-11-2026  22:00    <DIR>          ..
-11-11-2026  22:27             1,148 .part-00000-6b47f429-b152-44b7-ba75-ecd2704fc08b-c000.snappy.parquet.crc
-11-11-2026  22:27           145,809 part-00000-6b47f429-b152-44b7-ba75-ecd2704fc08b-c000.snappy.parquet
-11-11-2026  22:27    <DIR>          _delta_log
-               2 File(s)        146,957 bytes
-               3 Dir(s)  390,850,699,264 bytes free
-
-(silver_venv) C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\Ticker>dir silver\data\stock_qurantine
- Volume in drive C has no label.
- Volume Serial Number is 8EFC-765E
-
- Directory of C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\Ticker\silver\data\stock_qurantine
+ Directory of C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\Ticker\silver\data
 
 11-11-2026  22:00    <DIR>          .
-11-11-2026  22:00    <DIR>          ..
+11-11-2026  21:58    <DIR>          ..
+11-11-2026  22:00    <DIR>          stock_qurantine
+11-11-2026  22:27    <DIR>          stock_silver
                0 File(s)              0 bytes
-               2 Dir(s)  390,846,599,168 bytes free
+               4 Dir(s)  390,845,403,136 bytes free
