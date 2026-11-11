@@ -5,7 +5,7 @@ Ivy Default Cache set to: C:\Users\2000209445\.ivy2.5.2\cache
 The jars for the packages stored in: C:\Users\2000209445\.ivy2.5.2\jars
 io.delta#delta-spark_4.1_2.13 added as a dependency
 org.apache.spark#spark-sql-kafka-0-10_2.13 added as a dependency
-:: resolving dependencies :: org.apache.spark#spark-submit-parent-650e0cd6-3b14-457f-87b2-a8245ef8891d;1.0
+:: resolving dependencies :: org.apache.spark#spark-submit-parent-d4487420-8c43-4fa1-b37e-4b2d1058af27;1.0
         confs: [default]
         found io.delta#delta-spark_4.1_2.13;4.3.1 in central
         found io.delta#delta-storage;4.3.1 in central
@@ -47,7 +47,7 @@ org.apache.spark#spark-sql-kafka-0-10_2.13 added as a dependency
         found org.xerial.snappy#snappy-java;1.1.10.8 in central
         found org.scala-lang.modules#scala-parallel-collections_2.13;1.2.0 in central
         found org.apache.commons#commons-pool2;2.12.1 in central
-:: resolution report :: resolve 1665ms :: artifacts dl 106ms
+:: resolution report :: resolve 1733ms :: artifacts dl 113ms
         :: modules in use:
         com.fasterxml.jackson.core#jackson-annotations;2.13.5 from central in [default]
         com.fasterxml.jackson.core#jackson-core;2.13.5 from central in [default]
@@ -101,13 +101,25 @@ org.apache.spark#spark-sql-kafka-0-10_2.13 added as a dependency
         ---------------------------------------------------------------------
         |      default     |   45  |   0   |   0   |   6   ||   39  |   0   |
         ---------------------------------------------------------------------
-:: retrieving :: org.apache.spark#spark-submit-parent-650e0cd6-3b14-457f-87b2-a8245ef8891d
+:: retrieving :: org.apache.spark#spark-submit-parent-d4487420-8c43-4fa1-b37e-4b2d1058af27
         confs: [default]
-        0 artifacts copied, 39 already retrieved (0kB/40ms)
+        0 artifacts copied, 39 already retrieved (0kB/48ms)
 Using Spark's default log4j profile: org/apache/spark/log4j2-defaults.properties
 Setting default log level to "WARN".
 To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
-26/11/11 22:40:10 WARN Executor: Issue communicating with driver in heartbeater
+26/11/11 22:45:43 ERROR Inbox: Ignoring error
+java.lang.NullPointerException: Cannot invoke "org.apache.spark.storage.BlockManagerId.executorId()" because "idWithoutTopologyInfo" is null
+        at org.apache.spark.storage.BlockManagerMasterEndpoint.org$apache$spark$storage$BlockManagerMasterEndpoint$$register(BlockManagerMasterEndpoint.scala:696)
+        at org.apache.spark.storage.BlockManagerMasterEndpoint$$anonfun$receiveAndReply$1.applyOrElse(BlockManagerMasterEndpoint.scala:141)
+        at org.apache.spark.rpc.netty.Inbox.$anonfun$process$1(Inbox.scala:104)
+        at org.apache.spark.rpc.netty.Inbox.safelyCall(Inbox.scala:216)
+        at org.apache.spark.rpc.netty.Inbox.process(Inbox.scala:101)
+        at org.apache.spark.rpc.netty.MessageLoop.org$apache$spark$rpc$netty$MessageLoop$$receiveLoop(MessageLoop.scala:76)
+        at org.apache.spark.rpc.netty.MessageLoop$$anon$1.run(MessageLoop.scala:42)
+        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+        at java.base/java.lang.Thread.run(Thread.java:840)
+26/11/11 22:45:43 WARN Executor: Issue communicating with driver in heartbeater
 org.apache.spark.SparkException: Exception thrown in awaitResult: 
         at org.apache.spark.util.SparkThreadUtils$.awaitResult(SparkThreadUtils.scala:53)
         at org.apache.spark.util.ThreadUtils$.awaitResult(ThreadUtils.scala:359)
@@ -136,7 +148,7 @@ Caused by: java.lang.NullPointerException: Cannot invoke "org.apache.spark.stora
         at org.apache.spark.rpc.netty.MessageLoop.org$apache$spark$rpc$netty$MessageLoop$$receiveLoop(MessageLoop.scala:76)
         at org.apache.spark.rpc.netty.MessageLoop$$anon$1.run(MessageLoop.scala:42)
         ... 3 more
-26/11/11 22:40:10 ERROR Inbox: Ignoring error
+26/11/11 22:45:53 ERROR Inbox: Ignoring error
 java.lang.NullPointerException: Cannot invoke "org.apache.spark.storage.BlockManagerId.executorId()" because "idWithoutTopologyInfo" is null
         at org.apache.spark.storage.BlockManagerMasterEndpoint.org$apache$spark$storage$BlockManagerMasterEndpoint$$register(BlockManagerMasterEndpoint.scala:696)
         at org.apache.spark.storage.BlockManagerMasterEndpoint$$anonfun$receiveAndReply$1.applyOrElse(BlockManagerMasterEndpoint.scala:141)
@@ -148,6 +160,76 @@ java.lang.NullPointerException: Cannot invoke "org.apache.spark.storage.BlockMan
         at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
         at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
         at java.base/java.lang.Thread.run(Thread.java:840)
+26/11/11 22:45:53 WARN Executor: Issue communicating with driver in heartbeater
+org.apache.spark.SparkException: Exception thrown in awaitResult: 
+        at org.apache.spark.util.SparkThreadUtils$.awaitResult(SparkThreadUtils.scala:53)
+        at org.apache.spark.util.ThreadUtils$.awaitResult(ThreadUtils.scala:359)
+        at org.apache.spark.rpc.RpcTimeout.awaitResult(RpcTimeout.scala:75)
+        at org.apache.spark.rpc.RpcEndpointRef.askSync(RpcEndpointRef.scala:101)
+        at org.apache.spark.rpc.RpcEndpointRef.askSync(RpcEndpointRef.scala:85)
+        at org.apache.spark.storage.BlockManagerMaster.registerBlockManager(BlockManagerMaster.scala:81)
+        at org.apache.spark.storage.BlockManager.reregister(BlockManager.scala:674)
+        at org.apache.spark.executor.Executor.reportHeartBeat(Executor.scala:1363)
+        at org.apache.spark.executor.Executor.$anonfun$heartbeater$1(Executor.scala:356)
+        at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.scala:18)
+        at org.apache.spark.util.Utils$.logUncaughtExceptions(Utils.scala:1941)
+        at org.apache.spark.Heartbeater$$anon$1.run(Heartbeater.scala:46)
+        at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539)
+        at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:305)
+        at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:305)
+        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+        at java.base/java.lang.Thread.run(Thread.java:840)
+Caused by: java.lang.NullPointerException: Cannot invoke "org.apache.spark.storage.BlockManagerId.executorId()" because "idWithoutTopologyInfo" is null
+        at org.apache.spark.storage.BlockManagerMasterEndpoint.org$apache$spark$storage$BlockManagerMasterEndpoint$$register(BlockManagerMasterEndpoint.scala:696)
+        at org.apache.spark.storage.BlockManagerMasterEndpoint$$anonfun$receiveAndReply$1.applyOrElse(BlockManagerMasterEndpoint.scala:141)
+        at org.apache.spark.rpc.netty.Inbox.$anonfun$process$1(Inbox.scala:104)
+        at org.apache.spark.rpc.netty.Inbox.safelyCall(Inbox.scala:216)
+        at org.apache.spark.rpc.netty.Inbox.process(Inbox.scala:101)
+        at org.apache.spark.rpc.netty.MessageLoop.org$apache$spark$rpc$netty$MessageLoop$$receiveLoop(MessageLoop.scala:76)
+        at org.apache.spark.rpc.netty.MessageLoop$$anon$1.run(MessageLoop.scala:42)
+        ... 3 more
+26/11/11 22:46:03 ERROR Inbox: Ignoring error
+java.lang.NullPointerException: Cannot invoke "org.apache.spark.storage.BlockManagerId.executorId()" because "idWithoutTopologyInfo" is null
+        at org.apache.spark.storage.BlockManagerMasterEndpoint.org$apache$spark$storage$BlockManagerMasterEndpoint$$register(BlockManagerMasterEndpoint.scala:696)
+        at org.apache.spark.storage.BlockManagerMasterEndpoint$$anonfun$receiveAndReply$1.applyOrElse(BlockManagerMasterEndpoint.scala:141)
+        at org.apache.spark.rpc.netty.Inbox.$anonfun$process$1(Inbox.scala:104)
+        at org.apache.spark.rpc.netty.Inbox.safelyCall(Inbox.scala:216)
+        at org.apache.spark.rpc.netty.Inbox.process(Inbox.scala:101)
+        at org.apache.spark.rpc.netty.MessageLoop.org$apache$spark$rpc$netty$MessageLoop$$receiveLoop(MessageLoop.scala:76)
+        at org.apache.spark.rpc.netty.MessageLoop$$anon$1.run(MessageLoop.scala:42)
+        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+        at java.base/java.lang.Thread.run(Thread.java:840)
+26/11/11 22:46:03 WARN Executor: Issue communicating with driver in heartbeater
+org.apache.spark.SparkException: Exception thrown in awaitResult: 
+        at org.apache.spark.util.SparkThreadUtils$.awaitResult(SparkThreadUtils.scala:53)
+        at org.apache.spark.util.ThreadUtils$.awaitResult(ThreadUtils.scala:359)
+        at org.apache.spark.rpc.RpcTimeout.awaitResult(RpcTimeout.scala:75)
+        at org.apache.spark.rpc.RpcEndpointRef.askSync(RpcEndpointRef.scala:101)
+        at org.apache.spark.rpc.RpcEndpointRef.askSync(RpcEndpointRef.scala:85)
+        at org.apache.spark.storage.BlockManagerMaster.registerBlockManager(BlockManagerMaster.scala:81)
+        at org.apache.spark.storage.BlockManager.reregister(BlockManager.scala:674)
+        at org.apache.spark.executor.Executor.reportHeartBeat(Executor.scala:1363)
+        at org.apache.spark.executor.Executor.$anonfun$heartbeater$1(Executor.scala:356)
+        at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.scala:18)
+        at org.apache.spark.util.Utils$.logUncaughtExceptions(Utils.scala:1941)
+        at org.apache.spark.Heartbeater$$anon$1.run(Heartbeater.scala:46)
+        at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539)
+        at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:305)
+        at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:305)
+        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+        at java.base/java.lang.Thread.run(Thread.java:840)
+Caused by: java.lang.NullPointerException: Cannot invoke "org.apache.spark.storage.BlockManagerId.executorId()" because "idWithoutTopologyInfo" is null
+        at org.apache.spark.storage.BlockManagerMasterEndpoint.org$apache$spark$storage$BlockManagerMasterEndpoint$$register(BlockManagerMasterEndpoint.scala:696)
+        at org.apache.spark.storage.BlockManagerMasterEndpoint$$anonfun$receiveAndReply$1.applyOrElse(BlockManagerMasterEndpoint.scala:141)
+        at org.apache.spark.rpc.netty.Inbox.$anonfun$process$1(Inbox.scala:104)
+        at org.apache.spark.rpc.netty.Inbox.safelyCall(Inbox.scala:216)
+        at org.apache.spark.rpc.netty.Inbox.process(Inbox.scala:101)
+        at org.apache.spark.rpc.netty.MessageLoop.org$apache$spark$rpc$netty$MessageLoop$$receiveLoop(MessageLoop.scala:76)
+        at org.apache.spark.rpc.netty.MessageLoop$$anon$1.run(MessageLoop.scala:42)
+        ... 3 more
 ============================================================
 INDIAN STOCK SILVER STREAMING JOB
 ============================================================
@@ -157,6 +239,240 @@ Kafka topic: stock-prices
 Silver path: C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\Ticker\silver\data\stock_silver
 Quarantine path: C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\Ticker\silver\data\stock_quarantine
 ============================================================
-26/11/11 22:40:27 WARN ResolveWriteToStream: spark.sql.adaptive.enabled is not supported in streaming DataFrames/Datasets and will be disabled.
+26/11/11 22:46:18 WARN ResolveWriteToStream: spark.sql.adaptive.enabled is not supported in streaming DataFrames/Datasets and will be disabled.
 Silver streaming is running...
 Press CTRL + C to stop.
+26/11/11 22:46:31 WARN SparkStringUtils: Truncated the string representation of a plan since it was too large. This behavior can be adjusted by setting 'spark.sql.debug.maxToStringFields'.
+Micro-batch 1 processed successfully.                                           
+26/11/11 22:46:55 WARN ProcessingTimeExecutor: Current batch is falling behind. The trigger interval is 1000 milliseconds, but spent 36950 milliseconds
+Micro-batch 2 processed successfully.                                           
+26/11/11 22:47:11 WARN ProcessingTimeExecutor: Current batch is falling behind. The trigger interval is 1000 milliseconds, but spent 15288 milliseconds
+Micro-batch 3 processed successfully.                                           
+26/11/11 22:47:24 WARN ProcessingTimeExecutor: Current batch is falling behind. The trigger interval is 1000 milliseconds, but spent 12910 milliseconds
+Micro-batch 4 processed successfully.                                           
+26/11/11 22:47:35 WARN ProcessingTimeExecutor: Current batch is falling behind. The trigger interval is 1000 milliseconds, but spent 11893 milliseconds
+Micro-batch 5 processed successfully.                                           
+26/11/11 22:47:48 WARN ProcessingTimeExecutor: Current batch is falling behind. The trigger interval is 1000 milliseconds, but spent 12761 milliseconds
+Micro-batch 6 processed successfully.                                           
+26/11/11 22:48:00 WARN ProcessingTimeExecutor: Current batch is falling behind. The trigger interval is 1000 milliseconds, but spent 11911 milliseconds
+Micro-batch 7 processed successfully.                                           
+26/11/11 22:48:12 WARN ProcessingTimeExecutor: Current batch is falling behind. The trigger interval is 1000 milliseconds, but spent 12234 milliseconds
+26/11/11 22:48:14 ERROR MicroBatchExecution: Query stock-silver-stream [id = 5f38b174-494e-4556-8a0e-0ce7e23639a4, runId = e4bcf84c-2193-4146-beee-213c71c832d5] terminated with error
+java.lang.NullPointerException: Cannot invoke "org.apache.spark.sql.classic.SparkSession.sparkContext()" because the return value of "org.apache.spark.sql.execution.SparkPlan.session()" is null
+        at org.apache.spark.sql.execution.SparkPlan.sparkContext(SparkPlan.scala:68)
+        at org.apache.spark.sql.execution.SparkPlan.executeQuery(SparkPlan.scala:257)
+        at org.apache.spark.sql.execution.SparkPlan.execute(SparkPlan.scala:197)
+        at org.apache.spark.sql.execution.QueryExecution.$anonfun$lazyToRdd$1(QueryExecution.scala:300)
+        at scala.util.Try$.apply(Try.scala:217)
+        at org.apache.spark.util.Utils$.doTryWithCallerStacktrace(Utils.scala:1392)
+        at org.apache.spark.util.Utils$.getTryWithCallerStacktrace(Utils.scala:1453)
+        at org.apache.spark.util.LazyTry.get(LazyTry.scala:58)
+        at org.apache.spark.sql.execution.QueryExecution.toRdd(QueryExecution.scala:313)
+        at org.apache.spark.sql.execution.streaming.sources.ForeachBatchSink.addBatch(ForeachBatchSink.scala:35)
+        at org.apache.spark.sql.execution.streaming.runtime.MicroBatchExecution.$anonfun$runBatch$19(MicroBatchExecution.scala:1074)
+        at org.apache.spark.sql.execution.SQLExecution$.$anonfun$withNewExecutionId0$8(SQLExecution.scala:177)
+        at org.apache.spark.sql.execution.SQLExecution$.withSessionTagsApplied(SQLExecution.scala:285)
+        at org.apache.spark.sql.execution.SQLExecution$.$anonfun$withNewExecutionId0$7(SQLExecution.scala:139)
+        at org.apache.spark.JobArtifactSet$.withActiveJobArtifactState(JobArtifactSet.scala:94)
+        at org.apache.spark.sql.artifact.ArtifactManager.$anonfun$withResources$1(ArtifactManager.scala:112)
+        at org.apache.spark.sql.artifact.ArtifactManager.withClassLoaderIfNeeded(ArtifactManager.scala:106)
+        at org.apache.spark.sql.artifact.ArtifactManager.withResources(ArtifactManager.scala:111)
+        at org.apache.spark.sql.execution.SQLExecution$.$anonfun$withNewExecutionId0$6(SQLExecution.scala:139)
+        at org.apache.spark.sql.execution.SQLExecution$.withSQLConfPropagated(SQLExecution.scala:308)
+        at org.apache.spark.sql.execution.SQLExecution$.$anonfun$withNewExecutionId0$1(SQLExecution.scala:138)
+        at org.apache.spark.sql.SparkSession.withActive(SparkSession.scala:804)
+        at org.apache.spark.sql.execution.SQLExecution$.withNewExecutionId0(SQLExecution.scala:92)
+        at org.apache.spark.sql.execution.SQLExecution$.withNewExecutionId(SQLExecution.scala:250)
+        at org.apache.spark.sql.execution.streaming.runtime.MicroBatchExecution.$anonfun$runBatch$18(MicroBatchExecution.scala:1065)
+        at org.apache.spark.sql.execution.streaming.runtime.ProgressContext.reportTimeTaken(ProgressReporter.scala:200)
+        at org.apache.spark.sql.execution.streaming.runtime.MicroBatchExecution.runBatch(MicroBatchExecution.scala:1065)
+        at org.apache.spark.sql.execution.streaming.runtime.MicroBatchExecution.$anonfun$executeOneBatch$2(MicroBatchExecution.scala:516)
+        at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.scala:18)
+        at org.apache.spark.sql.execution.streaming.runtime.ProgressContext.reportTimeTaken(ProgressReporter.scala:200)
+        at org.apache.spark.sql.execution.streaming.runtime.MicroBatchExecution.executeOneBatch(MicroBatchExecution.scala:481)
+        at org.apache.spark.sql.execution.streaming.runtime.MicroBatchExecution.$anonfun$runActivatedStream$1(MicroBatchExecution.scala:461)
+        at org.apache.spark.sql.execution.streaming.runtime.MicroBatchExecution.$anonfun$runActivatedStream$1$adapted(MicroBatchExecution.scala:461)
+        at org.apache.spark.sql.execution.streaming.runtime.TriggerExecutor.runOneBatch(TriggerExecutor.scala:40)
+        at org.apache.spark.sql.execution.streaming.runtime.TriggerExecutor.runOneBatch$(TriggerExecutor.scala:38)
+        at org.apache.spark.sql.execution.streaming.runtime.ProcessingTimeExecutor.runOneBatch(TriggerExecutor.scala:71)
+        at org.apache.spark.sql.execution.streaming.runtime.ProcessingTimeExecutor.execute(TriggerExecutor.scala:83)
+        at org.apache.spark.sql.execution.streaming.runtime.MicroBatchExecution.runActivatedStream(MicroBatchExecution.scala:461)
+        at org.apache.spark.sql.execution.streaming.runtime.StreamExecution.$anonfun$runStream$1(StreamExecution.scala:347)
+        at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.scala:18)
+        at org.apache.spark.sql.SparkSession.withActive(SparkSession.scala:804)
+        at org.apache.spark.sql.execution.streaming.runtime.StreamExecution.org$apache$spark$sql$execution$streaming$runtime$StreamExecution$$runStream(StreamExecution.scala:307)
+        at org.apache.spark.sql.execution.streaming.runtime.StreamExecution$$anon$1.run(StreamExecution.scala:230)
+        Suppressed: org.apache.spark.util.Utils$OriginalTryStackTraceException: Full stacktrace of original doTryWithCallerStacktrace caller
+                at org.apache.spark.sql.execution.SparkPlan.sparkContext(SparkPlan.scala:68)
+                at org.apache.spark.sql.execution.SparkPlan.executeQuery(SparkPlan.scala:257)
+                at org.apache.spark.sql.execution.SparkPlan.execute(SparkPlan.scala:197)
+                at org.apache.spark.sql.execution.QueryExecution.$anonfun$lazyToRdd$1(QueryExecution.scala:300)
+                at scala.util.Try$.apply(Try.scala:217)
+                at org.apache.spark.util.Utils$.doTryWithCallerStacktrace(Utils.scala:1392)
+                at org.apache.spark.util.LazyTry.tryT$lzycompute(LazyTry.scala:46)
+                at org.apache.spark.util.LazyTry.tryT(LazyTry.scala:46)
+                ... 36 more
+ERROR:root:Exception while sending command.
+Traceback (most recent call last):
+  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\Ticker\silver_venv\Lib\site-packages\py4j\clientserver.py", line 535, in send_command
+    answer = smart_decode(self.stream.readline()[:-1])
+                          ~~~~~~~~~~~~~~~~~~~~^^
+RuntimeError: reentrant call inside <_io.BufferedReader name=1144>
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\Ticker\silver_venv\Lib\site-packages\py4j\java_gateway.py", line 1038, in send_command
+    response = connection.send_command(command)
+  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\Ticker\silver_venv\Lib\site-packages\py4j\clientserver.py", line 566, in send_command
+    raise Py4JNetworkError(
+        "Error while sending or receiving", e, proto.ERROR_ON_RECEIVE)
+py4j.protocol.Py4JNetworkError: Error while sending or receiving
+ERROR:root:Exception while sending command.
+Traceback (most recent call last):
+  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\Ticker\silver_venv\Lib\site-packages\py4j\clientserver.py", line 535, in send_command
+    answer = smart_decode(self.stream.readline()[:-1])
+                          ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Program Files\Python314\Lib\socket.py", line 729, in readinto
+    return self._sock.recv_into(b)
+           ~~~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\Ticker\silver_venv\Lib\site-packages\pyspark\core\context.py", line 408, in signal_handler
+    self.cancelAllJobs()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\Ticker\silver_venv\Lib\site-packages\pyspark\core\context.py", line 2506, in cancelAllJobs
+    self._jsc.sc().cancelAllJobs()
+    ~~~~~~~~~~~~^^
+  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\Ticker\silver_venv\Lib\site-packages\py4j\java_gateway.py", line 1362, in __call__
+    return_value = get_return_value(
+        answer, self.gateway_client, self.target_id, self.name)
+  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\Ticker\silver_venv\Lib\site-packages\pyspark\errors\exceptions\captured.py", line 263, in deco
+    return f(*a, **kw)
+  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\Ticker\silver_venv\Lib\site-packages\py4j\protocol.py", line 335, in get_return_value
+    raise Py4JError(
+        "An error occurred while calling {0}{1}{2}".
+        format(target_id, ".", name))
+py4j.protocol.Py4JError: An error occurred while calling o28.sc
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\Ticker\silver_venv\Lib\site-packages\py4j\java_gateway.py", line 1038, in send_command
+    response = connection.send_command(command)
+  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\Ticker\silver_venv\Lib\site-packages\py4j\clientserver.py", line 566, in send_command
+    raise Py4JNetworkError(
+        "Error while sending or receiving", e, proto.ERROR_ON_RECEIVE)
+py4j.protocol.Py4JNetworkError: Error while sending or receiving
+26/11/11 22:48:15 WARN SparkEnv: Exception while deleting Spark temp dir: C:\Users\2000209445\AppData\Local\Temp\spark-6935ff33-feca-4207-8bf0-844a682a8110\userFiles-674f2a04-21a9-4de9-9b97-a984f7f1f14f
+java.io.IOException: Failed to delete: C:\Users\2000209445\AppData\Local\Temp\spark-6935ff33-feca-4207-8bf0-844a682a8110\userFiles-674f2a04-21a9-4de9-9b97-a984f7f1f14f\org.xerial.snappy_snappy-java-1.1.10.8.jar
+        at org.apache.spark.network.util.JavaUtils.deleteRecursivelyUsingJavaIO(JavaUtils.java:308)
+        at org.apache.spark.network.util.JavaUtils.deleteRecursively(JavaUtils.java:277)
+        at org.apache.spark.network.util.JavaUtils.deleteRecursivelyUsingJavaIO(JavaUtils.java:291)
+        at org.apache.spark.network.util.JavaUtils.deleteRecursively(JavaUtils.java:277)
+        at org.apache.spark.network.util.JavaUtils.deleteRecursively(JavaUtils.java:248)
+        at org.apache.spark.util.SparkFileUtils.deleteRecursively(SparkFileUtils.scala:158)
+        at org.apache.spark.util.SparkFileUtils.deleteRecursively$(SparkFileUtils.scala:157)
+        at org.apache.spark.util.Utils$.deleteRecursively(Utils.scala:1062)
+        at org.apache.spark.SparkEnv.stop(SparkEnv.scala:131)
+        at org.apache.spark.SparkContext.$anonfun$stop$25(SparkContext.scala:2406)
+        at org.apache.spark.util.Utils$.tryLogNonFatalError(Utils.scala:1314)
+        at org.apache.spark.SparkContext.stop(SparkContext.scala:2406)
+        at org.apache.spark.SparkContext.stop(SparkContext.scala:2308)
+        at org.apache.spark.SparkContext.$anonfun$new$37(SparkContext.scala:712)
+        at org.apache.spark.util.SparkShutdownHook.run(ShutdownHookManager.scala:231)
+        at org.apache.spark.util.SparkShutdownHookManager.$anonfun$runAll$2(ShutdownHookManager.scala:205)
+        at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.scala:18)
+        at org.apache.spark.util.Utils$.logUncaughtExceptions(Utils.scala:1941)
+        at org.apache.spark.util.SparkShutdownHookManager.$anonfun$runAll$1(ShutdownHookManager.scala:205)
+        at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.scala:18)
+        at scala.util.Try$.apply(Try.scala:217)
+        at org.apache.spark.util.SparkShutdownHookManager.runAll(ShutdownHookManager.scala:205)
+        at org.apache.spark.util.SparkShutdownHookManager$$anon$2.run(ShutdownHookManager.scala:184)
+        at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539)
+        at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+        at java.base/java.lang.Thread.run(Thread.java:840)
+Spark session stopped.
+Traceback (most recent call last):
+  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\Ticker\silver\stock_silver.py", line 505, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\Ticker\silver\stock_silver.py", line 484, in main
+    query.awaitTermination()
+    ~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\Ticker\silver_venv\Lib\site-packages\pyspark\sql\streaming\query.py", line 225, in awaitTermination
+    return self._jsq.awaitTermination()
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\Ticker\silver_venv\Lib\site-packages\py4j\java_gateway.py", line 1362, in __call__
+    return_value = get_return_value(
+        answer, self.gateway_client, self.target_id, self.name)
+  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\Ticker\silver_venv\Lib\site-packages\pyspark\errors\exceptions\captured.py", line 263, in deco
+    return f(*a, **kw)
+  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\Ticker\silver_venv\Lib\site-packages\py4j\protocol.py", line 335, in get_return_value
+    raise Py4JError(
+        "An error occurred while calling {0}{1}{2}".
+        format(target_id, ".", name))
+py4j.protocol.Py4JError: An error occurred while calling o55.awaitTermination
+26/11/11 22:48:15 ERROR ShutdownHookManager: Exception while deleting Spark temp dir: C:\Users\2000209445\AppData\Local\Temp\spark-6935ff33-feca-4207-8bf0-844a682a8110\userFiles-674f2a04-21a9-4de9-9b97-a984f7f1f14f
+java.io.IOException: Failed to delete: C:\Users\2000209445\AppData\Local\Temp\spark-6935ff33-feca-4207-8bf0-844a682a8110\userFiles-674f2a04-21a9-4de9-9b97-a984f7f1f14f\org.xerial.snappy_snappy-java-1.1.10.8.jar
+        at org.apache.spark.network.util.JavaUtils.deleteRecursivelyUsingJavaIO(JavaUtils.java:308)
+        at org.apache.spark.network.util.JavaUtils.deleteRecursively(JavaUtils.java:277)
+        at org.apache.spark.network.util.JavaUtils.deleteRecursivelyUsingJavaIO(JavaUtils.java:291)
+        at org.apache.spark.network.util.JavaUtils.deleteRecursively(JavaUtils.java:277)
+        at org.apache.spark.network.util.JavaUtils.deleteRecursively(JavaUtils.java:248)
+        at org.apache.spark.util.SparkFileUtils.deleteRecursively(SparkFileUtils.scala:158)
+        at org.apache.spark.util.SparkFileUtils.deleteRecursively$(SparkFileUtils.scala:157)
+        at org.apache.spark.util.Utils$.deleteRecursively(Utils.scala:1062)
+        at org.apache.spark.util.ShutdownHookManager$.$anonfun$new$4(ShutdownHookManager.scala:70)
+        at org.apache.spark.util.ShutdownHookManager$.$anonfun$new$4$adapted(ShutdownHookManager.scala:67)
+        at scala.collection.ArrayOps$.foreach$extension(ArrayOps.scala:1324)
+        at org.apache.spark.util.ShutdownHookManager$.$anonfun$new$2(ShutdownHookManager.scala:67)
+        at org.apache.spark.util.SparkShutdownHook.run(ShutdownHookManager.scala:231)
+        at org.apache.spark.util.SparkShutdownHookManager.$anonfun$runAll$2(ShutdownHookManager.scala:205)
+        at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.scala:18)
+        at org.apache.spark.util.Utils$.logUncaughtExceptions(Utils.scala:1941)
+        at org.apache.spark.util.SparkShutdownHookManager.$anonfun$runAll$1(ShutdownHookManager.scala:205)
+        at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.scala:18)
+        at scala.util.Try$.apply(Try.scala:217)
+        at org.apache.spark.util.SparkShutdownHookManager.runAll(ShutdownHookManager.scala:205)
+        at org.apache.spark.util.SparkShutdownHookManager$$anon$2.run(ShutdownHookManager.scala:184)
+        at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539)
+        at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+        at java.base/java.lang.Thread.run(Thread.java:840)
+26/11/11 22:48:15 ERROR ShutdownHookManager: Exception while deleting Spark temp dir: C:\Users\2000209445\AppData\Local\Temp\spark-6935ff33-feca-4207-8bf0-844a682a8110
+java.io.IOException: Failed to delete: C:\Users\2000209445\AppData\Local\Temp\spark-6935ff33-feca-4207-8bf0-844a682a8110\userFiles-674f2a04-21a9-4de9-9b97-a984f7f1f14f\org.xerial.snappy_snappy-java-1.1.10.8.jar
+        at org.apache.spark.network.util.JavaUtils.deleteRecursivelyUsingJavaIO(JavaUtils.java:308)
+        at org.apache.spark.network.util.JavaUtils.deleteRecursively(JavaUtils.java:277)
+        at org.apache.spark.network.util.JavaUtils.deleteRecursivelyUsingJavaIO(JavaUtils.java:291)
+        at org.apache.spark.network.util.JavaUtils.deleteRecursively(JavaUtils.java:277)
+        at org.apache.spark.network.util.JavaUtils.deleteRecursivelyUsingJavaIO(JavaUtils.java:291)
+        at org.apache.spark.network.util.JavaUtils.deleteRecursively(JavaUtils.java:277)
+        at org.apache.spark.network.util.JavaUtils.deleteRecursively(JavaUtils.java:248)
+        at org.apache.spark.util.SparkFileUtils.deleteRecursively(SparkFileUtils.scala:158)
+        at org.apache.spark.util.SparkFileUtils.deleteRecursively$(SparkFileUtils.scala:157)
+        at org.apache.spark.util.Utils$.deleteRecursively(Utils.scala:1062)
+        at org.apache.spark.util.ShutdownHookManager$.$anonfun$new$4(ShutdownHookManager.scala:70)
+        at org.apache.spark.util.ShutdownHookManager$.$anonfun$new$4$adapted(ShutdownHookManager.scala:67)
+        at scala.collection.ArrayOps$.foreach$extension(ArrayOps.scala:1324)
+        at org.apache.spark.util.ShutdownHookManager$.$anonfun$new$2(ShutdownHookManager.scala:67)
+        at org.apache.spark.util.SparkShutdownHook.run(ShutdownHookManager.scala:231)
+        at org.apache.spark.util.SparkShutdownHookManager.$anonfun$runAll$2(ShutdownHookManager.scala:205)
+        at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.scala:18)
+        at org.apache.spark.util.Utils$.logUncaughtExceptions(Utils.scala:1941)
+        at org.apache.spark.util.SparkShutdownHookManager.$anonfun$runAll$1(ShutdownHookManager.scala:205)
+        at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.scala:18)
+        at scala.util.Try$.apply(Try.scala:217)
+        at org.apache.spark.util.SparkShutdownHookManager.runAll(ShutdownHookManager.scala:205)
+        at org.apache.spark.util.SparkShutdownHookManager$$anon$2.run(ShutdownHookManager.scala:184)
+        at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539)
+        at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+        at java.base/java.lang.Thread.run(Thread.java:840)
+
+(silver_venv) C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\Ticker>ERROR: The process with PID 27256 (child process of PID 20252) could not be terminated.
+Reason: There is no running instance of the task.
+SUCCESS: The process with PID 20252 (child process of PID 15524) has been terminated.
+SUCCESS: The process with PID 15524 (child process of PID 33692) has been terminated.
