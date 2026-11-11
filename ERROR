@@ -1,102 +1,96 @@
-(.venv) C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\TESTING>python yah.py
-Traceback (most recent call last):
-  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\TESTING\.venv\Lib\site-packages\urllib3\connectionpool.py", line 470, in _make_request
-    self._validate_conn(conn)
-    ~~~~~~~~~~~~~~~~~~~^^^^^^
-  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\TESTING\.venv\Lib\site-packages\urllib3\connectionpool.py", line 1125, in _validate_conn
-    conn.connect()
-    ~~~~~~~~~~~~^^
-  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\TESTING\.venv\Lib\site-packages\urllib3\connection.py", line 878, in connect
-    wrapped_socket, is_verified = _ssl_wrap_socket_and_match_hostname(
-                                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
-        sock=sock,
-        ^^^^^^^^^^
-    ...<14 lines>...
-        assert_fingerprint=self.assert_fingerprint,
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    )
-    ^
-  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\TESTING\.venv\Lib\site-packages\urllib3\connection.py", line 1080, in _ssl_wrap_socket_and_match_hostname
-    ssl_sock = ssl_wrap_socket(
-        sock=sock,
-    ...<8 lines>...
-        tls_in_tls=tls_in_tls,
-    )
-  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\TESTING\.venv\Lib\site-packages\urllib3\util\ssl_.py", line 437, in ssl_wrap_socket
-    ssl_sock = _ssl_wrap_socket_impl(sock, context, tls_in_tls, server_hostname)
-  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\TESTING\.venv\Lib\site-packages\urllib3\util\ssl_.py", line 481, in _ssl_wrap_socket_impl
-    return ssl_context.wrap_socket(sock, server_hostname=server_hostname)
-           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Program Files\Python314\Lib\ssl.py", line 455, in wrap_socket
-    return self.sslsocket_class._create(
-           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
-        sock=sock,
-        ^^^^^^^^^^
-    ...<5 lines>...
-        session=session
-        ^^^^^^^^^^^^^^^
-    )
-    ^
-  File "C:\Program Files\Python314\Lib\ssl.py", line 1076, in _create
-    self.do_handshake()
-    ~~~~~~~~~~~~~~~~~^^
-  File "C:\Program Files\Python314\Lib\ssl.py", line 1372, in do_handshake
-    self._sslobj.do_handshake()
-    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
-ssl.SSLCertVerificationError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1082)
+        at kafka.server.KafkaRaftServer.startup(KafkaRaftServer.scala:96)
+        at kafka.Kafka$.main(Kafka.scala:98)
+        at kafka.Kafka.main(Kafka.scala)
+[2026-11-11 15:03:17,173] ERROR Encountered fatal fault: caught exception (org.apache.kafka.server.fault.ProcessTerminatingFaultHandler)
+java.nio.file.AccessDeniedException: C:\kafka_raft_logs\__cluster_metadata-0\00000000000000000000-0000000000.checkpoint.deleted
+        at java.base/sun.nio.fs.WindowsException.translateToIOException(WindowsException.java:89)
+        at java.base/sun.nio.fs.WindowsException.rethrowAsIOException(WindowsException.java:103)
+        at java.base/sun.nio.fs.WindowsException.rethrowAsIOException(WindowsException.java:108)
+        at java.base/sun.nio.fs.WindowsFileSystemProvider.implDelete(WindowsFileSystemProvider.java:275)
+        at java.base/sun.nio.fs.AbstractFileSystemProvider.deleteIfExists(AbstractFileSystemProvider.java:110)
+        at java.base/java.nio.file.Files.deleteIfExists(Files.java:1191)
+        at org.apache.kafka.raft.internals.KafkaRaftLog.recoverSnapshots(KafkaRaftLog.java:789)
+        at org.apache.kafka.raft.internals.KafkaRaftLog.createLog(KafkaRaftLog.java:732)
+        at kafka.raft.KafkaRaftManager.buildMetadataLog(KafkaRaftManager.scala:203)
+        at kafka.raft.KafkaRaftManager.<init>(KafkaRaftManager.scala:128)
+        at kafka.server.SharedServer.start(SharedServer.scala:307)
+        at kafka.server.SharedServer.startForController(SharedServer.scala:169)
+        at kafka.server.ControllerServer.startup(ControllerServer.scala:207)
+        at kafka.server.KafkaRaftServer.$anonfun$startup$1(KafkaRaftServer.scala:96)
+        at kafka.server.KafkaRaftServer.$anonfun$startup$1$adapted(KafkaRaftServer.scala:96)
+        at scala.Option.foreach(Option.scala:437)
+        at kafka.server.KafkaRaftServer.startup(KafkaRaftServer.scala:96)
+        at kafka.Kafka$.main(Kafka.scala:98)
+        at kafka.Kafka.main(Kafka.scala)
 
-During handling of the above exception, another exception occurred:
+C:\kafka_2.13-4.4.0>bin\windows\kafka-server-start.bat config\server.properties
+DEPRECATED: A Log4j 1.x configuration file has been detected, which is no longer recommended. 
+To use a Log4j 2.x configuration, please see https://logging.apache.org/log4j/2.x/migrate-from-log4j1.html#Log4j2ConfigurationFormat for details about Log4j configuration file migration. 
+You can also use the C:\kafka_2.13-4.4.0/config/tool-log4j2.yaml file as a starting point. Make sure to remove the Log4j 1.x configuration after completing the migration. 
+[2026-11-11 15:04:13,656] INFO Registered `kafka:type=kafka.Log4jController` MBean (org.apache.kafka.server.logger.Log4jControllerRegistration)
+[2026-11-11 15:04:14,051] INFO [ControllerServer id=1] Starting controller (kafka.server.ControllerServer)
+[2026-11-11 15:04:14,458] INFO Updated connection-accept-rate max connection creation rate to 2147483647 (kafka.network.ConnectionQuotas)
+[2026-11-11 15:04:14,564] INFO [SocketServer listenerType=CONTROLLER, nodeId=1] Created data-plane acceptor and processors for endpoint : ListenerName(CONTROLLER) (kafka.network.SocketServer)
+[2026-11-11 15:04:14,574] INFO authorizerStart completed for endpoint CONTROLLER. Endpoint is now READY. (org.apache.kafka.server.network.EndpointReadyFutures)
+[2026-11-11 15:04:14,579] INFO [SharedServer id=1] Starting SharedServer (kafka.server.SharedServer)
+[2026-11-11 15:04:14,675] INFO [LogLoader partition=__cluster_metadata-0, dir=C:\kafka_raft_logs] Recovering unflushed segment 0. 0 recovered for __cluster_metadata-0. (org.apache.kafka.storage.internals.log.LogLoader)
+[2026-11-11 15:04:14,679] INFO [LogLoader partition=__cluster_metadata-0, dir=C:\kafka_raft_logs] Loading producer state till offset 0 (org.apache.kafka.storage.internals.log.UnifiedLog)
+[2026-11-11 15:04:14,680] INFO [LogLoader partition=__cluster_metadata-0, dir=C:\kafka_raft_logs] Reloading from producer snapshot and rebuilding producer state from offset 0 (org.apache.kafka.storage.internals.log.UnifiedLog)
+[2026-11-11 15:04:14,681] INFO Deleted producer state snapshot C:\kafka_raft_logs\__cluster_metadata-0\00000000000000099143.snapshot (org.apache.kafka.storage.internals.log.SnapshotFile)
+[2026-11-11 15:04:14,683] INFO Deleted producer state snapshot C:\kafka_raft_logs\__cluster_metadata-0\00000000000000099777.snapshot (org.apache.kafka.storage.internals.log.SnapshotFile)
+[2026-11-11 15:04:14,683] INFO [LogLoader partition=__cluster_metadata-0, dir=C:\kafka_raft_logs] Producer state recovery took 3ms for snapshot load and 0ms for segment recovery from offset 0 (org.apache.kafka.storage.internals.log.UnifiedLog)
+[2026-11-11 15:04:15,566] INFO [ProducerStateManager partition=__cluster_metadata-0] Wrote producer snapshot at offset 99143 with 0 producer ids in 6 ms. (org.apache.kafka.storage.internals.log.ProducerStateManager)
+[2026-11-11 15:04:15,567] INFO [LogLoader partition=__cluster_metadata-0, dir=C:\kafka_raft_logs] Recovering unflushed segment 99143. 0 recovered for __cluster_metadata-0. (org.apache.kafka.storage.internals.log.LogLoader)
+[2026-11-11 15:04:15,570] INFO [LogLoader partition=__cluster_metadata-0, dir=C:\kafka_raft_logs] Loading producer state till offset 99143 (org.apache.kafka.storage.internals.log.UnifiedLog)
+[2026-11-11 15:04:15,570] INFO [LogLoader partition=__cluster_metadata-0, dir=C:\kafka_raft_logs] Reloading from producer snapshot and rebuilding producer state from offset 99143 (org.apache.kafka.storage.internals.log.UnifiedLog)
+[2026-11-11 15:04:15,573] INFO [ProducerStateManager partition=__cluster_metadata-0] Loading producer state from snapshot file 'SnapshotFile(offset=99143, file=C:\kafka_raft_logs\__cluster_metadata-0\00000000000000099143.snapshot)' (org.apache.kafka.storage.internals.log.ProducerStateManager)
+[2026-11-11 15:04:15,577] INFO [LogLoader partition=__cluster_metadata-0, dir=C:\kafka_raft_logs] Producer state recovery took 6ms for snapshot load and 0ms for segment recovery from offset 99143 (org.apache.kafka.storage.internals.log.UnifiedLog)
+[2026-11-11 15:04:15,594] INFO [ProducerStateManager partition=__cluster_metadata-0] Wrote producer snapshot at offset 99777 with 0 producer ids in 3 ms. (org.apache.kafka.storage.internals.log.ProducerStateManager)
+[2026-11-11 15:04:15,608] INFO [LogLoader partition=__cluster_metadata-0, dir=C:\kafka_raft_logs] Loading producer state till offset 99777 (org.apache.kafka.storage.internals.log.UnifiedLog)
+[2026-11-11 15:04:15,608] INFO [LogLoader partition=__cluster_metadata-0, dir=C:\kafka_raft_logs] Reloading from producer snapshot and rebuilding producer state from offset 99777 (org.apache.kafka.storage.internals.log.UnifiedLog)
+[2026-11-11 15:04:15,609] INFO [ProducerStateManager partition=__cluster_metadata-0] Loading producer state from snapshot file 'SnapshotFile(offset=99777, file=C:\kafka_raft_logs\__cluster_metadata-0\00000000000000099777.snapshot)' (org.apache.kafka.storage.internals.log.ProducerStateManager)
+[2026-11-11 15:04:15,611] INFO [LogLoader partition=__cluster_metadata-0, dir=C:\kafka_raft_logs] Producer state recovery took 2ms for snapshot load and 0ms for segment recovery from offset 99777 (org.apache.kafka.storage.internals.log.UnifiedLog)
+[2026-11-11 15:04:15,624] ERROR [SharedServer id=1] Got exception while starting SharedServer (kafka.server.SharedServer)
+java.nio.file.AccessDeniedException: C:\kafka_raft_logs\__cluster_metadata-0\00000000000000000000-0000000000.checkpoint.deleted
+        at java.base/sun.nio.fs.WindowsException.translateToIOException(WindowsException.java:89)
+        at java.base/sun.nio.fs.WindowsException.rethrowAsIOException(WindowsException.java:103)
+        at java.base/sun.nio.fs.WindowsException.rethrowAsIOException(WindowsException.java:108)
+        at java.base/sun.nio.fs.WindowsFileSystemProvider.implDelete(WindowsFileSystemProvider.java:275)
+        at java.base/sun.nio.fs.AbstractFileSystemProvider.deleteIfExists(AbstractFileSystemProvider.java:110)
+        at java.base/java.nio.file.Files.deleteIfExists(Files.java:1191)
+        at org.apache.kafka.raft.internals.KafkaRaftLog.recoverSnapshots(KafkaRaftLog.java:789)
+        at org.apache.kafka.raft.internals.KafkaRaftLog.createLog(KafkaRaftLog.java:732)
+        at kafka.raft.KafkaRaftManager.buildMetadataLog(KafkaRaftManager.scala:203)
+        at kafka.raft.KafkaRaftManager.<init>(KafkaRaftManager.scala:128)
+        at kafka.server.SharedServer.start(SharedServer.scala:307)
+        at kafka.server.SharedServer.startForController(SharedServer.scala:169)
+        at kafka.server.ControllerServer.startup(ControllerServer.scala:207)
+        at kafka.server.KafkaRaftServer.$anonfun$startup$1(KafkaRaftServer.scala:96)
+        at kafka.server.KafkaRaftServer.$anonfun$startup$1$adapted(KafkaRaftServer.scala:96)
+        at scala.Option.foreach(Option.scala:437)
+        at kafka.server.KafkaRaftServer.startup(KafkaRaftServer.scala:96)
+        at kafka.Kafka$.main(Kafka.scala:98)
+        at kafka.Kafka.main(Kafka.scala)
+[2026-11-11 15:04:15,626] ERROR Encountered fatal fault: caught exception (org.apache.kafka.server.fault.ProcessTerminatingFaultHandler)
+java.nio.file.AccessDeniedException: C:\kafka_raft_logs\__cluster_metadata-0\00000000000000000000-0000000000.checkpoint.deleted
+        at java.base/sun.nio.fs.WindowsException.translateToIOException(WindowsException.java:89)
+        at java.base/sun.nio.fs.WindowsException.rethrowAsIOException(WindowsException.java:103)
+        at java.base/sun.nio.fs.WindowsException.rethrowAsIOException(WindowsException.java:108)
+        at java.base/sun.nio.fs.WindowsFileSystemProvider.implDelete(WindowsFileSystemProvider.java:275)
+        at java.base/sun.nio.fs.AbstractFileSystemProvider.deleteIfExists(AbstractFileSystemProvider.java:110)
+        at java.base/java.nio.file.Files.deleteIfExists(Files.java:1191)
+        at org.apache.kafka.raft.internals.KafkaRaftLog.recoverSnapshots(KafkaRaftLog.java:789)
+        at org.apache.kafka.raft.internals.KafkaRaftLog.createLog(KafkaRaftLog.java:732)
+        at kafka.raft.KafkaRaftManager.buildMetadataLog(KafkaRaftManager.scala:203)
+        at kafka.raft.KafkaRaftManager.<init>(KafkaRaftManager.scala:128)
+        at kafka.server.SharedServer.start(SharedServer.scala:307)
+        at kafka.server.SharedServer.startForController(SharedServer.scala:169)
+        at kafka.server.ControllerServer.startup(ControllerServer.scala:207)
+        at kafka.server.KafkaRaftServer.$anonfun$startup$1(KafkaRaftServer.scala:96)
+        at kafka.server.KafkaRaftServer.$anonfun$startup$1$adapted(KafkaRaftServer.scala:96)
+        at scala.Option.foreach(Option.scala:437)
+        at kafka.server.KafkaRaftServer.startup(KafkaRaftServer.scala:96)
+        at kafka.Kafka$.main(Kafka.scala:98)
+        at kafka.Kafka.main(Kafka.scala)
 
-Traceback (most recent call last):
-  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\TESTING\.venv\Lib\site-packages\urllib3\connectionpool.py", line 793, in urlopen
-    response = self._make_request(
-        conn,
-    ...<10 lines>...
-        **response_kw,
-    )
-  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\TESTING\.venv\Lib\site-packages\urllib3\connectionpool.py", line 494, in _make_request
-    raise new_e
-urllib3.exceptions.SSLError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1082)
-
-The above exception was the direct cause of the following exception:
-
-Traceback (most recent call last):
-  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\TESTING\.venv\Lib\site-packages\requests\adapters.py", line 696, in send
-    resp = conn.urlopen(
-        method=request.method,
-    ...<9 lines>...
-        chunked=chunked,
-    )
-  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\TESTING\.venv\Lib\site-packages\urllib3\connectionpool.py", line 847, in urlopen
-    retries = retries.increment(
-        method, url, error=new_e, _pool=self, _stacktrace=sys.exc_info()[2]
-    )
-  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\TESTING\.venv\Lib\site-packages\urllib3\util\retry.py", line 555, in increment
-    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
-    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='query1.finance.yahoo.com', port=443): Max retries exceeded with url: /v8/finance/chart/INFY.NS?range=1d&interval=1m (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1082)')))
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\TESTING\yah.py", line 45, in <module>
-    print(fetch_yahoo_price("INFY.NS"))
-          ~~~~~~~~~~~~~~~~~^^^^^^^^^^^
-  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\TESTING\yah.py", line 6, in fetch_yahoo_price
-    response = requests.get(
-        url,
-    ...<5 lines>...
-        timeout=20
-    )
-  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\TESTING\.venv\Lib\site-packages\requests\api.py", line 87, in get
-    return request("get", url, params=params, **kwargs)
-  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\TESTING\.venv\Lib\site-packages\requests\api.py", line 71, in request
-    return session.request(method=method, url=url, **kwargs)
-           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\TESTING\.venv\Lib\site-packages\requests\sessions.py", line 651, in request
-    resp = self.send(prep, **send_kwargs)
-  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\TESTING\.venv\Lib\site-packages\requests\sessions.py", line 784, in send
-    r = adapter.send(request, **kwargs)
-  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\TESTING\.venv\Lib\site-packages\requests\adapters.py", line 727, in send
-    raise SSLError(e, request=request)
-requests.exceptions.SSLError: HTTPSConnectionPool(host='query1.finance.yahoo.com', port=443): Max retries exceeded with url: /v8/finance/chart/INFY.NS?range=1d&interval=1m (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1082)')))
+C:\kafka_2.13-4.4.0>
