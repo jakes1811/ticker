@@ -15,3 +15,6 @@ https://huggingface.co/ProsusAI/finbert/resolve/main/model.safetensors?utm_sourc
 
 
 curl -L --retry 5 --retry-all-errors --retry-delay 10 -o models\finbert\model.safetensors "https://huggingface.co/ProsusAI/finbert/resolve/main/model.safetensors"
+
+curl -I -L "https://huggingface.co/ProsusAI/finbert/resolve/main/model.safetensors"
+python -c "import requests; r=requests.get('https://huggingface.co',timeout=30); print('Status:',r.status_code)"
