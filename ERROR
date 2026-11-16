@@ -1,10 +1,20 @@
-(venv) C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel>finbert.bat --download
-The system cannot find the path specified.
+(venv) C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel>python fintel.py finbert --download
 Downloading ProsusAI/finbert (about 440 MB) to C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel\models\finbert ...
 Downloading bytes:                                         |  0.00B            Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads. | 0/5 [00:00<?, ?it/s]
-Fetching 5 files:  80%|████████████████████▊     | 4/5 [04:29<01:07, 67.33s/it]
-Traceback (most recent call last):.):   0%|       |  233kB /  438MB            
-  File "<frozen runpy>", line 203, in _run_module_as_main0:01<00:01,  1.59it/s]
+Fetching 5 files:  80%|████████████████████▊     | 4/5 [00:01<00:00,  3.44it/s]
+Traceback (most recent call last):
+  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel\venv\Lib\site-packages\huggingface_hub\utils\_http.py", line 866, in hf_raise_for_status
+    response.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel\venv\Lib\site-packages\httpx2\_models.py", line 828, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx2.HTTPStatusError: Server error '503 Service Unavailable' for url 'https://us.aws.cdn.hf.co/xet-bridge-us/621ffdc036468d709f176f71/97c9cb12d04352c17ea4a86542c6411d19940e4418e13199087eba3230f3c144?response-content-disposition=inline%3B+filename*%3DUTF-8%27%27model.safetensors%3B+filename%3D%22model.safetensors%22%3B&X-Xet-Cas-Uid=public&user_id=public&xip=6q7K301kYco&Expires=1794812652&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly91cy5hd3MuY2RuLmhmLmNvL3hldC1icmlkZ2UtdXMvNjIxZmZkYzAzNjQ2OGQ3MDlmMTc2ZjcxLzk3YzljYjEyZDA0MzUyYzE3ZWE0YTg2NTQyYzY0MTFkMTk5NDBlNDQxOGUxMzE5OTA4N2ViYTMyMzBmM2MxNDRcXD9yZXNwb25zZS1jb250ZW50LWRpc3Bvc2l0aW9uPWlubGluZSUzQitmaWxlbmFtZSUyQSUzRFVURi04JTI3JTI3bW9kZWwuc2FmZXRlbnNvcnMlM0IrZmlsZW5hbWUlM0QlMjJtb2RlbC5zYWZldGVuc29ycyUyMiUzQiZYLVhldC1DYXMtVWlkPXB1YmxpYyZ1c2VyX2lkPXB1YmxpYyZ4aXA9NnE3SzMwMWtZY28iLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkVwb2NoVGltZSI6MTc5NDgxMjY1Mn19fV19&Signature=MEQCIBcP3H6l23GhwA9o-PJuOy2tiPdRHlDynMsXBG7SHg2dAiAmuftfTaQM%7EBKHb1Qdm1WWzrbtV6ZQD6RzQgU8aK%7EJFg__&Key-Pair-Id=01KXEF4KZ1B6FV465MAWR4M21F&Hash-Algorithm=SHA256'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/503
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "<frozen runpy>", line 203, in _run_module_as_main
   File "<frozen runpy>", line 88, in _run_code
   File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel\tools\check_finbert.py", line 61, in <module>
     sys.exit(main())
@@ -75,25 +85,24 @@ Traceback (most recent call last):.):   0%|       |  233kB /  438MB
         ^^^^^^^^^^^^^^^^^^^^^^
     )
     ^
-  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel\venv\Lib\site-packages\huggingface_hub\file_download.py", line 2017, in _download_to_tmp_and_move
-    xet_get(
-    ~~~~~~~^
-        incomplete_path=tmp_path,
-        ^^^^^^^^^^^^^^^^^^^^^^^^^
-    ...<4 lines>...
+  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel\venv\Lib\site-packages\huggingface_hub\file_download.py", line 2033, in _download_to_tmp_and_move
+    http_get(
+    ~~~~~~~~^
+        url_to_download,
+        ^^^^^^^^^^^^^^^^
+    ...<3 lines>...
         tqdm_class=tqdm_class,
         ^^^^^^^^^^^^^^^^^^^^^^
     )
     ^
-  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel\venv\Lib\site-packages\huggingface_hub\file_download.py", line 589, in xet_get
-    with session.new_file_download_group(
-         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
-        endpoint=connection_info.endpoint,
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    ...<5 lines>...
-        progress_callback=progress.update_progress,
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    ) as group:
-    ^
-RuntimeError: Task error: File reconstruction error: CAS Client Error: Request error: HTTP status server error (503 Service Unavailable), domain: https://cas-server.xethub.hf.co/v2/reconstructions/97c9cb12d04352c17ea4a86542c6411d19940e4418e13199087eba3230f3c144
-Press any key to continue . . . 
+  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel\venv\Lib\site-packages\huggingface_hub\utils\_validators.py", line 89, in _inner_fn
+    return fn(*args, **kwargs)
+  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel\venv\Lib\site-packages\huggingface_hub\file_download.py", line 401, in http_get
+    hf_raise_for_status(response)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel\venv\Lib\site-packages\huggingface_hub\utils\_http.py", line 996, in hf_raise_for_status
+    raise _format(HfHubHTTPError, str(e), response) from e
+huggingface_hub.errors.HfHubHTTPError: Server error '503 Service Unavailable' for url 'https://us.aws.cdn.hf.co/xet-bridge-us/621ffdc036468d709f176f71/97c9cb12d04352c17ea4a86542c6411d19940e4418e13199087eba3230f3c144?response-content-disposition=inline%3B+filename*%3DUTF-8%27%27model.safetensors%3B+filename%3D%22model.safetensors%22%3B&X-Xet-Cas-Uid=public&user_id=public&xip=6q7K301kYco&Expires=1794812652&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly91cy5hd3MuY2RuLmhmLmNvL3hldC1icmlkZ2UtdXMvNjIxZmZkYzAzNjQ2OGQ3MDlmMTc2ZjcxLzk3YzljYjEyZDA0MzUyYzE3ZWE0YTg2NTQyYzY0MTFkMTk5NDBlNDQxOGUxMzE5OTA4N2ViYTMyMzBmM2MxNDRcXD9yZXNwb25zZS1jb250ZW50LWRpc3Bvc2l0aW9uPWlubGluZSUzQitmaWxlbmFtZSUyQSUzRFVURi04JTI3JTI3bW9kZWwuc2FmZXRlbnNvcnMlM0IrZmlsZW5hbWUlM0QlMjJtb2RlbC5zYWZldGVuc29ycyUyMiUzQiZYLVhldC1DYXMtVWlkPXB1YmxpYyZ1c2VyX2lkPXB1YmxpYyZ4aXA9NnE3SzMwMWtZY28iLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkVwb2NoVGltZSI6MTc5NDgxMjY1Mn19fV19&Signature=MEQCIBcP3H6l23GhwA9o-PJuOy2tiPdRHlDynMsXBG7SHg2dAiAmuftfTaQM%7EBKHb1Qdm1WWzrbtV6ZQD6RzQgU8aK%7EJFg__&Key-Pair-Id=01KXEF4KZ1B6FV465MAWR4M21F&Hash-Algorithm=SHA256'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/503
+Downloading bytes:                                         |  0.00B            
+Reconstructing (incomplete total...): |           |  0.00B /  0.00B   
