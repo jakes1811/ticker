@@ -1,57 +1,99 @@
-\activate
-
-(venv) C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel>pip install -r requirements.txt
-Collecting pyspark==4.1.4 (from -r requirements.txt (line 2))
-  Using cached pyspark-4.1.4-py2.py3-none-any.whl
-Collecting delta-spark==4.3.1 (from -r requirements.txt (line 3))
-  Using cached delta_spark-4.3.1-py3-none-any.whl.metadata (2.2 kB)
-Collecting pandas<3 (from -r requirements.txt (line 4))
-  Downloading pandas-2.3.3-cp314-cp314-win_amd64.whl.metadata (19 kB)
-Collecting pyarrow (from -r requirements.txt (line 5))
-  Downloading pyarrow-26.0.1-cp314-cp314-win_amd64.whl.metadata (3.0 kB)
-Collecting numpy (from -r requirements.txt (line 6))
-  Downloading numpy-2.5.5-cp314-cp314-win_amd64.whl.metadata (6.6 kB)
-Collecting deltalake (from -r requirements.txt (line 7))
-  Downloading deltalake-1.6.6-cp310-abi3-win_amd64.whl.metadata (5.5 kB)
-Collecting kafka-python==2.0.2 (from -r requirements.txt (line 8))
-  Downloading kafka_python-2.0.2-py2.py3-none-any.whl.metadata (7.8 kB)
-Collecting requests (from -r requirements.txt (line 9))
-  Using cached requests-2.34.2-py3-none-any.whl.metadata (4.8 kB)
-Collecting truststore (from -r requirements.txt (line 10))
-  Using cached truststore-0.10.5-py3-none-any.whl.metadata (4.5 kB)
-Collecting feedparser (from -r requirements.txt (line 11))
-  Downloading feedparser-6.0.14-py3-none-any.whl.metadata (2.7 kB)
-Collecting beautifulsoup4 (from -r requirements.txt (line 12))
-  Using cached beautifulsoup4-4.15.0-py3-none-any.whl.metadata (3.8 kB)
-Collecting python-dotenv (from -r requirements.txt (line 13))
-  Using cached python_dotenv-1.2.4-py3-none-any.whl.metadata (29 kB)
-Collecting streamlit>=1.52 (from -r requirements.txt (line 14))
-  Using cached streamlit-1.67.0-py3-none-any.whl.metadata (10 kB)
-Collecting plotly (from -r requirements.txt (line 15))
-  Downloading plotly-7.1.0-py3-none-any.whl.metadata (8.8 kB)
-Collecting psycopg2-binary (from -r requirements.txt (line 16))
-  Downloading psycopg2_binary-2.9.13-cp314-cp314-win_amd64.whl.metadata (5.1 kB)
-Collecting torch (from -r requirements.txt (line 17))
-  Downloading torch-2.15.0-cp314-cp314-win_amd64.whl.metadata (36 kB)
-Collecting transformers (from -r requirements.txt (line 18))
-  Downloading transformers-5.23.0-py3-none-any.whl.metadata (31 kB)
-Collecting py4j<0.10.9.10,>=0.10.9.7 (from pyspark==4.1.4->-r requirements.txt (line 2))
-  Using cached py4j-0.10.9.9-py2.py3-none-any.whl.metadata (1.3 kB)
-INFO: pip is looking at multiple versions of delta-spark to determine which version is compatible with other requirements. This could take a while.
-ERROR: Cannot install -r requirements.txt (line 3) and pyspark==4.1.4 because these package versions have conflicting dependencies.
-
-The conflict is caused by:
-    The user requested pyspark==4.1.4
-    delta-spark 4.3.1 depends on pyspark<=4.1.1 and >=4.0.1
-
-Additionally, some packages in these conflicts have no matching distributions available for your environment:
-    pyspark
-
-To fix this you could try to:
-1. loosen the range of package versions you've specified
-2. remove package versions to allow pip to attempt to solve the dependency conflict
-
-
-[notice] A new release of pip is available: 26.2.1 -> 26.3
-[notice] To update, run: python.exe -m pip install --upgrade pip
-ERROR: ResolutionImpossible: for help visit https://pip.pypa.io/en/latest/topics/dependency-resolution/#dealing-with-dependency-conflicts
+(venv) C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel>finbert.bat --download
+The system cannot find the path specified.
+Downloading ProsusAI/finbert (about 440 MB) to C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel\models\finbert ...
+Downloading bytes:                                         |  0.00B            Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads. | 0/5 [00:00<?, ?it/s]
+Fetching 5 files:  80%|████████████████████▊     | 4/5 [04:29<01:07, 67.33s/it]
+Traceback (most recent call last):.):   0%|       |  233kB /  438MB            
+  File "<frozen runpy>", line 203, in _run_module_as_main0:01<00:01,  1.59it/s]
+  File "<frozen runpy>", line 88, in _run_code
+  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel\tools\check_finbert.py", line 61, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel\tools\check_finbert.py", line 40, in main
+    download()
+    ~~~~~~~~^^
+  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel\tools\check_finbert.py", line 33, in download
+    snapshot_download("ProsusAI/finbert", local_dir=str(settings.FINBERT_PATH),
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                      allow_patterns=["config.json", "model.safetensors", "tokenizer_config.json",
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                                      "special_tokens_map.json", "vocab.txt"])
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel\venv\Lib\site-packages\huggingface_hub\utils\_validators.py", line 89, in _inner_fn
+    return fn(*args, **kwargs)
+  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel\venv\Lib\site-packages\huggingface_hub\utils\_http.py", line 276, in _inner
+    return fn(*args, **kwargs)
+  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel\venv\Lib\site-packages\huggingface_hub\_snapshot_download.py", line 541, in snapshot_download
+    hf_thread_map(
+    ~~~~~~~~~~~~~^
+        _inner_hf_hub_download,
+        ^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+        tqdm_class=tqdm_class,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel\venv\Lib\site-packages\huggingface_hub\utils\tqdm.py", line 441, in hf_thread_map
+    results[future_to_index[future]] = future.result()
+                                       ~~~~~~~~~~~~~^^
+  File "C:\Program Files\Python314\Lib\concurrent\futures\_base.py", line 447, in result
+    return self.__get_result()
+           ~~~~~~~~~~~~~~~~~^^
+  File "C:\Program Files\Python314\Lib\concurrent\futures\_base.py", line 396, in __get_result
+    raise self._exception
+  File "C:\Program Files\Python314\Lib\concurrent\futures\thread.py", line 86, in run
+    result = ctx.run(self.task)
+  File "C:\Program Files\Python314\Lib\concurrent\futures\thread.py", line 73, in run
+    return fn(*args, **kwargs)
+  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel\venv\Lib\site-packages\huggingface_hub\_snapshot_download.py", line 521, in _inner_hf_hub_download
+    hf_hub_download(  # type: ignore
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+        repo_id,
+        ^^^^^^^^
+    ...<14 lines>...
+        dry_run=dry_run,
+        ^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel\venv\Lib\site-packages\huggingface_hub\utils\_validators.py", line 89, in _inner_fn
+    return fn(*args, **kwargs)
+  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel\venv\Lib\site-packages\huggingface_hub\utils\_http.py", line 276, in _inner
+    return fn(*args, **kwargs)
+  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel\venv\Lib\site-packages\huggingface_hub\file_download.py", line 1026, in hf_hub_download
+    return _hf_hub_download_to_local_dir(
+        # Destination
+    ...<16 lines>...
+        dry_run=dry_run,
+    )
+  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel\venv\Lib\site-packages\huggingface_hub\file_download.py", line 1505, in _hf_hub_download_to_local_dir
+    _download_to_tmp_and_move(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        incomplete_path=paths.incomplete_path(etag),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<8 lines>...
+        tqdm_class=tqdm_class,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel\venv\Lib\site-packages\huggingface_hub\file_download.py", line 2017, in _download_to_tmp_and_move
+    xet_get(
+    ~~~~~~~^
+        incomplete_path=tmp_path,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        tqdm_class=tqdm_class,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel\venv\Lib\site-packages\huggingface_hub\file_download.py", line 589, in xet_get
+    with session.new_file_download_group(
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        endpoint=connection_info.endpoint,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+        progress_callback=progress.update_progress,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ) as group:
+    ^
+RuntimeError: Task error: File reconstruction error: CAS Client Error: Request error: HTTP status server error (503 Service Unavailable), domain: https://cas-server.xethub.hf.co/v2/reconstructions/97c9cb12d04352c17ea4a86542c6411d19940e4418e13199087eba3230f3c144
+Press any key to continue . . . 
