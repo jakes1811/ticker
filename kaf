@@ -1,20 +1,10 @@
 
-from huggingface_hub import snapshot_download
-import os
+import shutil
 
-model_path = "/content/finbert"
-
-snapshot_download(
-    repo_id="ProsusAI/finbert",
-    local_dir=model_path,
-    allow_patterns=[
-        "config.json",
-        "model.safetensors",
-        "tokenizer_config.json",
-        "special_tokens_map.json",
-        "vocab.txt"
-    ]
+shutil.make_archive(
+    '/content/finbert',
+    'zip',
+    '/content/finbert'
 )
 
-print("FinBERT download completed!")
-print(os.listdir(model_path))
+print("FinBERT ZIP created successfully!")
