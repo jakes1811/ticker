@@ -1,18 +1,3 @@
-(.venv) PS C:\> deactivate
-PS C:\> Get-Process java -ErrorAction SilentlyContinue
+curl --ssl-no-revoke -fL -C - -o models\finbert\pytorch_model.bin "https://huggingface.co/ProsusAI/finbert/resolve/main/pytorch_model.bin"
 
-Handles  NPM(K)    PM(K)      WS(K)     CPU(s)     Id  SI ProcessName                                          
--------  ------    -----      -----     ------     --  -- -----------                                          
-    822      58   377760      72904     124.06  31808   9 java                                                 
-
-
-PS C:\> icacls C:\kafka_raft_logs
-C:\kafka_raft_logs BUILTIN\Administrators:(I)(OI)(CI)(F)
-                   NT AUTHORITY\SYSTEM:(I)(OI)(CI)(F)
-                   BUILTIN\Users:(I)(OI)(CI)(RX)
-                   NT AUTHORITY\Authenticated Users:(I)(M)
-                   NT AUTHORITY\Authenticated Users:(I)(OI)(CI)(IO)(M)
-
-Successfully processed 1 files; Failed processing 0 files
-PS C:\> "test" | Out-File C:\kafka_raft_logs\permission_test.txt
-PS C:\> 
+curl --ssl-no-revoke -I -L "https://huggingface.co/ProsusAI/finbert/resolve/main/pytorch_model.bin"
