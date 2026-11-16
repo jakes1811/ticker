@@ -1,118 +1,63 @@
-(venv) C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel>set HF_HUB_DISABLE_XET=1
 
-(venv) C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel>where python
-C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel\venv\Scripts\python.exe
-C:\Program Files\Python314\python.exe
-C:\Program Files\Python312\python.exe
-C:\Users\2000209445\AppData\Local\Microsoft\WindowsApps\python.exe
+(venv) C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel>curl -Iv https:/huggingface.co
+* Host huggingface.co:443 was resolved.
+* IPv6: (none)
+* IPv4: 13.225.5.95, 13.225.5.30, 13.225.5.26, 13.225.5.100
+*   Trying 13.225.5.95:443...
+* schannel: disabled automatic use of client certificate
+* ALPN: curl offers http/1.1
+* ALPN: server accepted http/1.1
+* Established connection to huggingface.co (13.225.5.95 port 443) from 10.6.77.109 port 56050 
+* using HTTP/1.x
+> HEAD / HTTP/1.1
+> Host: huggingface.co
+> User-Agent: curl/8.22.0
+> Accept: */*
+> 
+* Request completely sent off
+* schannel: remote party requests renegotiation
+* schannel: renegotiating SSL/TLS connection
+* schannel: SSL/TLS connection renegotiated
+< HTTP/1.1 200 OK
+HTTP/1.1 200 OK
+< Content-Type: text/html; charset=utf-8
+Content-Type: text/html; charset=utf-8
+< Content-Length: 174184
+Content-Length: 174184
+< Connection: keep-alive
+Connection: keep-alive
+< Date: Mon, 16 Nov 2026 09:57:07 GMT
+Date: Mon, 16 Nov 2026 09:57:07 GMT
+< ETag: W/"2a868-lzYkjvhQmW/6RClOSocn3w1dHDI"
+ETag: W/"2a868-lzYkjvhQmW/6RClOSocn3w1dHDI"
+< X-Powered-By: huggingface-moon
+X-Powered-By: huggingface-moon
+< X-Request-Id: Root=1-6afad373-5a1d42c5037f3517125074b2
+X-Request-Id: Root=1-6afad373-5a1d42c5037f3517125074b2
+< cross-origin-opener-policy: same-origin
+cross-origin-opener-policy: same-origin
+< Referrer-Policy: strict-origin-when-cross-origin
+Referrer-Policy: strict-origin-when-cross-origin
+< Link: </.well-known/ai-catalog.json>; rel="ai-catalog"; type="application/ai-catalog+json"
+Link: </.well-known/ai-catalog.json>; rel="ai-catalog"; type="application/ai-catalog+json"
+< Link: </.well-known/api-catalog>; rel="api-catalog"
+Link: </.well-known/api-catalog>; rel="api-catalog"
+< x-frame-options: DENY
+x-frame-options: DENY
+< X-Cache: Hit from cloudfront
+X-Cache: Hit from cloudfront
+< Via: 1.1 0e64ecf162e6c81dc537e18db119bd0c.cloudfront.net (CloudFront)
+Via: 1.1 0e64ecf162e6c81dc537e18db119bd0c.cloudfront.net (CloudFront)
+< X-Amz-Cf-Pop: BOM78-P10
+X-Amz-Cf-Pop: BOM78-P10
+< Alt-Svc: h3=":443"; ma=86400
+Alt-Svc: h3=":443"; ma=86400
+< X-Amz-Cf-Id: hP01AA_FDLJOdFMAN_SHBVhFEEmBCZdZ9YBBS1aHbAhFq8I4DJ5-Vw==
+X-Amz-Cf-Id: hP01AA_FDLJOdFMAN_SHBVhFEEmBCZdZ9YBBS1aHbAhFq8I4DJ5-Vw==
+< Age: 32
+Age: 32
+< Strict-Transport-Security: max-age=31536000
+Strict-Transport-Security: max-age=31536000
+<
 
-(venv) C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel>python fintel.py finbert --download
-Downloading ProsusAI/finbert (about 440 MB) to C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel\models\finbert ...
-Downloading bytes:                                         |  0.00B            Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads. | 0/5 [00:00<?, ?it/s]
-Fetching 5 files:  80%|████████████████████▊     | 4/5 [00:00<00:00,  4.33it/s]
-Traceback (most recent call last):
-  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel\venv\Lib\site-packages\huggingface_hub\utils\_http.py", line 866, in hf_raise_for_status
-    response.raise_for_status()
-    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
-  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel\venv\Lib\site-packages\httpx2\_models.py", line 828, in raise_for_status
-    raise HTTPStatusError(message, request=request, response=self)
-httpx2.HTTPStatusError: Server error '503 Service Unavailable' for url 'https://us.aws.cdn.hf.co/xet-bridge-us/621ffdc036468d709f176f71/97c9cb12d04352c17ea4a86542c6411d19940e4418e13199087eba3230f3c144?response-content-disposition=inline%3B+filename*%3DUTF-8%27%27model.safetensors%3B+filename%3D%22model.safetensors%22%3B&xip=6q7K301kYco&X-Xet-Cas-Uid=public&user_id=public&Expires=1794812824&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly91cy5hd3MuY2RuLmhmLmNvL3hldC1icmlkZ2UtdXMvNjIxZmZkYzAzNjQ2OGQ3MDlmMTc2ZjcxLzk3YzljYjEyZDA0MzUyYzE3ZWE0YTg2NTQyYzY0MTFkMTk5NDBlNDQxOGUxMzE5OTA4N2ViYTMyMzBmM2MxNDRcXD9yZXNwb25zZS1jb250ZW50LWRpc3Bvc2l0aW9uPWlubGluZSUzQitmaWxlbmFtZSUyQSUzRFVURi04JTI3JTI3bW9kZWwuc2FmZXRlbnNvcnMlM0IrZmlsZW5hbWUlM0QlMjJtb2RlbC5zYWZldGVuc29ycyUyMiUzQiZ4aXA9NnE3SzMwMWtZY28mWC1YZXQtQ2FzLVVpZD1wdWJsaWMmdXNlcl9pZD1wdWJsaWMiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkVwb2NoVGltZSI6MTc5NDgxMjgyNH19fV19&Signature=MEQCIHqBsj4YGqVfP1O90Cm1ogh3XEYvGdHUTWLKxQHQXW8lAiALuwy3wHBscFkvzzavt9-hANxlXDyJGeCmbeGitrVQgQ__&Key-Pair-Id=01KXEF4KZ1B6FV465MAWR4M21F&Hash-Algorithm=SHA256'
-For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/503
-
-The above exception was the direct cause of the following exception:
-
-Traceback (most recent call last):
-  File "<frozen runpy>", line 203, in _run_module_as_main
-  File "<frozen runpy>", line 88, in _run_code
-  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel\tools\check_finbert.py", line 61, in <module>
-    sys.exit(main())
-             ~~~~^^
-  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel\tools\check_finbert.py", line 40, in main
-    download()
-    ~~~~~~~~^^
-  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel\tools\check_finbert.py", line 33, in download
-    snapshot_download("ProsusAI/finbert", local_dir=str(settings.FINBERT_PATH),
-    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-                      allow_patterns=["config.json", "model.safetensors", "tokenizer_config.json",
-                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-                                      "special_tokens_map.json", "vocab.txt"])
-                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel\venv\Lib\site-packages\huggingface_hub\utils\_validators.py", line 89, in _inner_fn
-    return fn(*args, **kwargs)
-  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel\venv\Lib\site-packages\huggingface_hub\utils\_http.py", line 276, in _inner
-    return fn(*args, **kwargs)
-  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel\venv\Lib\site-packages\huggingface_hub\_snapshot_download.py", line 541, in snapshot_download
-    hf_thread_map(
-    ~~~~~~~~~~~~~^
-        _inner_hf_hub_download,
-        ^^^^^^^^^^^^^^^^^^^^^^^
-    ...<3 lines>...
-        tqdm_class=tqdm_class,
-        ^^^^^^^^^^^^^^^^^^^^^^
-    )
-    ^
-  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel\venv\Lib\site-packages\huggingface_hub\utils\tqdm.py", line 441, in hf_thread_map
-    results[future_to_index[future]] = future.result()
-                                       ~~~~~~~~~~~~~^^
-  File "C:\Program Files\Python314\Lib\concurrent\futures\_base.py", line 447, in result
-    return self.__get_result()
-           ~~~~~~~~~~~~~~~~~^^
-  File "C:\Program Files\Python314\Lib\concurrent\futures\_base.py", line 396, in __get_result
-    raise self._exception
-  File "C:\Program Files\Python314\Lib\concurrent\futures\thread.py", line 86, in run
-    result = ctx.run(self.task)
-  File "C:\Program Files\Python314\Lib\concurrent\futures\thread.py", line 73, in run
-    return fn(*args, **kwargs)
-  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel\venv\Lib\site-packages\huggingface_hub\_snapshot_download.py", line 521, in _inner_hf_hub_download
-    hf_hub_download(  # type: ignore
-    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
-        repo_id,
-        ^^^^^^^^
-    ...<14 lines>...
-        dry_run=dry_run,
-        ^^^^^^^^^^^^^^^^
-    )
-    ^
-  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel\venv\Lib\site-packages\huggingface_hub\utils\_validators.py", line 89, in _inner_fn
-    return fn(*args, **kwargs)
-  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel\venv\Lib\site-packages\huggingface_hub\utils\_http.py", line 276, in _inner
-    return fn(*args, **kwargs)
-  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel\venv\Lib\site-packages\huggingface_hub\file_download.py", line 1026, in hf_hub_download
-    return _hf_hub_download_to_local_dir(
-        # Destination
-    ...<16 lines>...
-        dry_run=dry_run,
-    )
-  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel\venv\Lib\site-packages\huggingface_hub\file_download.py", line 1505, in _hf_hub_download_to_local_dir
-    _download_to_tmp_and_move(
-    ~~~~~~~~~~~~~~~~~~~~~~~~~^
-        incomplete_path=paths.incomplete_path(etag),
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    ...<8 lines>...
-        tqdm_class=tqdm_class,
-        ^^^^^^^^^^^^^^^^^^^^^^
-    )
-    ^
-  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel\venv\Lib\site-packages\huggingface_hub\file_download.py", line 2033, in _download_to_tmp_and_move
-    http_get(
-    ~~~~~~~~^
-        url_to_download,
-        ^^^^^^^^^^^^^^^^
-    ...<3 lines>...
-        tqdm_class=tqdm_class,
-        ^^^^^^^^^^^^^^^^^^^^^^
-    )
-    ^
-  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel\venv\Lib\site-packages\huggingface_hub\utils\_validators.py", line 89, in _inner_fn
-    return fn(*args, **kwargs)
-  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel\venv\Lib\site-packages\huggingface_hub\file_download.py", line 401, in http_get
-    hf_raise_for_status(response)
-    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
-  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel\venv\Lib\site-packages\huggingface_hub\utils\_http.py", line 996, in hf_raise_for_status
-    raise _format(HfHubHTTPError, str(e), response) from e
-huggingface_hub.errors.HfHubHTTPError: Server error '503 Service Unavailable' for url 'https://us.aws.cdn.hf.co/xet-bridge-us/621ffdc036468d709f176f71/97c9cb12d04352c17ea4a86542c6411d19940e4418e13199087eba3230f3c144?response-content-disposition=inline%3B+filename*%3DUTF-8%27%27model.safetensors%3B+filename%3D%22model.safetensors%22%3B&xip=6q7K301kYco&X-Xet-Cas-Uid=public&user_id=public&Expires=1794812824&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly91cy5hd3MuY2RuLmhmLmNvL3hldC1icmlkZ2UtdXMvNjIxZmZkYzAzNjQ2OGQ3MDlmMTc2ZjcxLzk3YzljYjEyZDA0MzUyYzE3ZWE0YTg2NTQyYzY0MTFkMTk5NDBlNDQxOGUxMzE5OTA4N2ViYTMyMzBmM2MxNDRcXD9yZXNwb25zZS1jb250ZW50LWRpc3Bvc2l0aW9uPWlubGluZSUzQitmaWxlbmFtZSUyQSUzRFVURi04JTI3JTI3bW9kZWwuc2FmZXRlbnNvcnMlM0IrZmlsZW5hbWUlM0QlMjJtb2RlbC5zYWZldGVuc29ycyUyMiUzQiZ4aXA9NnE3SzMwMWtZY28mWC1YZXQtQ2FzLVVpZD1wdWJsaWMmdXNlcl9pZD1wdWJsaWMiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkVwb2NoVGltZSI6MTc5NDgxMjgyNH19fV19&Signature=MEQCIHqBsj4YGqVfP1O90Cm1ogh3XEYvGdHUTWLKxQHQXW8lAiALuwy3wHBscFkvzzavt9-hANxlXDyJGeCmbeGitrVQgQ__&Key-Pair-Id=01KXEF4KZ1B6FV465MAWR4M21F&Hash-Algorithm=SHA256'
-For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/503
-Downloading bytes:                                         |  0.00B            
-Reconstructing (incomplete total...): |           |  0.00B /  0.00B            
-
-(venv) C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel>
+* Connection #0 to host huggingface.co:443 left intact
