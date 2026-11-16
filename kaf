@@ -1,3 +1,20 @@
-curl --ssl-no-revoke -fL -C - -o models\finbert\pytorch_model.bin "https://huggingface.co/ProsusAI/finbert/resolve/main/pytorch_model.bin"
 
-curl --ssl-no-revoke -I -L "https://huggingface.co/ProsusAI/finbert/resolve/main/pytorch_model.bin"
+from huggingface_hub import snapshot_download
+import os
+
+model_path = "/content/finbert"
+
+snapshot_download(
+    repo_id="ProsusAI/finbert",
+    local_dir=model_path,
+    allow_patterns=[
+        "config.json",
+        "model.safetensors",
+        "tokenizer_config.json",
+        "special_tokens_map.json",
+        "vocab.txt"
+    ]
+)
+
+print("FinBERT download completed!")
+print(os.listdir(model_path))
