@@ -1,63 +1,39 @@
+(venv) C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel>python -c "import requests; r=requests.get('https://huggingface.co',timeout=30); print('Status:',r.status_code)"
+Status: 200
 
-(venv) C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel>curl -Iv https:/huggingface.co
-* Host huggingface.co:443 was resolved.
-* IPv6: (none)
-* IPv4: 13.225.5.95, 13.225.5.30, 13.225.5.26, 13.225.5.100
-*   Trying 13.225.5.95:443...
-* schannel: disabled automatic use of client certificate
-* ALPN: curl offers http/1.1
-* ALPN: server accepted http/1.1
-* Established connection to huggingface.co (13.225.5.95 port 443) from 10.6.77.109 port 56050 
-* using HTTP/1.x
-> HEAD / HTTP/1.1
-> Host: huggingface.co
-> User-Agent: curl/8.22.0
-> Accept: */*
-> 
-* Request completely sent off
-* schannel: remote party requests renegotiation
-* schannel: renegotiating SSL/TLS connection
-* schannel: SSL/TLS connection renegotiated
-< HTTP/1.1 200 OK
-HTTP/1.1 200 OK
-< Content-Type: text/html; charset=utf-8
-Content-Type: text/html; charset=utf-8
-< Content-Length: 174184
-Content-Length: 174184
-< Connection: keep-alive
+(venv) C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel>curl -I -L "https://huggingface.co/ProsusAI/finbert/resolve/main/model.safetensors"
+HTTP/1.1 302 Found
+Content-Type: text/plain; charset=utf-8
+Content-Length: 1040
 Connection: keep-alive
-< Date: Mon, 16 Nov 2026 09:57:07 GMT
-Date: Mon, 16 Nov 2026 09:57:07 GMT
-< ETag: W/"2a868-lzYkjvhQmW/6RClOSocn3w1dHDI"
-ETag: W/"2a868-lzYkjvhQmW/6RClOSocn3w1dHDI"
-< X-Powered-By: huggingface-moon
+Date: Mon, 16 Nov 2026 10:05:44 GMT
+Location: https://us.aws.cdn.hf.co/xet-bridge-us/621ffdc036468d709f176f71/97c9cb12d04352c17ea4a86542c6411d19940e4418e13199087eba3230f3c144?response-content-disposition=inline%3B+filename*%3DUTF-8%27%27model.safetensors%3B+filename%3D%22model.safetensors%22%3B&X-Xet-Cas-Uid=public&user_id=public&xip=6q7K301kYco&Expires=1794827144&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly91cy5hd3MuY2RuLmhmLmNvL3hldC1icmlkZ2UtdXMvNjIxZmZkYzAzNjQ2OGQ3MDlmMTc2ZjcxLzk3YzljYjEyZDA0MzUyYzE3ZWE0YTg2NTQyYzY0MTFkMTk5NDBlNDQxOGUxMzE5OTA4N2ViYTMyMzBmM2MxNDRcXD9yZXNwb25zZS1jb250ZW50LWRpc3Bvc2l0aW9uPWlubGluZSUzQitmaWxlbmFtZSUyQSUzRFVURi04JTI3JTI3bW9kZWwuc2FmZXRlbnNvcnMlM0IrZmlsZW5hbWUlM0QlMjJtb2RlbC5zYWZldGVuc29ycyUyMiUzQiZYLVhldC1DYXMtVWlkPXB1YmxpYyZ1c2VyX2lkPXB1YmxpYyZ4aXA9NnE3SzMwMWtZY28iLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkVwb2NoVGltZSI6MTc5NDgyNzE0NH19fV19&Signature=MEUCIB622EYaziYu315Of%7EUa-Lovf572PL8-Ca3TPUGGpVZTAiEAq83f3sNVp9Hi0m7KijaVif9ZdQWGEuWPCAPV5WgiDYI_&Key-Pair-Id=01KXEF4KZ1B6FV465MAWR4M21F&Hash-Algorithm=SHA256
 X-Powered-By: huggingface-moon
-< X-Request-Id: Root=1-6afad373-5a1d42c5037f3517125074b2
-X-Request-Id: Root=1-6afad373-5a1d42c5037f3517125074b2
-< cross-origin-opener-policy: same-origin
+X-Request-Id: Root=1-6afad578-1d9b338540bfe602049daa4e
+RateLimit: "resolvers";r=2999;t=52
+RateLimit-Policy: "fixed window";"resolvers";q=3000;w=300
 cross-origin-opener-policy: same-origin
-< Referrer-Policy: strict-origin-when-cross-origin
 Referrer-Policy: strict-origin-when-cross-origin
-< Link: </.well-known/ai-catalog.json>; rel="ai-catalog"; type="application/ai-catalog+json"
-Link: </.well-known/ai-catalog.json>; rel="ai-catalog"; type="application/ai-catalog+json"
-< Link: </.well-known/api-catalog>; rel="api-catalog"
-Link: </.well-known/api-catalog>; rel="api-catalog"
-< x-frame-options: DENY
-x-frame-options: DENY
-< X-Cache: Hit from cloudfront
-X-Cache: Hit from cloudfront
-< Via: 1.1 0e64ecf162e6c81dc537e18db119bd0c.cloudfront.net (CloudFront)
-Via: 1.1 0e64ecf162e6c81dc537e18db119bd0c.cloudfront.net (CloudFront)
-< X-Amz-Cf-Pop: BOM78-P10
-X-Amz-Cf-Pop: BOM78-P10
-< Alt-Svc: h3=":443"; ma=86400
+Access-Control-Max-Age: 86400
+Access-Control-Allow-Origin: https://huggingface.co
+Vary: Origin, Accept
+Access-Control-Expose-Headers: X-Repo-Commit,X-HF-Warning,X-Request-Id,X-Error-Code,X-Error-Message,X-Total-Count,ETag,Link,Accept-Ranges,Content-Range,X-Linked-Size,X-Linked-ETag,X-Xet-Hash,RateLimit,RateLimit-Policy
+X-Repo-Commit: 0bc2ac10dda6929bcb1f77ccc43c7ec5c424f031
+Accept-Ranges: bytes
+X-HF-Warning: unauthenticated; Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+X-Hub-Cache: MISS
+X-Linked-Size: 437965908
+X-Linked-ETag: "e5897858ff819aad7629b96ce521ae5477952d03634ef5dd30ed2d76357a9f00"
+Cache-Control: no-store
+X-Xet-Hash: 97c9cb12d04352c17ea4a86542c6411d19940e4418e13199087eba3230f3c144
+Link: <https://huggingface.co/api/models/ProsusAI/finbert/xet-read-token/0bc2ac10dda6929bcb1f77ccc43c7ec5c424f031>; rel="xet-auth", <https://cas-server.xethub.hf.co/v1/reconstructions/97c9cb12d04352c17ea4a86542c6411d19940e4418e13199087eba3230f3c144>; rel="xet-reconstruction-info"
+X-Cache: Miss from cloudfront
+Via: 1.1 988077a6e33a5a323c517695956ab4d6.cloudfront.net (CloudFront)
+X-Amz-Cf-Pop: SIN2-P7
 Alt-Svc: h3=":443"; ma=86400
-< X-Amz-Cf-Id: hP01AA_FDLJOdFMAN_SHBVhFEEmBCZdZ9YBBS1aHbAhFq8I4DJ5-Vw==
-X-Amz-Cf-Id: hP01AA_FDLJOdFMAN_SHBVhFEEmBCZdZ9YBBS1aHbAhFq8I4DJ5-Vw==
-< Age: 32
-Age: 32
-< Strict-Transport-Security: max-age=31536000
+X-Amz-Cf-Id: _AHqvLXqkKjq_-XOutB8vOhiHvujyRriiys_dyAhTyxJiq6iK5tOVg==
 Strict-Transport-Security: max-age=31536000
-<
 
-* Connection #0 to host huggingface.co:443 left intact
+curl: (35) schannel: next InitializeSecurityContext failed: CRYPT_E_NO_REVOCATION_CHECK (0x80092012) - The revocation function was unable to check revocation for the certificate.
+
+(venv) C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel>
