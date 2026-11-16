@@ -1,16 +1,13 @@
-(venv) C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel>python -c "import requests; r=requests.get('https://huggingface.co',timeout=30); print('Status:',r.status_code)"
-Status: 200
-
-(venv) C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel>curl -I -L "https://huggingface.co/ProsusAI/finbert/resolve/main/model.safetensors"
+(venv) C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel>curl --ssl-no-revoke -I -L "https://huggingface.co/ProsusAI/finbert/resolve/main/model.safetensors"
 HTTP/1.1 302 Found
 Content-Type: text/plain; charset=utf-8
 Content-Length: 1040
 Connection: keep-alive
-Date: Mon, 16 Nov 2026 10:05:44 GMT
-Location: https://us.aws.cdn.hf.co/xet-bridge-us/621ffdc036468d709f176f71/97c9cb12d04352c17ea4a86542c6411d19940e4418e13199087eba3230f3c144?response-content-disposition=inline%3B+filename*%3DUTF-8%27%27model.safetensors%3B+filename%3D%22model.safetensors%22%3B&X-Xet-Cas-Uid=public&user_id=public&xip=6q7K301kYco&Expires=1794827144&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly91cy5hd3MuY2RuLmhmLmNvL3hldC1icmlkZ2UtdXMvNjIxZmZkYzAzNjQ2OGQ3MDlmMTc2ZjcxLzk3YzljYjEyZDA0MzUyYzE3ZWE0YTg2NTQyYzY0MTFkMTk5NDBlNDQxOGUxMzE5OTA4N2ViYTMyMzBmM2MxNDRcXD9yZXNwb25zZS1jb250ZW50LWRpc3Bvc2l0aW9uPWlubGluZSUzQitmaWxlbmFtZSUyQSUzRFVURi04JTI3JTI3bW9kZWwuc2FmZXRlbnNvcnMlM0IrZmlsZW5hbWUlM0QlMjJtb2RlbC5zYWZldGVuc29ycyUyMiUzQiZYLVhldC1DYXMtVWlkPXB1YmxpYyZ1c2VyX2lkPXB1YmxpYyZ4aXA9NnE3SzMwMWtZY28iLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkVwb2NoVGltZSI6MTc5NDgyNzE0NH19fV19&Signature=MEUCIB622EYaziYu315Of%7EUa-Lovf572PL8-Ca3TPUGGpVZTAiEAq83f3sNVp9Hi0m7KijaVif9ZdQWGEuWPCAPV5WgiDYI_&Key-Pair-Id=01KXEF4KZ1B6FV465MAWR4M21F&Hash-Algorithm=SHA256
+Date: Mon, 16 Nov 2026 10:33:36 GMT
+Location: https://us.aws.cdn.hf.co/xet-bridge-us/621ffdc036468d709f176f71/97c9cb12d04352c17ea4a86542c6411d19940e4418e13199087eba3230f3c144?response-content-disposition=inline%3B+filename*%3DUTF-8%27%27model.safetensors%3B+filename%3D%22model.safetensors%22%3B&xip=6q7K301kYco&X-Xet-Cas-Uid=public&user_id=public&Expires=1794828816&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly91cy5hd3MuY2RuLmhmLmNvL3hldC1icmlkZ2UtdXMvNjIxZmZkYzAzNjQ2OGQ3MDlmMTc2ZjcxLzk3YzljYjEyZDA0MzUyYzE3ZWE0YTg2NTQyYzY0MTFkMTk5NDBlNDQxOGUxMzE5OTA4N2ViYTMyMzBmM2MxNDRcXD9yZXNwb25zZS1jb250ZW50LWRpc3Bvc2l0aW9uPWlubGluZSUzQitmaWxlbmFtZSUyQSUzRFVURi04JTI3JTI3bW9kZWwuc2FmZXRlbnNvcnMlM0IrZmlsZW5hbWUlM0QlMjJtb2RlbC5zYWZldGVuc29ycyUyMiUzQiZ4aXA9NnE3SzMwMWtZY28mWC1YZXQtQ2FzLVVpZD1wdWJsaWMmdXNlcl9pZD1wdWJsaWMiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkVwb2NoVGltZSI6MTc5NDgyODgxNn19fV19&Signature=MEQCIEwWrJ%7EUPq3gDHOTigDMZaTaoxbVjZPoiT7zVC12dBh7AiAmfCDuCj8co0juqRoN-EzAiygjHlsr631PNCz55I5SlQ__&Key-Pair-Id=01KXEF4KZ1B6FV465MAWR4M21F&Hash-Algorithm=SHA256
 X-Powered-By: huggingface-moon
-X-Request-Id: Root=1-6afad578-1d9b338540bfe602049daa4e
-RateLimit: "resolvers";r=2999;t=52
+X-Request-Id: Root=1-6afadc00-6b6f293a760645fa6cbdebdd
+RateLimit: "resolvers";r=2999;t=180
 RateLimit-Policy: "fixed window";"resolvers";q=3000;w=300
 cross-origin-opener-policy: same-origin
 Referrer-Policy: strict-origin-when-cross-origin
@@ -28,12 +25,47 @@ Cache-Control: no-store
 X-Xet-Hash: 97c9cb12d04352c17ea4a86542c6411d19940e4418e13199087eba3230f3c144
 Link: <https://huggingface.co/api/models/ProsusAI/finbert/xet-read-token/0bc2ac10dda6929bcb1f77ccc43c7ec5c424f031>; rel="xet-auth", <https://cas-server.xethub.hf.co/v1/reconstructions/97c9cb12d04352c17ea4a86542c6411d19940e4418e13199087eba3230f3c144>; rel="xet-reconstruction-info"
 X-Cache: Miss from cloudfront
-Via: 1.1 988077a6e33a5a323c517695956ab4d6.cloudfront.net (CloudFront)
-X-Amz-Cf-Pop: SIN2-P7
+Via: 1.1 506d6d1ddb17b8a43beef70dfaec0dec.cloudfront.net (CloudFront)
+X-Amz-Cf-Pop: BOM78-P10
 Alt-Svc: h3=":443"; ma=86400
-X-Amz-Cf-Id: _AHqvLXqkKjq_-XOutB8vOhiHvujyRriiys_dyAhTyxJiq6iK5tOVg==
+X-Amz-Cf-Id: YaNpkjcCuamdjRaqvQrXjaCd_xM5dyTgFUOsqDPNWuCdTmc3Tynpdw==
 Strict-Transport-Security: max-age=31536000
 
-curl: (35) schannel: next InitializeSecurityContext failed: CRYPT_E_NO_REVOCATION_CHECK (0x80092012) - The revocation function was unable to check revocation for the certificate.
+HTTP/1.1 503 Service Unavailable
+Content-Type: text/html; charset=UTF-8
+Content-Length: 2637
+Connection: close
+P3P: CP="CAO PSA OUR"
+Expires: Thu, 01 Jan 1970 00:00:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0
+Pragma: no-cache
+
+
+(venv) C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel>curl --ssl-no-revoke -fL -C - --retry 5 --retry-all-errors --retry-delay 10 -o models\finbert\model.safetensors "https://huggingface.co/ProsusAI/finbert/resolve/main/model.safetensors"
+  % Total    % Received % Xferd  Average Speed  Time    Time    Time   Current
+                                 Dload  Upload  Total   Spent   Left   Speed
+100   1044 100   1044   0      0   1566      0                              0
+  0      0   0      0   0      0      0      0           00:01              0
+curl: (22) The requested URL returned error: 503
+Warning: Problem : HTTP error. Retrying in 10 seconds. 5 retries left.
+100   1038 100   1038   0      0   2707      0                              0
+  0      0   0      0   0      0      0      0                              0
+curl: (22) The requested URL returned error: 503
+Warning: Problem : HTTP error. Retrying in 10 seconds. 4 retries left.
+100   1040 100   1040   0      0   2208      0                              0
+  0      0   0      0   0      0      0      0                              0
+curl: (22) The requested URL returned error: 503
+Warning: Problem : HTTP error. Retrying in 10 seconds. 3 retries left.
+100   1042 100   1042   0      0   2423      0                              0
+  0      0   0      0   0      0      0      0                              0
+curl: (22) The requested URL returned error: 503
+Warning: Problem : HTTP error. Retrying in 10 seconds. 2 retries left.
+100   1038 100   1038   0      0   2461      0                              0
+  0      0   0      0   0      0      0      0                              0
+curl: (22) The requested URL returned error: 503
+Warning: Problem : HTTP error. Retrying in 10 seconds. 1 retry left.
+100   1042 100   1042   0      0   2386      0                              0
+  0      0   0      0   0      0      0      0                              0
+curl: (22) The requested URL returned error: 503
 
 (venv) C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel>
