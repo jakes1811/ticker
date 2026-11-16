@@ -12,3 +12,6 @@ bin\windows\kafka-topics.bat --bootstrap-server localhost:9092 --list
 bin\windows\kafka-topics.bat --bootstrap-server localhost:9092 --list
 
 https://huggingface.co/ProsusAI/finbert/resolve/main/model.safetensors?utm_source=chatgpt.com
+
+
+curl -L --retry 5 --retry-all-errors --retry-delay 10 -o models\finbert\model.safetensors "https://huggingface.co/ProsusAI/finbert/resolve/main/model.safetensors"
