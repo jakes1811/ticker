@@ -1,44 +1,22 @@
+import time
 
-def create_spark_session():
+def write_batch_to_delta(batch_df, batch_id):
 
-    builder = (
-        SparkSession.builder
-        .appName("Indian-Stock-Silver-Layer")
+    start = time.perf_counter()
 
-        # Delta Lake configuration
-        .config(
-            "spark.sql.extensions",
-            "io.delta.sql.DeltaSparkSessionExtension"
-        )
-
-        .config(
-            "spark.sql.catalog.spark_catalog",
-            "org.apache.spark.sql.delta.catalog.DeltaCatalog"
-        )
-
-        # Performance configurations
-        .config("spark.sql.session.timeZone", "UTC")
-        .config("spark.sql.shuffle.partitions", "4")
-        .config("spark.default.parallelism", "6")
-
-        # Local execution
-        .master("local[*]")
-
-        .config("spark.local.dir", "C:/spark_tmp")
+    records = batch_df.select(
+        F.col("value").cast("string").alias("raw_json")
     )
 
-    spark = configure_spark_with_delta_pip(
-        builder,
-        extra_packages=[
-            "org.apache.spark:spark-sql-kafka-0-10_2.13:4.1.1"
-        ]
-    ).getOrCreate()
+    valid, quarantine = transform_batch(batch_df)
 
-    spark.sparkContext.setLogLevel("WARN")
+    valid_count = valid.count()
+    quarantine_count = quarantine.count()
 
-    print("Spark Version:", spark.version)
-    print("Spark Master:", spark.sparkContext.master)
-    print("Delta Lake configuration loaded.")
-    print("Kafka connector configured.")
+    elapsed = (time.perf_counter() - start) * 1000
 
-    return spark
+    print(
+        f"Batch: {batch_id} | "
+        f"Records: {valid_count + quarantine_count} | "
+        f"Transformation + Count: {elapsed:.2f} ms"
+    )
