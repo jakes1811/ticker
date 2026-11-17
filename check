@@ -1,438 +1,114 @@
+(silver_venv) C:\Users\2000209445\Desktop\Ticker>echo %VIRTUAL_ENV%
+C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\Ticker\silver_venv
 
-(silver_venv) C:\Users\2000209445\Desktop\Ticker>python silver/stock_silver.py
-WARNING: Using incubator modules: jdk.incubator.vector
-:: loading settings :: url = jar:file:/C:/Users/2000209445/AppData/Roaming/Python/Python314/site-packages/pyspark/jars/ivy-2.5.3.jar!/org/apache/ivy/core/settings/ivysettings.xml
-Ivy Default Cache set to: C:\Users\2000209445\.ivy2.5.2\cache
-The jars for the packages stored in: C:\Users\2000209445\.ivy2.5.2\jars
-io.delta#delta-spark_4.1_2.13 added as a dependency
-org.apache.spark#spark-sql-kafka-0-10_2.13 added as a dependency
-:: resolving dependencies :: org.apache.spark#spark-submit-parent-cdbd6b4d-7999-48b0-a818-695f31284e8e;1.0
-        confs: [default]
-        found io.delta#delta-spark_4.1_2.13;4.3.1 in central
-        found io.delta#delta-storage;4.3.1 in central
-        found io.unitycatalog#unitycatalog-client;0.5.0 in central
-        found org.slf4j#slf4j-api;2.0.13 in central
-        found org.apache.logging.log4j#log4j-slf4j2-impl;2.25.3 in central
-        found org.apache.logging.log4j#log4j-api;2.25.3 in central
-        found com.google.code.findbugs#jsr305;3.0.2 in central
-        found io.unitycatalog#unitycatalog-hadoop;0.5.0 in central
-        found org.apache.logging.log4j#log4j-core;2.25.3 in central
-        found io.delta#delta-kernel-api;4.3.1 in central
-        found org.roaringbitmap#RoaringBitmap;0.9.25 in central
-        found com.fasterxml.jackson.core#jackson-databind;2.13.5 in central
-        found com.fasterxml.jackson.core#jackson-annotations;2.13.5 in central
-        found com.fasterxml.jackson.core#jackson-core;2.13.5 in central
-        found com.fasterxml.jackson.datatype#jackson-datatype-jdk8;2.13.5 in central
-        found org.roaringbitmap#shims;0.9.25 in central
-        found io.delta#delta-kernel-defaults;4.3.1 in central
-        found org.apache.hadoop#hadoop-client-runtime;3.4.2 in central
-        found org.apache.parquet#parquet-hadoop;1.16.0 in central
-        found org.apache.parquet#parquet-column;1.16.0 in central
-        found org.apache.parquet#parquet-common;1.16.0 in central
-        found org.apache.parquet#parquet-format-structures;1.16.0 in central
-        found javax.annotation#javax.annotation-api;1.3.2 in central
-        found org.apache.parquet#parquet-encoding;1.16.0 in central
-        found org.locationtech.jts#jts-core;1.20.0 in central
-        found org.xerial.snappy#snappy-java;1.1.10.7 in central
-        found io.airlift#aircompressor;2.0.2 in central
-        found commons-pool#commons-pool;1.6 in central
-        found com.github.luben#zstd-jni;1.5.7-3 in central
-        found org.apache.hadoop#hadoop-client-api;3.4.2 in central
-        found commons-logging#commons-logging;1.3.0 in central
-        found org.apache.parquet#parquet-jackson;1.16.0 in central
-        found io.delta#delta-kernel-unitycatalog;4.3.1 in central
-        found org.apache.spark#spark-sql-kafka-0-10_2.13;4.1.1 in central
-        found org.apache.spark#spark-token-provider-kafka-0-10_2.13;4.1.1 in central
-        found org.apache.kafka#kafka-clients;3.9.1 in central
-        found org.lz4#lz4-java;1.8.0 in central
-        found org.xerial.snappy#snappy-java;1.1.10.8 in central
-        found org.scala-lang.modules#scala-parallel-collections_2.13;1.2.0 in central
-        found org.apache.commons#commons-pool2;2.12.1 in central
-:: resolution report :: resolve 4084ms :: artifacts dl 287ms
-        :: modules in use:
-        com.fasterxml.jackson.core#jackson-annotations;2.13.5 from central in [default]
-        com.fasterxml.jackson.core#jackson-core;2.13.5 from central in [default]
-        com.fasterxml.jackson.core#jackson-databind;2.13.5 from central in [default]
-        com.fasterxml.jackson.datatype#jackson-datatype-jdk8;2.13.5 from central in [default]
-        com.github.luben#zstd-jni;1.5.7-3 from central in [default]
-        com.google.code.findbugs#jsr305;3.0.2 from central in [default]
-        commons-logging#commons-logging;1.3.0 from central in [default]
-        commons-pool#commons-pool;1.6 from central in [default]
-        io.airlift#aircompressor;2.0.2 from central in [default]
-        io.delta#delta-kernel-api;4.3.1 from central in [default]
-        io.delta#delta-kernel-defaults;4.3.1 from central in [default]
-        io.delta#delta-kernel-unitycatalog;4.3.1 from central in [default]
-        io.delta#delta-spark_4.1_2.13;4.3.1 from central in [default]
-        io.delta#delta-storage;4.3.1 from central in [default]
-        io.unitycatalog#unitycatalog-client;0.5.0 from central in [default]
-        io.unitycatalog#unitycatalog-hadoop;0.5.0 from central in [default]
-        javax.annotation#javax.annotation-api;1.3.2 from central in [default]
-        org.apache.commons#commons-pool2;2.12.1 from central in [default]
-        org.apache.hadoop#hadoop-client-api;3.4.2 from central in [default]
-        org.apache.hadoop#hadoop-client-runtime;3.4.2 from central in [default]
-        org.apache.kafka#kafka-clients;3.9.1 from central in [default]
-        org.apache.logging.log4j#log4j-api;2.25.3 from central in [default]
-        org.apache.logging.log4j#log4j-core;2.25.3 from central in [default]
-        org.apache.logging.log4j#log4j-slf4j2-impl;2.25.3 from central in [default]
-        org.apache.parquet#parquet-column;1.16.0 from central in [default]
-        org.apache.parquet#parquet-common;1.16.0 from central in [default]
-        org.apache.parquet#parquet-encoding;1.16.0 from central in [default]
-        org.apache.parquet#parquet-format-structures;1.16.0 from central in [default]
-        org.apache.parquet#parquet-hadoop;1.16.0 from central in [default]
-        org.apache.parquet#parquet-jackson;1.16.0 from central in [default]
-        org.apache.spark#spark-sql-kafka-0-10_2.13;4.1.1 from central in [default]
-        org.apache.spark#spark-token-provider-kafka-0-10_2.13;4.1.1 from central in [default]
-        org.locationtech.jts#jts-core;1.20.0 from central in [default]
-        org.lz4#lz4-java;1.8.0 from central in [default]
-        org.roaringbitmap#RoaringBitmap;0.9.25 from central in [default]
-        org.roaringbitmap#shims;0.9.25 from central in [default]
-        org.scala-lang.modules#scala-parallel-collections_2.13;1.2.0 from central in [default]
-        org.slf4j#slf4j-api;2.0.13 from central in [default]
-        org.xerial.snappy#snappy-java;1.1.10.8 from central in [default]
-        :: evicted modules:
-        org.slf4j#slf4j-api;2.0.17 by [org.slf4j#slf4j-api;2.0.13] in [default]
-        org.slf4j#slf4j-api;1.7.36 by [org.slf4j#slf4j-api;2.0.13] in [default]
-        org.slf4j#slf4j-api;1.7.33 by [org.slf4j#slf4j-api;2.0.13] in [default]
-        org.xerial.snappy#snappy-java;1.1.10.7 by [org.xerial.snappy#snappy-java;1.1.10.8] in [default]
-        org.xerial.snappy#snappy-java;1.1.10.4 by [org.xerial.snappy#snappy-java;1.1.10.7] in [default]
-        com.google.code.findbugs#jsr305;3.0.0 by [com.google.code.findbugs#jsr305;3.0.2] in [default]
-        ---------------------------------------------------------------------
-        |                  |            modules            ||   artifacts   |
-        |       conf       | number| search|dwnlded|evicted|| number|dwnlded|
-        ---------------------------------------------------------------------
-        |      default     |   45  |   0   |   0   |   6   ||   39  |   0   |
-        ---------------------------------------------------------------------
-:: retrieving :: org.apache.spark#spark-submit-parent-cdbd6b4d-7999-48b0-a818-695f31284e8e
-        confs: [default]
-        0 artifacts copied, 39 already retrieved (0kB/120ms)
-Using Spark's default log4j profile: org/apache/spark/log4j2-defaults.properties
-Setting default log level to "WARN".
-To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
-26/11/17 15:51:21 WARN SparkConf: Note that spark.local.dir will be overridden by the value set by the cluster manager (via SPARK_LOCAL_DIRS in standalone/kubernetes and LOCAL_DIRS in YARN).
-26/11/17 15:51:24 WARN Utils: The configured local directories are not expected to be URIs; however, got suspicious values [C:/spark_tmp]. Please check your configured local directories.
-26/11/17 15:51:53 ERROR Inbox: Ignoring error
-java.lang.NullPointerException: Cannot invoke "org.apache.spark.storage.BlockManagerId.executorId()" because "idWithoutTopologyInfo" is null
-        at org.apache.spark.storage.BlockManagerMasterEndpoint.org$apache$spark$storage$BlockManagerMasterEndpoint$$register(BlockManagerMasterEndpoint.scala:696)
-        at org.apache.spark.storage.BlockManagerMasterEndpoint$$anonfun$receiveAndReply$1.applyOrElse(BlockManagerMasterEndpoint.scala:141)
-        at org.apache.spark.rpc.netty.Inbox.$anonfun$process$1(Inbox.scala:104)
-        at org.apache.spark.rpc.netty.Inbox.safelyCall(Inbox.scala:216)
-        at org.apache.spark.rpc.netty.Inbox.process(Inbox.scala:101)
-        at org.apache.spark.rpc.netty.MessageLoop.org$apache$spark$rpc$netty$MessageLoop$$receiveLoop(MessageLoop.scala:76)
-        at org.apache.spark.rpc.netty.MessageLoop$$anon$1.run(MessageLoop.scala:42)
-        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
-        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
-        at java.base/java.lang.Thread.run(Thread.java:840)
-26/11/17 15:51:53 WARN Executor: Issue communicating with driver in heartbeater
-org.apache.spark.SparkException: Exception thrown in awaitResult: 
-        at org.apache.spark.util.SparkThreadUtils$.awaitResult(SparkThreadUtils.scala:53)
-        at org.apache.spark.util.ThreadUtils$.awaitResult(ThreadUtils.scala:359)
-        at org.apache.spark.rpc.RpcTimeout.awaitResult(RpcTimeout.scala:75)
-        at org.apache.spark.rpc.RpcEndpointRef.askSync(RpcEndpointRef.scala:101)
-        at org.apache.spark.rpc.RpcEndpointRef.askSync(RpcEndpointRef.scala:85)
-        at org.apache.spark.storage.BlockManagerMaster.registerBlockManager(BlockManagerMaster.scala:81)
-        at org.apache.spark.storage.BlockManager.reregister(BlockManager.scala:674)
-        at org.apache.spark.executor.Executor.reportHeartBeat(Executor.scala:1363)
-        at org.apache.spark.executor.Executor.$anonfun$heartbeater$1(Executor.scala:356)
-        at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.scala:18)
-        at org.apache.spark.util.Utils$.logUncaughtExceptions(Utils.scala:1941)
-        at org.apache.spark.Heartbeater$$anon$1.run(Heartbeater.scala:46)
-        at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539)
-        at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:305)
-        at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:305)
-        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
-        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
-        at java.base/java.lang.Thread.run(Thread.java:840)
-Caused by: java.lang.NullPointerException: Cannot invoke "org.apache.spark.storage.BlockManagerId.executorId()" because "idWithoutTopologyInfo" is null
-        at org.apache.spark.storage.BlockManagerMasterEndpoint.org$apache$spark$storage$BlockManagerMasterEndpoint$$register(BlockManagerMasterEndpoint.scala:696)
-        at org.apache.spark.storage.BlockManagerMasterEndpoint$$anonfun$receiveAndReply$1.applyOrElse(BlockManagerMasterEndpoint.scala:141)
-        at org.apache.spark.rpc.netty.Inbox.$anonfun$process$1(Inbox.scala:104)
-        at org.apache.spark.rpc.netty.Inbox.safelyCall(Inbox.scala:216)
-        at org.apache.spark.rpc.netty.Inbox.process(Inbox.scala:101)
-        at org.apache.spark.rpc.netty.MessageLoop.org$apache$spark$rpc$netty$MessageLoop$$receiveLoop(MessageLoop.scala:76)
-        at org.apache.spark.rpc.netty.MessageLoop$$anon$1.run(MessageLoop.scala:42)
-        ... 3 more
-26/11/17 15:52:03 ERROR Inbox: Ignoring error
-java.lang.NullPointerException: Cannot invoke "org.apache.spark.storage.BlockManagerId.executorId()" because "idWithoutTopologyInfo" is null
-        at org.apache.spark.storage.BlockManagerMasterEndpoint.org$apache$spark$storage$BlockManagerMasterEndpoint$$register(BlockManagerMasterEndpoint.scala:696)
-        at org.apache.spark.storage.BlockManagerMasterEndpoint$$anonfun$receiveAndReply$1.applyOrElse(BlockManagerMasterEndpoint.scala:141)
-        at org.apache.spark.rpc.netty.Inbox.$anonfun$process$1(Inbox.scala:104)
-        at org.apache.spark.rpc.netty.Inbox.safelyCall(Inbox.scala:216)
-        at org.apache.spark.rpc.netty.Inbox.process(Inbox.scala:101)
-        at org.apache.spark.rpc.netty.MessageLoop.org$apache$spark$rpc$netty$MessageLoop$$receiveLoop(MessageLoop.scala:76)
-        at org.apache.spark.rpc.netty.MessageLoop$$anon$1.run(MessageLoop.scala:42)
-        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
-        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
-        at java.base/java.lang.Thread.run(Thread.java:840)
-26/11/17 15:52:03 WARN Executor: Issue communicating with driver in heartbeater
-org.apache.spark.SparkException: Exception thrown in awaitResult: 
-        at org.apache.spark.util.SparkThreadUtils$.awaitResult(SparkThreadUtils.scala:53)
-        at org.apache.spark.util.ThreadUtils$.awaitResult(ThreadUtils.scala:359)
-        at org.apache.spark.rpc.RpcTimeout.awaitResult(RpcTimeout.scala:75)
-        at org.apache.spark.rpc.RpcEndpointRef.askSync(RpcEndpointRef.scala:101)
-        at org.apache.spark.rpc.RpcEndpointRef.askSync(RpcEndpointRef.scala:85)
-        at org.apache.spark.storage.BlockManagerMaster.registerBlockManager(BlockManagerMaster.scala:81)
-        at org.apache.spark.storage.BlockManager.reregister(BlockManager.scala:674)
-        at org.apache.spark.executor.Executor.reportHeartBeat(Executor.scala:1363)
-        at org.apache.spark.executor.Executor.$anonfun$heartbeater$1(Executor.scala:356)
-        at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.scala:18)
-        at org.apache.spark.util.Utils$.logUncaughtExceptions(Utils.scala:1941)
-        at org.apache.spark.Heartbeater$$anon$1.run(Heartbeater.scala:46)
-        at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539)
-        at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:305)
-        at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:305)
-        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
-        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
-        at java.base/java.lang.Thread.run(Thread.java:840)
-Caused by: java.lang.NullPointerException: Cannot invoke "org.apache.spark.storage.BlockManagerId.executorId()" because "idWithoutTopologyInfo" is null
-        at org.apache.spark.storage.BlockManagerMasterEndpoint.org$apache$spark$storage$BlockManagerMasterEndpoint$$register(BlockManagerMasterEndpoint.scala:696)
-        at org.apache.spark.storage.BlockManagerMasterEndpoint$$anonfun$receiveAndReply$1.applyOrElse(BlockManagerMasterEndpoint.scala:141)
-        at org.apache.spark.rpc.netty.Inbox.$anonfun$process$1(Inbox.scala:104)
-        at org.apache.spark.rpc.netty.Inbox.safelyCall(Inbox.scala:216)
-        at org.apache.spark.rpc.netty.Inbox.process(Inbox.scala:101)
-        at org.apache.spark.rpc.netty.MessageLoop.org$apache$spark$rpc$netty$MessageLoop$$receiveLoop(MessageLoop.scala:76)
-        at org.apache.spark.rpc.netty.MessageLoop$$anon$1.run(MessageLoop.scala:42)
-        ... 3 more
-26/11/17 15:52:13 ERROR Inbox: Ignoring error
-java.lang.NullPointerException: Cannot invoke "org.apache.spark.storage.BlockManagerId.executorId()" because "idWithoutTopologyInfo" is null
-        at org.apache.spark.storage.BlockManagerMasterEndpoint.org$apache$spark$storage$BlockManagerMasterEndpoint$$register(BlockManagerMasterEndpoint.scala:696)
-        at org.apache.spark.storage.BlockManagerMasterEndpoint$$anonfun$receiveAndReply$1.applyOrElse(BlockManagerMasterEndpoint.scala:141)
-        at org.apache.spark.rpc.netty.Inbox.$anonfun$process$1(Inbox.scala:104)
-        at org.apache.spark.rpc.netty.Inbox.safelyCall(Inbox.scala:216)
-        at org.apache.spark.rpc.netty.Inbox.process(Inbox.scala:101)
-        at org.apache.spark.rpc.netty.MessageLoop.org$apache$spark$rpc$netty$MessageLoop$$receiveLoop(MessageLoop.scala:76)
-        at org.apache.spark.rpc.netty.MessageLoop$$anon$1.run(MessageLoop.scala:42)
-        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
-        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
-        at java.base/java.lang.Thread.run(Thread.java:840)
-26/11/17 15:52:13 WARN Executor: Issue communicating with driver in heartbeater
-org.apache.spark.SparkException: Exception thrown in awaitResult: 
-        at org.apache.spark.util.SparkThreadUtils$.awaitResult(SparkThreadUtils.scala:53)
-        at org.apache.spark.util.ThreadUtils$.awaitResult(ThreadUtils.scala:359)
-        at org.apache.spark.rpc.RpcTimeout.awaitResult(RpcTimeout.scala:75)
-        at org.apache.spark.rpc.RpcEndpointRef.askSync(RpcEndpointRef.scala:101)
-        at org.apache.spark.rpc.RpcEndpointRef.askSync(RpcEndpointRef.scala:85)
-        at org.apache.spark.storage.BlockManagerMaster.registerBlockManager(BlockManagerMaster.scala:81)
-        at org.apache.spark.storage.BlockManager.reregister(BlockManager.scala:674)
-        at org.apache.spark.executor.Executor.reportHeartBeat(Executor.scala:1363)
-        at org.apache.spark.executor.Executor.$anonfun$heartbeater$1(Executor.scala:356)
-        at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.scala:18)
-        at org.apache.spark.util.Utils$.logUncaughtExceptions(Utils.scala:1941)
-        at org.apache.spark.Heartbeater$$anon$1.run(Heartbeater.scala:46)
-        at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539)
-        at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:305)
-        at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:305)
-        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
-        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
-        at java.base/java.lang.Thread.run(Thread.java:840)
-Caused by: java.lang.NullPointerException: Cannot invoke "org.apache.spark.storage.BlockManagerId.executorId()" because "idWithoutTopologyInfo" is null
-        at org.apache.spark.storage.BlockManagerMasterEndpoint.org$apache$spark$storage$BlockManagerMasterEndpoint$$register(BlockManagerMasterEndpoint.scala:696)
-        at org.apache.spark.storage.BlockManagerMasterEndpoint$$anonfun$receiveAndReply$1.applyOrElse(BlockManagerMasterEndpoint.scala:141)
-        at org.apache.spark.rpc.netty.Inbox.$anonfun$process$1(Inbox.scala:104)
-        at org.apache.spark.rpc.netty.Inbox.safelyCall(Inbox.scala:216)
-        at org.apache.spark.rpc.netty.Inbox.process(Inbox.scala:101)
-        at org.apache.spark.rpc.netty.MessageLoop.org$apache$spark$rpc$netty$MessageLoop$$receiveLoop(MessageLoop.scala:76)
-        at org.apache.spark.rpc.netty.MessageLoop$$anon$1.run(MessageLoop.scala:42)
-        ... 3 more
-26/11/17 15:52:23 ERROR Inbox: Ignoring error
-java.lang.NullPointerException: Cannot invoke "org.apache.spark.storage.BlockManagerId.executorId()" because "idWithoutTopologyInfo" is null
-        at org.apache.spark.storage.BlockManagerMasterEndpoint.org$apache$spark$storage$BlockManagerMasterEndpoint$$register(BlockManagerMasterEndpoint.scala:696)
-        at org.apache.spark.storage.BlockManagerMasterEndpoint$$anonfun$receiveAndReply$1.applyOrElse(BlockManagerMasterEndpoint.scala:141)
-        at org.apache.spark.rpc.netty.Inbox.$anonfun$process$1(Inbox.scala:104)
-        at org.apache.spark.rpc.netty.Inbox.safelyCall(Inbox.scala:216)
-        at org.apache.spark.rpc.netty.Inbox.process(Inbox.scala:101)
-        at org.apache.spark.rpc.netty.MessageLoop.org$apache$spark$rpc$netty$MessageLoop$$receiveLoop(MessageLoop.scala:76)
-        at org.apache.spark.rpc.netty.MessageLoop$$anon$1.run(MessageLoop.scala:42)
-        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
-        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
-        at java.base/java.lang.Thread.run(Thread.java:840)
-26/11/17 15:52:23 WARN Executor: Issue communicating with driver in heartbeater
-org.apache.spark.SparkException: Exception thrown in awaitResult: 
-        at org.apache.spark.util.SparkThreadUtils$.awaitResult(SparkThreadUtils.scala:53)
-        at org.apache.spark.util.ThreadUtils$.awaitResult(ThreadUtils.scala:359)
-        at org.apache.spark.rpc.RpcTimeout.awaitResult(RpcTimeout.scala:75)
-        at org.apache.spark.rpc.RpcEndpointRef.askSync(RpcEndpointRef.scala:101)
-        at org.apache.spark.rpc.RpcEndpointRef.askSync(RpcEndpointRef.scala:85)
-        at org.apache.spark.storage.BlockManagerMaster.registerBlockManager(BlockManagerMaster.scala:81)
-        at org.apache.spark.storage.BlockManager.reregister(BlockManager.scala:674)
-        at org.apache.spark.executor.Executor.reportHeartBeat(Executor.scala:1363)
-        at org.apache.spark.executor.Executor.$anonfun$heartbeater$1(Executor.scala:356)
-        at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.scala:18)
-        at org.apache.spark.util.Utils$.logUncaughtExceptions(Utils.scala:1941)
-        at org.apache.spark.Heartbeater$$anon$1.run(Heartbeater.scala:46)
-        at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539)
-        at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:305)
-        at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:305)
-        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
-        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
-        at java.base/java.lang.Thread.run(Thread.java:840)
-Caused by: java.lang.NullPointerException: Cannot invoke "org.apache.spark.storage.BlockManagerId.executorId()" because "idWithoutTopologyInfo" is null
-        at org.apache.spark.storage.BlockManagerMasterEndpoint.org$apache$spark$storage$BlockManagerMasterEndpoint$$register(BlockManagerMasterEndpoint.scala:696)
-        at org.apache.spark.storage.BlockManagerMasterEndpoint$$anonfun$receiveAndReply$1.applyOrElse(BlockManagerMasterEndpoint.scala:141)
-        at org.apache.spark.rpc.netty.Inbox.$anonfun$process$1(Inbox.scala:104)
-        at org.apache.spark.rpc.netty.Inbox.safelyCall(Inbox.scala:216)
-        at org.apache.spark.rpc.netty.Inbox.process(Inbox.scala:101)
-        at org.apache.spark.rpc.netty.MessageLoop.org$apache$spark$rpc$netty$MessageLoop$$receiveLoop(MessageLoop.scala:76)
-        at org.apache.spark.rpc.netty.MessageLoop$$anon$1.run(MessageLoop.scala:42)
-        ... 3 more
-Spark Version: 4.1.1
-Spark Master: local[*]
-Delta Lake configuration loaded.
-Kafka connector configured.
-============================================================
-INDIAN STOCK SILVER STREAMING JOB
-============================================================
-Spark version: 4.1.1
-Kafka broker: localhost:9092
-Kafka topic: stock-prices
-Silver path: C:\Users\2000209445\Desktop\Ticker\silver\data\stock_silver
-Quarantine path: C:\Users\2000209445\Desktop\Ticker\silver\data\stock_quarantine
-============================================================
-26/11/17 15:52:45 WARN ResolveWriteToStream: spark.sql.adaptive.enabled is not supported in streaming DataFrames/Datasets and will be disabled.
-Silver streaming is running...
-Press CTRL + C to stop.
-Batch: 29 | Records: 2000 | Transformation + Count: 10420.67 ms                 
-26/11/17 15:53:02 ERROR MicroBatchExecution: Query stock-silver-stream [id = 5f38b174-494e-4556-8a0e-0ce7e23639a4, runId = b49c5885-facc-4e65-ab39-7d053398f240] terminated with error
-java.lang.NullPointerException: Cannot invoke "scala.collection.IterableOps.map(scala.Function1)" because the return value of "scala.Option.get()" is null
-        at org.apache.spark.sql.kafka010.KafkaMicroBatchStream$.metrics(KafkaMicroBatchStream.scala:520)
-        at org.apache.spark.sql.kafka010.KafkaMicroBatchStream.metrics(KafkaMicroBatchStream.scala:363)
-        at org.apache.spark.sql.execution.streaming.runtime.ProgressContext.$anonfun$extractSourceProgress$2(ProgressReporter.scala:384)
-        at org.apache.spark.util.Utils$.timeTakenMs(Utils.scala:496)
-        at org.apache.spark.sql.execution.streaming.runtime.ProgressContext.$anonfun$extractSourceProgress$1(ProgressReporter.scala:380)
-        at scala.collection.immutable.List.map(List.scala:236)
-        at scala.collection.immutable.List.map(List.scala:79)
-        at org.apache.spark.sql.execution.streaming.runtime.ProgressContext.extractSourceProgress(ProgressReporter.scala:379)
-        at org.apache.spark.sql.execution.streaming.runtime.ProgressContext.constructNewProgress(ProgressReporter.scala:348)
-        at org.apache.spark.sql.execution.streaming.runtime.ProgressContext.finishTrigger(ProgressReporter.scala:312)
-        at org.apache.spark.sql.execution.streaming.runtime.ProgressContext.finishTrigger(ProgressReporter.scala:429)
-        at org.apache.spark.sql.execution.streaming.runtime.MicroBatchExecution.executeOneBatch(MicroBatchExecution.scala:525)
-        at org.apache.spark.sql.execution.streaming.runtime.MicroBatchExecution.$anonfun$runActivatedStream$1(MicroBatchExecution.scala:461)
-        at org.apache.spark.sql.execution.streaming.runtime.MicroBatchExecution.$anonfun$runActivatedStream$1$adapted(MicroBatchExecution.scala:461)
-        at org.apache.spark.sql.execution.streaming.runtime.TriggerExecutor.runOneBatch(TriggerExecutor.scala:40)
-        at org.apache.spark.sql.execution.streaming.runtime.TriggerExecutor.runOneBatch$(TriggerExecutor.scala:38)
-        at org.apache.spark.sql.execution.streaming.runtime.ProcessingTimeExecutor.runOneBatch(TriggerExecutor.scala:71)
-        at org.apache.spark.sql.execution.streaming.runtime.ProcessingTimeExecutor.execute(TriggerExecutor.scala:83)
-        at org.apache.spark.sql.execution.streaming.runtime.MicroBatchExecution.runActivatedStream(MicroBatchExecution.scala:461)
-        at org.apache.spark.sql.execution.streaming.runtime.StreamExecution.$anonfun$runStream$1(StreamExecution.scala:347)
-        at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.scala:18)
-        at org.apache.spark.sql.SparkSession.withActive(SparkSession.scala:804)
-        at org.apache.spark.sql.execution.streaming.runtime.StreamExecution.org$apache$spark$sql$execution$streaming$runtime$StreamExecution$$runStream(StreamExecution.scala:307)
-        at org.apache.spark.sql.execution.streaming.runtime.StreamExecution$$anon$1.run(StreamExecution.scala:230)
-26/11/17 15:53:02 WARN SparkEnv: Exception while deleting Spark temp dir: C:\spark_tmp\spark-6d4bf2cc-cff7-4a8a-91e9-3e05149ccb88\userFiles-28616ce4-e35b-41c9-838b-35eaa8fed18b
-java.io.IOException: Failed to delete: C:\spark_tmp\spark-6d4bf2cc-cff7-4a8a-91e9-3e05149ccb88\userFiles-28616ce4-e35b-41c9-838b-35eaa8fed18b\org.xerial.snappy_snappy-java-1.1.10.8.jar
-        at org.apache.spark.network.util.JavaUtils.deleteRecursivelyUsingJavaIO(JavaUtils.java:308)
-        at org.apache.spark.network.util.JavaUtils.deleteRecursively(JavaUtils.java:277)
-        at org.apache.spark.network.util.JavaUtils.deleteRecursivelyUsingJavaIO(JavaUtils.java:291)
-        at org.apache.spark.network.util.JavaUtils.deleteRecursively(JavaUtils.java:277)
-        at org.apache.spark.network.util.JavaUtils.deleteRecursively(JavaUtils.java:248)
-        at org.apache.spark.util.SparkFileUtils.deleteRecursively(SparkFileUtils.scala:158)
-        at org.apache.spark.util.SparkFileUtils.deleteRecursively$(SparkFileUtils.scala:157)
-        at org.apache.spark.util.Utils$.deleteRecursively(Utils.scala:1062)
-        at org.apache.spark.SparkEnv.stop(SparkEnv.scala:131)
-        at org.apache.spark.SparkContext.$anonfun$stop$25(SparkContext.scala:2406)
-        at org.apache.spark.util.Utils$.tryLogNonFatalError(Utils.scala:1314)
-        at org.apache.spark.SparkContext.stop(SparkContext.scala:2406)
-        at org.apache.spark.SparkContext.stop(SparkContext.scala:2308)
-        at org.apache.spark.api.java.JavaSparkContext.stop(JavaSparkContext.scala:552)
-        at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-        at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
-        at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-        at java.base/java.lang.reflect.Method.invoke(Method.java:569)
-        at py4j.reflection.MethodInvoker.invoke(MethodInvoker.java:244)
-        at py4j.reflection.ReflectionEngine.invoke(ReflectionEngine.java:374)
-        at py4j.Gateway.invoke(Gateway.java:282)
-        at py4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)
-        at py4j.commands.CallCommand.execute(CallCommand.java:79)
-        at py4j.ClientServerConnection.waitForCommands(ClientServerConnection.java:184)
-        at py4j.ClientServerConnection.run(ClientServerConnection.java:108)
-        at java.base/java.lang.Thread.run(Thread.java:840)
-Spark session stopped.
+(silver_venv) C:\Users\2000209445\Desktop\Ticker>where python
+C:\Program Files\Python314\python.exe
+C:\Program Files\Python312\python.exe
+C:\Users\2000209445\AppData\Local\Microsoft\WindowsApps\python.exe
+
+(silver_venv) C:\Users\2000209445\Desktop\Ticker>python -m pip -v
+
+Usage:   
+  C:\Program Files\Python314\python.exe -m pip <command> [options]
+
+Commands:
+  install                     Install packages.
+  lock                        Generate a lock file.
+  download                    Download packages.
+  uninstall                   Uninstall packages.
+  freeze                      Output installed packages in requirements format.
+  inspect                     Inspect the python environment.
+  list                        List installed packages.
+  show                        Show information about installed packages.
+  check                       Verify installed packages have compatible 
+dependencies.
+  config                      Manage local and global configuration.
+  search                      Search PyPI for packages.
+  cache                       Inspect and manage pip's wheel cache.
+  index                       Inspect information available from package 
+indexes.
+  wheel                       Build wheels from your requirements.
+  hash                        Compute hashes of package archives.
+  completion                  A helper command used for command completion.
+  debug                       Show information useful for debugging.
+  help                        Show help for commands.
+
+ -V, --version                Show version and exit.
+
+General Options:
+  -h, --help                  Show help.
+  --debug                     Let unhandled exceptions propagate outside the
+                              main subroutine, instead of logging them to
+                              stderr.
+  --isolated                  Run pip in an isolated mode, ignoring
+                              environment variables and user configuration.
+  --require-virtualenv        Allow pip to only run in a virtual environment;
+                              exit with an error otherwise.
+  --python <python>           Run pip with the specified Python interpreter.
+  -v, --verbose               Give more output. Option is additive, and can be
+                              used up to 3 times.
+  -q, --quiet                 Give less output. Option is additive, and can be
+                              used up to 3 times (corresponding to WARNING,
+                              ERROR, and CRITICAL logging levels).
+  --log <path>                Path to a verbose appending log.
+  --no-input                  Disable prompting for input.
+  --keyring-provider <keyring_provider>
+                              Enable the credential lookup via the keyring
+                              library if user input is allowed. Specify which
+                              mechanism to use [auto, disabled, import,
+                              subprocess]. (default: auto)
+  --proxy <proxy>             Specify a proxy in the form
+                              scheme://[user:passwd@]proxy.server:port.
+  --no-proxy-env              Do not read proxy configuration from environment
+                              variables.
+  --retries <retries>         Maximum attempts to establish a new HTTP
+                              connection. (default: 5)
+  --timeout <sec>             Set the socket timeout (default 15 seconds).
+  --exists-action <action>    Default action when a path already exists:
+                              (s)witch, (i)gnore, (w)ipe, (b)ackup, (a)bort.
+  --trusted-host <hostname>   Mark this host or host:port pair as trusted,
+                              even though it does not have valid or any HTTPS.
+  --cert <path>               Path to PEM-encoded CA certificate bundle. If
+                              provided, overrides the default. See 'SSL
+                              Certificate Verification' in pip documentation
+                              for more information.
+  --client-cert <path>        Path to SSL client certificate, a single file
+                              containing the private key and the certificate
+                              in PEM format.
+  --cache-dir <dir>           Store the cache data in <dir>.
+  --no-cache-dir              Disable the cache.
+  --disable-pip-version-check
+                              Don't periodically check PyPI to determine
+                              whether a new version of pip is available for
+                              download. Implied with --no-
+                              index.
+  --no-color                  Suppress colored output.
+  --use-feature <feature>     Enable new functionality, that may be backward
+                              incompatible.
+  --use-deprecated <feature>  Enable deprecated functionality, that will be
+                              removed in the future.
+  --resume-retries <resume_retries>
+                              Maximum attempts to resume or restart an
+                              incomplete download. (default: 5)
+
+(silver_venv) C:\Users\2000209445\Desktop\Ticker>dir silver_venv\Scripts\python.exe
+ Volume in drive C has no label.
+ Volume Serial Number is 8EFC-765E
+
+ Directory of C:\Users\2000209445\Desktop\Ticker\silver_venv\Scripts
+
+05-08-2026  11:55           255,200 python.exe
+               1 File(s)        255,200 bytes
+               0 Dir(s)  382,880,735,232 bytes free
+
+(silver_venv) C:\Users\2000209445\Desktop\Ticker>silver_venv\Scripts\python.exe -c "import sys; print(sys.exacutable)"
 Traceback (most recent call last):
-  File "C:\Users\2000209445\Desktop\Ticker\silver\stock_silver.py", line 507, in <module>
-    main()
-    ~~~~^^
-  File "C:\Users\2000209445\Desktop\Ticker\silver\stock_silver.py", line 486, in main
-    query.awaitTermination()
-    ~~~~~~~~~~~~~~~~~~~~~~^^
-  File "C:\Users\2000209445\AppData\Roaming\Python\Python314\site-packages\pyspark\sql\streaming\query.py", line 225, in awaitTermination
-    return self._jsq.awaitTermination()
-           ~~~~~~~~~~~~~~~~~~~~~~~~~~^^
-  File "C:\Users\2000209445\AppData\Roaming\Python\Python314\site-packages\py4j\java_gateway.py", line 1362, in __call__
-    return_value = get_return_value(
-        answer, self.gateway_client, self.target_id, self.name)
-  File "C:\Users\2000209445\AppData\Roaming\Python\Python314\site-packages\pyspark\errors\exceptions\captured.py", line 269, in deco
-    raise converted from None
-pyspark.errors.exceptions.captured.StreamingQueryException: [STREAM_FAILED] Query [id = 5f38b174-494e-4556-8a0e-0ce7e23639a4, runId = b49c5885-facc-4e65-ab39-7d053398f240] terminated with exception: Cannot invoke "scala.collection.IterableOps.map(scala.Function1)" because the return value of "scala.Option.get()" is null SQLSTATE: XXKST
-=== Streaming Query ===
-Identifier: stock-silver-stream [id = 5f38b174-494e-4556-8a0e-0ce7e23639a4, runId = b49c5885-facc-4e65-ab39-7d053398f240]
-Current Committed Offsets: {KafkaV2[Subscribe[stock-prices]]: {"stock-prices":{"0":110734}}}
-Current Available Offsets: {KafkaV2[Subscribe[stock-prices]]: {"stock-prices":{"0":112734}}}
+  File "<string>", line 1, in <module>
+    import sys; print(sys.exacutable)
+                      ^^^^^^^^^^^^^^
+AttributeError: module 'sys' has no attribute 'exacutable'. Did you mean: 'executable'?
 
-Current State: ACTIVE
-Thread State: RUNNABLE
+(silver_venv) C:\Users\2000209445\Desktop\Ticker>silver_venv\Scripts\python.exe -c "import sys; print(sys.executable)"
+C:\Users\2000209445\Desktop\Ticker\silver_venv\Scripts\python.exe
 
-Logical Plan:
-~WriteToMicroBatchDataSourceV1 ForeachBatchSink, 5f38b174-494e-4556-8a0e-0ce7e23639a4, [queryName=stock-silver-stream, checkpointLocation=C:\Users\2000209445\Desktop\Ticker\silver\checkpoints\stock_silver], Append
-+- ~StreamingDataSourceV2ScanRelation[key#7, value#8, topic#9, partition#10, offset#11L, timestamp#12, timestampType#13] KafkaTable
-
-
-(silver_venv) C:\Users\2000209445\Desktop\Ticker>26/11/17 15:53:03 ERROR ShutdownHookManager: Exception while deleting Spark temp dir: C:\spark_tmp\spark-6d4bf2cc-cff7-4a8a-91e9-3e05149ccb88\userFiles-28616ce4-e35b-41c9-838b-35eaa8fed18b
-java.io.IOException: Failed to delete: C:\spark_tmp\spark-6d4bf2cc-cff7-4a8a-91e9-3e05149ccb88\userFiles-28616ce4-e35b-41c9-838b-35eaa8fed18b\org.xerial.snappy_snappy-java-1.1.10.8.jar
-        at org.apache.spark.network.util.JavaUtils.deleteRecursivelyUsingJavaIO(JavaUtils.java:308)
-        at org.apache.spark.network.util.JavaUtils.deleteRecursively(JavaUtils.java:277)
-        at org.apache.spark.network.util.JavaUtils.deleteRecursivelyUsingJavaIO(JavaUtils.java:291)
-        at org.apache.spark.network.util.JavaUtils.deleteRecursively(JavaUtils.java:277)
-        at org.apache.spark.network.util.JavaUtils.deleteRecursively(JavaUtils.java:248)
-        at org.apache.spark.util.SparkFileUtils.deleteRecursively(SparkFileUtils.scala:158)
-        at org.apache.spark.util.SparkFileUtils.deleteRecursively$(SparkFileUtils.scala:157)
-        at org.apache.spark.util.Utils$.deleteRecursively(Utils.scala:1062)
-        at org.apache.spark.util.ShutdownHookManager$.$anonfun$new$4(ShutdownHookManager.scala:70)
-        at org.apache.spark.util.ShutdownHookManager$.$anonfun$new$4$adapted(ShutdownHookManager.scala:67)
-        at scala.collection.ArrayOps$.foreach$extension(ArrayOps.scala:1324)
-        at org.apache.spark.util.ShutdownHookManager$.$anonfun$new$2(ShutdownHookManager.scala:67)
-        at org.apache.spark.util.SparkShutdownHook.run(ShutdownHookManager.scala:231)
-        at org.apache.spark.util.SparkShutdownHookManager.$anonfun$runAll$2(ShutdownHookManager.scala:205)
-        at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.scala:18)
-        at org.apache.spark.util.Utils$.logUncaughtExceptions(Utils.scala:1941)
-        at org.apache.spark.util.SparkShutdownHookManager.$anonfun$runAll$1(ShutdownHookManager.scala:205)
-        at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.scala:18)
-        at scala.util.Try$.apply(Try.scala:217)
-        at org.apache.spark.util.SparkShutdownHookManager.runAll(ShutdownHookManager.scala:205)
-        at org.apache.spark.util.SparkShutdownHookManager$$anon$2.run(ShutdownHookManager.scala:184)
-        at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539)
-        at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
-        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
-        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
-        at java.base/java.lang.Thread.run(Thread.java:840)
-26/11/17 15:53:03 ERROR ShutdownHookManager: Exception while deleting Spark temp dir: C:\spark_tmp\spark-6d4bf2cc-cff7-4a8a-91e9-3e05149ccb88
-java.io.IOException: Failed to delete: C:\spark_tmp\spark-6d4bf2cc-cff7-4a8a-91e9-3e05149ccb88\userFiles-28616ce4-e35b-41c9-838b-35eaa8fed18b\org.xerial.snappy_snappy-java-1.1.10.8.jar
-        at org.apache.spark.network.util.JavaUtils.deleteRecursivelyUsingJavaIO(JavaUtils.java:308)
-        at org.apache.spark.network.util.JavaUtils.deleteRecursively(JavaUtils.java:277)
-        at org.apache.spark.network.util.JavaUtils.deleteRecursivelyUsingJavaIO(JavaUtils.java:291)
-        at org.apache.spark.network.util.JavaUtils.deleteRecursively(JavaUtils.java:277)
-        at org.apache.spark.network.util.JavaUtils.deleteRecursivelyUsingJavaIO(JavaUtils.java:291)
-        at org.apache.spark.network.util.JavaUtils.deleteRecursively(JavaUtils.java:277)
-        at org.apache.spark.network.util.JavaUtils.deleteRecursively(JavaUtils.java:248)
-        at org.apache.spark.util.SparkFileUtils.deleteRecursively(SparkFileUtils.scala:158)
-        at org.apache.spark.util.SparkFileUtils.deleteRecursively$(SparkFileUtils.scala:157)
-        at org.apache.spark.util.Utils$.deleteRecursively(Utils.scala:1062)
-        at org.apache.spark.util.ShutdownHookManager$.$anonfun$new$4(ShutdownHookManager.scala:70)
-        at org.apache.spark.util.ShutdownHookManager$.$anonfun$new$4$adapted(ShutdownHookManager.scala:67)
-        at scala.collection.ArrayOps$.foreach$extension(ArrayOps.scala:1324)
-        at org.apache.spark.util.ShutdownHookManager$.$anonfun$new$2(ShutdownHookManager.scala:67)
-        at org.apache.spark.util.SparkShutdownHook.run(ShutdownHookManager.scala:231)
-        at org.apache.spark.util.SparkShutdownHookManager.$anonfun$runAll$2(ShutdownHookManager.scala:205)
-        at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.scala:18)
-        at org.apache.spark.util.Utils$.logUncaughtExceptions(Utils.scala:1941)
-        at org.apache.spark.util.SparkShutdownHookManager.$anonfun$runAll$1(ShutdownHookManager.scala:205)
-        at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.scala:18)
-        at scala.util.Try$.apply(Try.scala:217)
-        at org.apache.spark.util.SparkShutdownHookManager.runAll(ShutdownHookManager.scala:205)
-        at org.apache.spark.util.SparkShutdownHookManager$$anon$2.run(ShutdownHookManager.scala:184)
-        at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539)
-        at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
-        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
-        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
-        at java.base/java.lang.Thread.run(Thread.java:840)
-SUCCESS: The process with PID 24568 (child process of PID 8440) has been terminated.
-SUCCESS: The process with PID 8440 (child process of PID 14132) has been terminated.
-SUCCESS: The process with PID 14132 (child process of PID 14808) has been terminated.
+(silver_venv) C:\Users\2000209445\Desktop\Ticker>
