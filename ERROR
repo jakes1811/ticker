@@ -9,7 +9,7 @@ WARNING: Using incubator modules: jdk.incubator.vector
 Ivy Default Cache set to: C:\Users\2000209445\.ivy2.5.2\cache
 The jars for the packages stored in: C:\Users\2000209445\.ivy2.5.2\jars
 io.delta#delta-spark_4.1_2.13 added as a dependency
-:: resolving dependencies :: org.apache.spark#spark-submit-parent-befaa895-ad6f-4187-9dd7-29aa169e6702;1.0
+:: resolving dependencies :: org.apache.spark#spark-submit-parent-983086d4-eaf8-44c8-8de5-2b35aa2a3f0c;1.0
         confs: [default]
         found io.delta#delta-spark_4.1_2.13;4.3.1 in central
         found io.delta#delta-storage;4.3.1 in central
@@ -44,7 +44,7 @@ io.delta#delta-spark_4.1_2.13 added as a dependency
         found commons-logging#commons-logging;1.3.0 in central
         found org.apache.parquet#parquet-jackson;1.16.0 in central
         found io.delta#delta-kernel-unitycatalog;4.3.1 in central
-:: resolution report :: resolve 2269ms :: artifacts dl 136ms
+:: resolution report :: resolve 3588ms :: artifacts dl 158ms
         :: modules in use:
         com.fasterxml.jackson.core#jackson-annotations;2.13.5 from central in [default]
         com.fasterxml.jackson.core#jackson-core;2.13.5 from central in [default]
@@ -90,14 +90,14 @@ io.delta#delta-spark_4.1_2.13 added as a dependency
         ---------------------------------------------------------------------
         |      default     |   37  |   0   |   0   |   4   ||   33  |   0   |
         ---------------------------------------------------------------------
-:: retrieving :: org.apache.spark#spark-submit-parent-befaa895-ad6f-4187-9dd7-29aa169e6702
+:: retrieving :: org.apache.spark#spark-submit-parent-983086d4-eaf8-44c8-8de5-2b35aa2a3f0c
         confs: [default]
-        0 artifacts copied, 33 already retrieved (0kB/67ms)
+        0 artifacts copied, 33 already retrieved (0kB/85ms)
 Using Spark's default log4j profile: org/apache/spark/log4j2-defaults.properties
 Setting default log level to "WARN".
 To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
-26/11/16 17:02:54 WARN SparkConf: Note that spark.local.dir will be overridden by the value set by the cluster manager (via SPARK_LOCAL_DIRS in standalone/kubernetes and LOCAL_DIRS in YARN).
-26/11/16 17:03:31 ERROR Inbox: Ignoring error
+26/11/17 10:06:11 WARN SparkConf: Note that spark.local.dir will be overridden by the value set by the cluster manager (via SPARK_LOCAL_DIRS in standalone/kubernetes and LOCAL_DIRS in YARN).
+26/11/17 10:06:43 ERROR Inbox: Ignoring error
 java.lang.NullPointerException: Cannot invoke "org.apache.spark.storage.BlockManagerId.executorId()" because "idWithoutTopologyInfo" is null
         at org.apache.spark.storage.BlockManagerMasterEndpoint.org$apache$spark$storage$BlockManagerMasterEndpoint$$register(BlockManagerMasterEndpoint.scala:696)
         at org.apache.spark.storage.BlockManagerMasterEndpoint$$anonfun$receiveAndReply$1.applyOrElse(BlockManagerMasterEndpoint.scala:141)
@@ -109,7 +109,7 @@ java.lang.NullPointerException: Cannot invoke "org.apache.spark.storage.BlockMan
         at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
         at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
         at java.base/java.lang.Thread.run(Thread.java:840)
-26/11/16 17:03:31 WARN Executor: Issue communicating with driver in heartbeater
+26/11/17 10:06:43 WARN Executor: Issue communicating with driver in heartbeater
 org.apache.spark.SparkException: Exception thrown in awaitResult: 
         at org.apache.spark.util.SparkThreadUtils$.awaitResult(SparkThreadUtils.scala:53)
         at org.apache.spark.util.ThreadUtils$.awaitResult(ThreadUtils.scala:359)
@@ -138,52 +138,11 @@ Caused by: java.lang.NullPointerException: Cannot invoke "org.apache.spark.stora
         at org.apache.spark.rpc.netty.MessageLoop.org$apache$spark$rpc$netty$MessageLoop$$receiveLoop(MessageLoop.scala:76)
         at org.apache.spark.rpc.netty.MessageLoop$$anon$1.run(MessageLoop.scala:42)
         ... 3 more
-26/11/16 17:03:41 ERROR Inbox: Ignoring error
-java.lang.NullPointerException: Cannot invoke "org.apache.spark.storage.BlockManagerId.executorId()" because "idWithoutTopologyInfo" is null
-        at org.apache.spark.storage.BlockManagerMasterEndpoint.org$apache$spark$storage$BlockManagerMasterEndpoint$$register(BlockManagerMasterEndpoint.scala:696)
-        at org.apache.spark.storage.BlockManagerMasterEndpoint$$anonfun$receiveAndReply$1.applyOrElse(BlockManagerMasterEndpoint.scala:141)
-        at org.apache.spark.rpc.netty.Inbox.$anonfun$process$1(Inbox.scala:104)
-        at org.apache.spark.rpc.netty.Inbox.safelyCall(Inbox.scala:216)
-        at org.apache.spark.rpc.netty.Inbox.process(Inbox.scala:101)
-        at org.apache.spark.rpc.netty.MessageLoop.org$apache$spark$rpc$netty$MessageLoop$$receiveLoop(MessageLoop.scala:76)
-        at org.apache.spark.rpc.netty.MessageLoop$$anon$1.run(MessageLoop.scala:42)
-        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
-        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
-        at java.base/java.lang.Thread.run(Thread.java:840)
-26/11/16 17:03:41 WARN Executor: Issue communicating with driver in heartbeater
-org.apache.spark.SparkException: Exception thrown in awaitResult: 
-        at org.apache.spark.util.SparkThreadUtils$.awaitResult(SparkThreadUtils.scala:53)
-        at org.apache.spark.util.ThreadUtils$.awaitResult(ThreadUtils.scala:359)
-        at org.apache.spark.rpc.RpcTimeout.awaitResult(RpcTimeout.scala:75)
-        at org.apache.spark.rpc.RpcEndpointRef.askSync(RpcEndpointRef.scala:101)
-        at org.apache.spark.rpc.RpcEndpointRef.askSync(RpcEndpointRef.scala:85)
-        at org.apache.spark.storage.BlockManagerMaster.registerBlockManager(BlockManagerMaster.scala:81)
-        at org.apache.spark.storage.BlockManager.reregister(BlockManager.scala:674)
-        at org.apache.spark.executor.Executor.reportHeartBeat(Executor.scala:1363)
-        at org.apache.spark.executor.Executor.$anonfun$heartbeater$1(Executor.scala:356)
-        at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.scala:18)
-        at org.apache.spark.util.Utils$.logUncaughtExceptions(Utils.scala:1941)
-        at org.apache.spark.Heartbeater$$anon$1.run(Heartbeater.scala:46)
-        at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539)
-        at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:305)
-        at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:305)
-        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
-        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
-        at java.base/java.lang.Thread.run(Thread.java:840)
-Caused by: java.lang.NullPointerException: Cannot invoke "org.apache.spark.storage.BlockManagerId.executorId()" because "idWithoutTopologyInfo" is null
-        at org.apache.spark.storage.BlockManagerMasterEndpoint.org$apache$spark$storage$BlockManagerMasterEndpoint$$register(BlockManagerMasterEndpoint.scala:696)
-        at org.apache.spark.storage.BlockManagerMasterEndpoint$$anonfun$receiveAndReply$1.applyOrElse(BlockManagerMasterEndpoint.scala:141)
-        at org.apache.spark.rpc.netty.Inbox.$anonfun$process$1(Inbox.scala:104)
-        at org.apache.spark.rpc.netty.Inbox.safelyCall(Inbox.scala:216)
-        at org.apache.spark.rpc.netty.Inbox.process(Inbox.scala:101)
-        at org.apache.spark.rpc.netty.MessageLoop.org$apache$spark$rpc$netty$MessageLoop$$receiveLoop(MessageLoop.scala:76)
-        at org.apache.spark.rpc.netty.MessageLoop$$anon$1.run(MessageLoop.scala:42)
-        ... 3 more
-Exception ignored while finalizing file <_io.BufferedRWPair object at 0x000001C92CF6A4C0>:
+Exception ignored while finalizing file <_io.BufferedRWPair object at 0x00000263266567C0>:
 Traceback (most recent call last):
   File "C:\Program Files\Python314\Lib\socket.py", line 747, in write
 OSError: [WinError 10038] An operation was attempted on something that is not a socket
-26/11/16 17:04:10 ERROR Executor: Exception in task 1.0 in stage 0.0 (TID 1)
+26/11/17 10:07:20 ERROR Executor: Exception in task 0.0 in stage 0.0 (TID 0)
 org.apache.spark.SparkException: Python worker exited unexpectedly (crashed). Consider setting 'spark.sql.execution.pyspark.udf.faulthandler.enabled' or'spark.python.worker.faulthandler.enabled' configuration to 'true' for the better Python traceback.
         at org.apache.spark.api.python.BasePythonRunner$ReaderIterator$$anonfun$1.applyOrElse(PythonRunner.scala:678)
         at org.apache.spark.api.python.BasePythonRunner$ReaderIterator$$anonfun$1.applyOrElse(PythonRunner.scala:663)
@@ -222,7 +181,7 @@ Caused by: java.io.EOFException
         at java.base/java.io.DataInputStream.readInt(DataInputStream.java:386)
         at org.apache.spark.api.python.PythonRunner$$anon$3.read(PythonRunner.scala:1022)
         ... 29 more
-26/11/16 17:04:10 WARN TaskSetManager: Lost task 1.0 in stage 0.0 (TID 1) (LTCH-5CD141FRRH executor driver): org.apache.spark.SparkException: Python worker exited unexpectedly (crashed). Consider setting 'spark.sql.execution.pyspark.udf.faulthandler.enabled' or'spark.python.worker.faulthandler.enabled' configuration to 'true' for the better Python traceback.
+26/11/17 10:07:20 WARN TaskSetManager: Lost task 0.0 in stage 0.0 (TID 0) (LTCH-5CD141FRRH executor driver): org.apache.spark.SparkException: Python worker exited unexpectedly (crashed). Consider setting 'spark.sql.execution.pyspark.udf.faulthandler.enabled' or'spark.python.worker.faulthandler.enabled' configuration to 'true' for the better Python traceback.
         at org.apache.spark.api.python.BasePythonRunner$ReaderIterator$$anonfun$1.applyOrElse(PythonRunner.scala:678)
         at org.apache.spark.api.python.BasePythonRunner$ReaderIterator$$anonfun$1.applyOrElse(PythonRunner.scala:663)
         at scala.runtime.AbstractPartialFunction.apply(AbstractPartialFunction.scala:35)
@@ -261,8 +220,8 @@ Caused by: java.io.EOFException
         at org.apache.spark.api.python.PythonRunner$$anon$3.read(PythonRunner.scala:1022)
         ... 29 more
 
-26/11/16 17:04:10 ERROR TaskSetManager: Task 1 in stage 0.0 failed 1 times; aborting job
-26/11/16 17:04:10 WARN TaskSetManager: Lost task 0.0 in stage 0.0 (TID 0) (LTCH-5CD141FRRH executor driver): TaskKilled (Stage cancelled: Job aborted due to stage failure: Task 1 in stage 0.0 failed 1 times, most recent failure: Lost task 1.0 in stage 0.0 (TID 1) (LTCH-5CD141FRRH executor driver): org.apache.spark.SparkException: Python worker exited unexpectedly (crashed). Consider setting 'spark.sql.execution.pyspark.udf.faulthandler.enabled' or'spark.python.worker.faulthandler.enabled' configuration to 'true' for the better Python traceback.
+26/11/17 10:07:20 ERROR TaskSetManager: Task 0 in stage 0.0 failed 1 times; aborting job
+26/11/17 10:07:20 WARN TaskSetManager: Lost task 1.0 in stage 0.0 (TID 1) (LTCH-5CD141FRRH executor driver): TaskKilled (Stage cancelled: Job aborted due to stage failure: Task 0 in stage 0.0 failed 1 times, most recent failure: Lost task 0.0 in stage 0.0 (TID 0) (LTCH-5CD141FRRH executor driver): org.apache.spark.SparkException: Python worker exited unexpectedly (crashed). Consider setting 'spark.sql.execution.pyspark.udf.faulthandler.enabled' or'spark.python.worker.faulthandler.enabled' configuration to 'true' for the better Python traceback.
         at org.apache.spark.api.python.BasePythonRunner$ReaderIterator$$anonfun$1.applyOrElse(PythonRunner.scala:678)
         at org.apache.spark.api.python.BasePythonRunner$ReaderIterator$$anonfun$1.applyOrElse(PythonRunner.scala:663)
         at scala.runtime.AbstractPartialFunction.apply(AbstractPartialFunction.scala:35)
@@ -324,7 +283,7 @@ Traceback (most recent call last):
         "An error occurred while calling {0}{1}{2}.\n".
         format(target_id, ".", name), value)
 py4j.protocol.Py4JJavaError: An error occurred while calling o251.count.
-: org.apache.spark.SparkException: Job aborted due to stage failure: Task 1 in stage 0.0 failed 1 times, most recent failure: Lost task 1.0 in stage 0.0 (TID 1) (LTCH-5CD141FRRH executor driver): org.apache.spark.SparkException: Python worker exited unexpectedly (crashed). Consider setting 'spark.sql.execution.pyspark.udf.faulthandler.enabled' or'spark.python.worker.faulthandler.enabled' configuration to 'true' for the better Python traceback.
+: org.apache.spark.SparkException: Job aborted due to stage failure: Task 0 in stage 0.0 failed 1 times, most recent failure: Lost task 0.0 in stage 0.0 (TID 0) (LTCH-5CD141FRRH executor driver): org.apache.spark.SparkException: Python worker exited unexpectedly (crashed). Consider setting 'spark.sql.execution.pyspark.udf.faulthandler.enabled' or'spark.python.worker.faulthandler.enabled' configuration to 'true' for the better Python traceback.
         at org.apache.spark.api.python.BasePythonRunner$ReaderIterator$$anonfun$1.applyOrElse(PythonRunner.scala:678)
         at org.apache.spark.api.python.BasePythonRunner$ReaderIterator$$anonfun$1.applyOrElse(PythonRunner.scala:663)
         at scala.runtime.AbstractPartialFunction.apply(AbstractPartialFunction.scala:35)
@@ -417,8 +376,8 @@ Caused by: java.io.EOFException
         at org.apache.spark.api.python.PythonRunner$$anon$3.read(PythonRunner.scala:1022)
         ... 29 more
 
-26/11/16 17:04:11 WARN SparkEnv: Exception while deleting Spark temp dir: C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel\data_selftest\spark_tmp\spark-2463cecc-0c35-4ea6-88f0-7d53e0fd11d0\userFiles-82916b21-742d-41d1-a493-3ba445c415d7
-java.io.IOException: Failed to delete: C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel\data_selftest\spark_tmp\spark-2463cecc-0c35-4ea6-88f0-7d53e0fd11d0\userFiles-82916b21-742d-41d1-a493-3ba445c415d7\org.xerial.snappy_snappy-java-1.1.10.7.jar
+26/11/17 10:07:21 WARN SparkEnv: Exception while deleting Spark temp dir: C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel\data_selftest\spark_tmp\spark-c7af72b3-49da-487d-bda1-8120d654c44d\userFiles-4c6df3af-5bed-4c49-a728-1d50632610ff
+java.io.IOException: Failed to delete: C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel\data_selftest\spark_tmp\spark-c7af72b3-49da-487d-bda1-8120d654c44d\userFiles-4c6df3af-5bed-4c49-a728-1d50632610ff\org.xerial.snappy_snappy-java-1.1.10.7.jar
         at org.apache.spark.network.util.JavaUtils.deleteRecursivelyUsingJavaIO(JavaUtils.java:308)
         at org.apache.spark.network.util.JavaUtils.deleteRecursively(JavaUtils.java:277)
         at org.apache.spark.network.util.JavaUtils.deleteRecursivelyUsingJavaIO(JavaUtils.java:291)
@@ -447,8 +406,8 @@ java.io.IOException: Failed to delete: C:\Users\2000209445\OneDrive - Hexaware T
         at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
         at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
         at java.base/java.lang.Thread.run(Thread.java:840)
-26/11/16 17:04:11 ERROR ShutdownHookManager: Exception while deleting Spark temp dir: C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel\data_selftest\spark_tmp\spark-2463cecc-0c35-4ea6-88f0-7d53e0fd11d0
-java.io.IOException: Failed to delete: C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel\data_selftest\spark_tmp\spark-2463cecc-0c35-4ea6-88f0-7d53e0fd11d0\userFiles-82916b21-742d-41d1-a493-3ba445c415d7\org.xerial.snappy_snappy-java-1.1.10.7.jar
+26/11/17 10:07:21 ERROR ShutdownHookManager: Exception while deleting Spark temp dir: C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel\data_selftest\spark_tmp\spark-c7af72b3-49da-487d-bda1-8120d654c44d
+java.io.IOException: Failed to delete: C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel\data_selftest\spark_tmp\spark-c7af72b3-49da-487d-bda1-8120d654c44d\userFiles-4c6df3af-5bed-4c49-a728-1d50632610ff\org.xerial.snappy_snappy-java-1.1.10.7.jar
         at org.apache.spark.network.util.JavaUtils.deleteRecursivelyUsingJavaIO(JavaUtils.java:308)
         at org.apache.spark.network.util.JavaUtils.deleteRecursively(JavaUtils.java:277)
         at org.apache.spark.network.util.JavaUtils.deleteRecursivelyUsingJavaIO(JavaUtils.java:291)
@@ -477,8 +436,8 @@ java.io.IOException: Failed to delete: C:\Users\2000209445\OneDrive - Hexaware T
         at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
         at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
         at java.base/java.lang.Thread.run(Thread.java:840)
-Press any key to continue . . . 26/11/16 17:04:11 ERROR ShutdownHookManager: Exception while deleting Spark temp dir: C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel\data_selftest\spark_tmp\spark-2463cecc-0c35-4ea6-88f0-7d53e0fd11d0\userFiles-82916b21-742d-41d1-a493-3ba445c415d7
-java.io.IOException: Failed to delete: C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel\data_selftest\spark_tmp\spark-2463cecc-0c35-4ea6-88f0-7d53e0fd11d0\userFiles-82916b21-742d-41d1-a493-3ba445c415d7\org.xerial.snappy_snappy-java-1.1.10.7.jar
+Press any key to continue . . . 26/11/17 10:07:21 ERROR ShutdownHookManager: Exception while deleting Spark temp dir: C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel\data_selftest\spark_tmp\spark-c7af72b3-49da-487d-bda1-8120d654c44d\userFiles-4c6df3af-5bed-4c49-a728-1d50632610ff
+java.io.IOException: Failed to delete: C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel\data_selftest\spark_tmp\spark-c7af72b3-49da-487d-bda1-8120d654c44d\userFiles-4c6df3af-5bed-4c49-a728-1d50632610ff\org.xerial.snappy_snappy-java-1.1.10.7.jar
         at org.apache.spark.network.util.JavaUtils.deleteRecursivelyUsingJavaIO(JavaUtils.java:308)
         at org.apache.spark.network.util.JavaUtils.deleteRecursively(JavaUtils.java:277)
         at org.apache.spark.network.util.JavaUtils.deleteRecursivelyUsingJavaIO(JavaUtils.java:291)
@@ -505,9 +464,9 @@ java.io.IOException: Failed to delete: C:\Users\2000209445\OneDrive - Hexaware T
         at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
         at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
         at java.base/java.lang.Thread.run(Thread.java:840)
-SUCCESS: The process with PID 18360 (child process of PID 30324) has been terminated.
-SUCCESS: The process with PID 13472 (child process of PID 30324) has been terminated.
-SUCCESS: The process with PID 30324 (child process of PID 29584) has been terminated.
-SUCCESS: The process with PID 29584 (child process of PID 22944) has been terminated.
-SUCCESS: The process with PID 22944 (child process of PID 11724) has been terminated.
-SUCCESS: The process with PID 11724 (child process of PID 12808) has been terminated.
+SUCCESS: The process with PID 19016 (child process of PID 4128) has been terminated.
+SUCCESS: The process with PID 26392 (child process of PID 4128) has been terminated.
+SUCCESS: The process with PID 4128 (child process of PID 7460) has been terminated.
+SUCCESS: The process with PID 7460 (child process of PID 23640) has been terminated.
+SUCCESS: The process with PID 23640 (child process of PID 6120) has been terminated.
+SUCCESS: The process with PID 6120 (child process of PID 1980) has been terminated.
