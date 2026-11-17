@@ -1,6 +1,5 @@
 import os
 from pathlib import Path
-
 # ============================================================
 # 1. WINDOWS HADOOP CONFIGURATION
 # ============================================================
@@ -15,7 +14,15 @@ if os.name == "nt" and Path(r"C:\hadoop\bin\winutils.exe").exists():
 # 2. IMPORTS
 # ============================================================
 
-from delta import configure_spark_with_delta_pip
+try:
+    from delta import configure_spark_with_delta_pip
+except ModuleNotFoundError as exc:
+    raise SystemExit(
+        "Delta Lake is not installed in this Python environment. "
+        "Activate the project virtual environment and run: "
+        "python -m pip install -r requirements.txt"
+    ) from exc
+
 from pyspark.sql import SparkSession
 from pyspark.sql import functions as F
 from pyspark.sql.types import (
@@ -396,34 +403,60 @@ def write_delta_if_not_empty(
 
 def write_batch_to_delta(batch_df, batch_id):
 
-    if batch_df.isEmpty():
+    # Cache batch because we'll use it multiple times
+    batch_df = batch_df.cache()
+
+    total_records = batch_df.count()
+
+    if total_records == 0:
+        print(f"Micro-batch {batch_id}: No records received.")
         return
 
+    # Transform data
     valid_records, quarantine_records = transform_batch(
         batch_df
     )
 
-    # Save valid records.
-    write_delta_if_not_empty(
-        valid_records,
-        SILVER_PATH,
-        "stock-silver-valid",
-        batch_id
-    )
+    # Cache transformed data to avoid recomputation
+    valid_records = valid_records.cache()
+    quarantine_records = quarantine_records.cache()
 
-    # Save invalid records.
-    write_delta_if_not_empty(
-        quarantine_records,
-        QUARANTINE_PATH,
-        "stock-silver-quarantine",
-        batch_id
-    )
+    valid_count = valid_records.count()
+    quarantine_count = quarantine_records.count()
+
+    print("\n" + "=" * 60)
+    print(f"Batch ID             : {batch_id}")
+    print(f"Kafka Records        : {total_records}")
+    print(f"Valid Records        : {valid_count}")
+    print(f"Quarantine Records   : {quarantine_count}")
+    print("=" * 60 + "\n")
+
+    # Save valid records
+    if valid_count > 0:
+        write_delta_if_not_empty(
+            valid_records,
+            SILVER_PATH,
+            "stock-silver-valid",
+            batch_id
+        )
+
+    # Save quarantine records
+    if quarantine_count > 0:
+        write_delta_if_not_empty(
+            quarantine_records,
+            QUARANTINE_PATH,
+            "stock-silver-quarantine",
+            batch_id
+        )
+
+    # Release cache
+    valid_records.unpersist()
+    quarantine_records.unpersist()
+    batch_df.unpersist()
 
     print(
         f"Micro-batch {batch_id} processed successfully."
     )
-
-
 # ============================================================
 # 9. MAIN STREAMING APPLICATION
 # ============================================================
