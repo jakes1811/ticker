@@ -5,12 +5,6 @@ def create_spark_session():
         SparkSession.builder
         .appName("Indian-Stock-Silver-Layer")
 
-        # Kafka connector - match PySpark 4.1.1
-        .config(
-            "spark.jars.packages",
-            "org.apache.spark:spark-sql-kafka-0-10_2.13:4.1.1"
-        )
-
         # Delta Lake configuration
         .config(
             "spark.sql.extensions",
@@ -30,12 +24,14 @@ def create_spark_session():
         # Local execution
         .master("local[*]")
 
-        # Temporary Spark storage
         .config("spark.local.dir", "C:/spark_tmp")
     )
 
     spark = configure_spark_with_delta_pip(
-        builder
+        builder,
+        extra_packages=[
+            "org.apache.spark:spark-sql-kafka-0-10_2.13:4.1.1"
+        ]
     ).getOrCreate()
 
     spark.sparkContext.setLogLevel("WARN")
@@ -43,5 +39,6 @@ def create_spark_session():
     print("Spark Version:", spark.version)
     print("Spark Master:", spark.sparkContext.master)
     print("Delta Lake configuration loaded.")
+    print("Kafka connector configured.")
 
     return spark
