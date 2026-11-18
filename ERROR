@@ -123,7 +123,7 @@ def create_spark_session():
     spark = configure_spark_with_delta_pip(
         builder,
         extra_packages=[
-            "org.apache.spark:spark-sql-kafka-0-10_2.13:4.1.1"
+            "org.apache.spark:spark-sql-kafka-0-10_2.13:4.1.4"
         ]
     ).getOrCreate()
 
@@ -404,21 +404,45 @@ def write_delta_if_not_empty(
 
 def write_batch_to_delta(batch_df, batch_id):
  
-    import time
+    if batch_df.isEmpty():
+        return
  
     start = time.perf_counter()
  
-    transformed = transform_batch(batch_df)
+    # Separate valid and invalid records
+    valid_records, quarantine_records = transform_batch(batch_df)
  
-    count = transformed.count()
+    # Count records
+    valid_count = valid_records.count()
+    quarantine_count = quarantine_records.count()
+ 
+    # Write valid records to Silver Delta table
+    write_delta_if_not_empty(
+        valid_records,
+        SILVER_PATH,
+        "stock-silver-valid",
+        batch_id
+    )
+ 
+    # Write invalid records to Quarantine Delta table
+    write_delta_if_not_empty(
+        quarantine_records,
+        QUARANTINE_PATH,
+        "stock-silver-quarantine",
+        batch_id
+    )
  
     elapsed = (time.perf_counter() - start) * 1000
  
     print(
         f"Batch: {batch_id} | "
-        f"Records: {count} | "
-        f"Transformation: {elapsed:.2f} ms"
+        f"Valid: {valid_count} | "
+        f"Quarantined: {quarantine_count} | "
+        f"Total: {valid_count + quarantine_count} | "
+        f"Processing: {elapsed:.2f} ms"
     )
+ 
+    print(f"Micro-batch {batch_id} processed successfully.")
 # ============================================================
 # 9. MAIN STREAMING APPLICATION
 # ============================================================
