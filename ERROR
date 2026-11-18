@@ -1,29 +1,29 @@
-(silver_venv) C:\Users\2000209445\Desktop\Ticker>python silver\stock_silver.py
+C:\Users\2000209445\Desktop\Ticker>silver_venv\Scripts\python.exe silver\stock_silver.py
 WARNING: Using incubator modules: jdk.incubator.vector
-:: loading settings :: url = jar:file:/C:/Users/2000209445/AppData/Roaming/Python/Python314/site-packages/pyspark/jars/ivy-2.5.3.jar!/org/apache/ivy/core/settings/ivysettings.xml
+:: loading settings :: url = jar:file:/C:/Users/2000209445/Desktop/Ticker/silver_venv/Lib/site-packages/pyspark/jars/ivy-2.5.3.jar!/org/apache/ivy/core/settings/ivysettings.xml
 Ivy Default Cache set to: C:\Users\2000209445\.ivy2.5.2\cache
 The jars for the packages stored in: C:\Users\2000209445\.ivy2.5.2\jars
 io.delta#delta-spark_4.1_2.13 added as a dependency
 org.apache.spark#spark-sql-kafka-0-10_2.13 added as a dependency
-:: resolving dependencies :: org.apache.spark#spark-submit-parent-2592f25d-527e-455b-897f-785db260d0d5;1.0
+:: resolving dependencies :: org.apache.spark#spark-submit-parent-6d5d72ac-ae9e-4807-8c1a-a0ece64b1a49;1.0
         confs: [default]
-        found io.delta#delta-spark_4.1_2.13;4.3.1 in central
-        found io.delta#delta-storage;4.3.1 in central
-        found io.unitycatalog#unitycatalog-client;0.5.0 in central
+        found io.delta#delta-spark_4.1_2.13;4.4.1 in central
+        found io.delta#delta-storage;4.4.1 in central
+        found io.unitycatalog#unitycatalog-client;0.6.0 in central
         found org.slf4j#slf4j-api;2.0.13 in central
         found org.apache.logging.log4j#log4j-slf4j2-impl;2.25.3 in central
         found org.apache.logging.log4j#log4j-api;2.25.3 in central
         found com.google.code.findbugs#jsr305;3.0.2 in central
-        found io.unitycatalog#unitycatalog-hadoop;0.5.0 in central
+        found io.unitycatalog#unitycatalog-hadoop;0.6.0 in central
         found org.apache.logging.log4j#log4j-core;2.25.3 in central
-        found io.delta#delta-kernel-api;4.3.1 in central
+        found io.delta#delta-kernel-api;4.4.1 in central
         found org.roaringbitmap#RoaringBitmap;0.9.25 in central
         found com.fasterxml.jackson.core#jackson-databind;2.13.5 in central
         found com.fasterxml.jackson.core#jackson-annotations;2.13.5 in central
         found com.fasterxml.jackson.core#jackson-core;2.13.5 in central
         found com.fasterxml.jackson.datatype#jackson-datatype-jdk8;2.13.5 in central
         found org.roaringbitmap#shims;0.9.25 in central
-        found io.delta#delta-kernel-defaults;4.3.1 in central
+        found io.delta#delta-kernel-defaults;4.4.1 in central
         found org.apache.hadoop#hadoop-client-runtime;3.4.2 in central
         found org.apache.parquet#parquet-hadoop;1.16.0 in central
         found org.apache.parquet#parquet-column;1.16.0 in central
@@ -39,7 +39,7 @@ org.apache.spark#spark-sql-kafka-0-10_2.13 added as a dependency
         found org.apache.hadoop#hadoop-client-api;3.4.2 in central
         found commons-logging#commons-logging;1.3.0 in central
         found org.apache.parquet#parquet-jackson;1.16.0 in central
-        found io.delta#delta-kernel-unitycatalog;4.3.1 in central
+        found io.delta#delta-kernel-unitycatalog;4.4.1 in central
         found org.apache.spark#spark-sql-kafka-0-10_2.13;4.1.4 in central
         found org.apache.spark#spark-token-provider-kafka-0-10_2.13;4.1.4 in central
         found org.apache.kafka#kafka-clients;3.9.1 in central
@@ -47,7 +47,21 @@ org.apache.spark#spark-sql-kafka-0-10_2.13 added as a dependency
         found org.xerial.snappy#snappy-java;1.1.10.8 in central
         found org.scala-lang.modules#scala-parallel-collections_2.13;1.2.0 in central
         found org.apache.commons#commons-pool2;2.12.1 in central
-:: resolution report :: resolve 3257ms :: artifacts dl 207ms
+downloading https://repo1.maven.org/maven2/io/delta/delta-spark_4.1_2.13/4.4.1/delta-spark_4.1_2.13-4.4.1.jar ...
+        [SUCCESSFUL ] io.delta#delta-spark_4.1_2.13;4.4.1!delta-spark_4.1_2.13.jar (1686ms)
+downloading https://repo1.maven.org/maven2/io/delta/delta-storage/4.4.1/delta-storage-4.4.1.jar ...
+        [SUCCESSFUL ] io.delta#delta-storage;4.4.1!delta-storage.jar (132ms)
+downloading https://repo1.maven.org/maven2/io/delta/delta-kernel-api/4.4.1/delta-kernel-api-4.4.1.jar ...
+        [SUCCESSFUL ] io.delta#delta-kernel-api;4.4.1!delta-kernel-api.jar (755ms)
+downloading https://repo1.maven.org/maven2/io/delta/delta-kernel-defaults/4.4.1/delta-kernel-defaults-4.4.1.jar ...
+        [SUCCESSFUL ] io.delta#delta-kernel-defaults;4.4.1!delta-kernel-defaults.jar (369ms)
+downloading https://repo1.maven.org/maven2/io/delta/delta-kernel-unitycatalog/4.4.1/delta-kernel-unitycatalog-4.4.1.jar ...
+        [SUCCESSFUL ] io.delta#delta-kernel-unitycatalog;4.4.1!delta-kernel-unitycatalog.jar (236ms)
+downloading https://repo1.maven.org/maven2/io/unitycatalog/unitycatalog-client/0.6.0/unitycatalog-client-0.6.0.jar ...
+        [SUCCESSFUL ] io.unitycatalog#unitycatalog-client;0.6.0!unitycatalog-client.jar (312ms)
+downloading https://repo1.maven.org/maven2/io/unitycatalog/unitycatalog-hadoop/0.6.0/unitycatalog-hadoop-0.6.0.jar ...
+        [SUCCESSFUL ] io.unitycatalog#unitycatalog-hadoop;0.6.0!unitycatalog-hadoop.jar (154ms)
+:: resolution report :: resolve 5354ms :: artifacts dl 3792ms
         :: modules in use:
         com.fasterxml.jackson.core#jackson-annotations;2.13.5 from central in [default]
         com.fasterxml.jackson.core#jackson-core;2.13.5 from central in [default]
@@ -58,13 +72,13 @@ org.apache.spark#spark-sql-kafka-0-10_2.13 added as a dependency
         commons-logging#commons-logging;1.3.0 from central in [default]
         commons-pool#commons-pool;1.6 from central in [default]
         io.airlift#aircompressor;2.0.2 from central in [default]
-        io.delta#delta-kernel-api;4.3.1 from central in [default]
-        io.delta#delta-kernel-defaults;4.3.1 from central in [default]
-        io.delta#delta-kernel-unitycatalog;4.3.1 from central in [default]
-        io.delta#delta-spark_4.1_2.13;4.3.1 from central in [default]
-        io.delta#delta-storage;4.3.1 from central in [default]
-        io.unitycatalog#unitycatalog-client;0.5.0 from central in [default]
-        io.unitycatalog#unitycatalog-hadoop;0.5.0 from central in [default]
+        io.delta#delta-kernel-api;4.4.1 from central in [default]
+        io.delta#delta-kernel-defaults;4.4.1 from central in [default]
+        io.delta#delta-kernel-unitycatalog;4.4.1 from central in [default]
+        io.delta#delta-spark_4.1_2.13;4.4.1 from central in [default]
+        io.delta#delta-storage;4.4.1 from central in [default]
+        io.unitycatalog#unitycatalog-client;0.6.0 from central in [default]
+        io.unitycatalog#unitycatalog-hadoop;0.6.0 from central in [default]
         javax.annotation#javax.annotation-api;1.3.2 from central in [default]
         org.apache.commons#commons-pool2;2.12.1 from central in [default]
         org.apache.hadoop#hadoop-client-api;3.4.2 from central in [default]
@@ -99,15 +113,15 @@ org.apache.spark#spark-sql-kafka-0-10_2.13 added as a dependency
         |                  |            modules            ||   artifacts   |
         |       conf       | number| search|dwnlded|evicted|| number|dwnlded|
         ---------------------------------------------------------------------
-        |      default     |   45  |   0   |   0   |   6   ||   39  |   0   |
+        |      default     |   45  |   7   |   7   |   6   ||   39  |   7   |
         ---------------------------------------------------------------------
-:: retrieving :: org.apache.spark#spark-submit-parent-2592f25d-527e-455b-897f-785db260d0d5
+:: retrieving :: org.apache.spark#spark-submit-parent-6d5d72ac-ae9e-4807-8c1a-a0ece64b1a49
         confs: [default]
-        0 artifacts copied, 39 already retrieved (0kB/89ms)
+        7 artifacts copied, 32 already retrieved (13027kB/430ms)
 Using Spark's default log4j profile: org/apache/spark/log4j2-defaults.properties
 Setting default log level to "WARN".
 To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
-26/11/18 10:57:59 ERROR Inbox: Ignoring error
+26/11/18 12:09:31 ERROR Inbox: Ignoring error
 java.lang.NullPointerException: Cannot invoke "org.apache.spark.storage.BlockManagerId.executorId()" because "idWithoutTopologyInfo" is null
         at org.apache.spark.storage.BlockManagerMasterEndpoint.org$apache$spark$storage$BlockManagerMasterEndpoint$$register(BlockManagerMasterEndpoint.scala:696)
         at org.apache.spark.storage.BlockManagerMasterEndpoint$$anonfun$receiveAndReply$1.applyOrElse(BlockManagerMasterEndpoint.scala:141)
@@ -119,7 +133,7 @@ java.lang.NullPointerException: Cannot invoke "org.apache.spark.storage.BlockMan
         at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
         at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
         at java.base/java.lang.Thread.run(Thread.java:840)
-26/11/18 10:57:59 WARN Executor: Issue communicating with driver in heartbeater
+26/11/18 12:09:31 WARN Executor: Issue communicating with driver in heartbeater
 org.apache.spark.SparkException: Exception thrown in awaitResult: 
         at org.apache.spark.util.SparkThreadUtils$.awaitResult(SparkThreadUtils.scala:53)
         at org.apache.spark.util.ThreadUtils$.awaitResult(ThreadUtils.scala:359)
@@ -128,8 +142,8 @@ org.apache.spark.SparkException: Exception thrown in awaitResult:
         at org.apache.spark.rpc.RpcEndpointRef.askSync(RpcEndpointRef.scala:85)
         at org.apache.spark.storage.BlockManagerMaster.registerBlockManager(BlockManagerMaster.scala:81)
         at org.apache.spark.storage.BlockManager.reregister(BlockManager.scala:674)
-        at org.apache.spark.executor.Executor.reportHeartBeat(Executor.scala:1363)
-        at org.apache.spark.executor.Executor.$anonfun$heartbeater$1(Executor.scala:356)
+        at org.apache.spark.executor.Executor.reportHeartBeat(Executor.scala:1530)
+        at org.apache.spark.executor.Executor.$anonfun$heartbeater$1(Executor.scala:483)
         at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.scala:18)
         at org.apache.spark.util.Utils$.logUncaughtExceptions(Utils.scala:1941)
         at org.apache.spark.Heartbeater$$anon$1.run(Heartbeater.scala:46)
@@ -148,7 +162,7 @@ Caused by: java.lang.NullPointerException: Cannot invoke "org.apache.spark.stora
         at org.apache.spark.rpc.netty.MessageLoop.org$apache$spark$rpc$netty$MessageLoop$$receiveLoop(MessageLoop.scala:76)
         at org.apache.spark.rpc.netty.MessageLoop$$anon$1.run(MessageLoop.scala:42)
         ... 3 more
-26/11/18 10:58:09 ERROR Inbox: Ignoring error
+26/11/18 12:09:41 ERROR Inbox: Ignoring error
 java.lang.NullPointerException: Cannot invoke "org.apache.spark.storage.BlockManagerId.executorId()" because "idWithoutTopologyInfo" is null
         at org.apache.spark.storage.BlockManagerMasterEndpoint.org$apache$spark$storage$BlockManagerMasterEndpoint$$register(BlockManagerMasterEndpoint.scala:696)
         at org.apache.spark.storage.BlockManagerMasterEndpoint$$anonfun$receiveAndReply$1.applyOrElse(BlockManagerMasterEndpoint.scala:141)
@@ -160,7 +174,7 @@ java.lang.NullPointerException: Cannot invoke "org.apache.spark.storage.BlockMan
         at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
         at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
         at java.base/java.lang.Thread.run(Thread.java:840)
-26/11/18 10:58:09 WARN Executor: Issue communicating with driver in heartbeater
+26/11/18 12:09:41 WARN Executor: Issue communicating with driver in heartbeater
 org.apache.spark.SparkException: Exception thrown in awaitResult: 
         at org.apache.spark.util.SparkThreadUtils$.awaitResult(SparkThreadUtils.scala:53)
         at org.apache.spark.util.ThreadUtils$.awaitResult(ThreadUtils.scala:359)
@@ -169,8 +183,8 @@ org.apache.spark.SparkException: Exception thrown in awaitResult:
         at org.apache.spark.rpc.RpcEndpointRef.askSync(RpcEndpointRef.scala:85)
         at org.apache.spark.storage.BlockManagerMaster.registerBlockManager(BlockManagerMaster.scala:81)
         at org.apache.spark.storage.BlockManager.reregister(BlockManager.scala:674)
-        at org.apache.spark.executor.Executor.reportHeartBeat(Executor.scala:1363)
-        at org.apache.spark.executor.Executor.$anonfun$heartbeater$1(Executor.scala:356)
+        at org.apache.spark.executor.Executor.reportHeartBeat(Executor.scala:1530)
+        at org.apache.spark.executor.Executor.$anonfun$heartbeater$1(Executor.scala:483)
         at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.scala:18)
         at org.apache.spark.util.Utils$.logUncaughtExceptions(Utils.scala:1941)
         at org.apache.spark.Heartbeater$$anon$1.run(Heartbeater.scala:46)
@@ -189,7 +203,7 @@ Caused by: java.lang.NullPointerException: Cannot invoke "org.apache.spark.stora
         at org.apache.spark.rpc.netty.MessageLoop.org$apache$spark$rpc$netty$MessageLoop$$receiveLoop(MessageLoop.scala:76)
         at org.apache.spark.rpc.netty.MessageLoop$$anon$1.run(MessageLoop.scala:42)
         ... 3 more
-26/11/18 10:58:19 ERROR Inbox: Ignoring error
+26/11/18 12:09:51 ERROR Inbox: Ignoring error
 java.lang.NullPointerException: Cannot invoke "org.apache.spark.storage.BlockManagerId.executorId()" because "idWithoutTopologyInfo" is null
         at org.apache.spark.storage.BlockManagerMasterEndpoint.org$apache$spark$storage$BlockManagerMasterEndpoint$$register(BlockManagerMasterEndpoint.scala:696)
         at org.apache.spark.storage.BlockManagerMasterEndpoint$$anonfun$receiveAndReply$1.applyOrElse(BlockManagerMasterEndpoint.scala:141)
@@ -201,7 +215,7 @@ java.lang.NullPointerException: Cannot invoke "org.apache.spark.storage.BlockMan
         at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
         at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
         at java.base/java.lang.Thread.run(Thread.java:840)
-26/11/18 10:58:19 WARN Executor: Issue communicating with driver in heartbeater
+26/11/18 12:09:51 WARN Executor: Issue communicating with driver in heartbeater
 org.apache.spark.SparkException: Exception thrown in awaitResult: 
         at org.apache.spark.util.SparkThreadUtils$.awaitResult(SparkThreadUtils.scala:53)
         at org.apache.spark.util.ThreadUtils$.awaitResult(ThreadUtils.scala:359)
@@ -210,8 +224,8 @@ org.apache.spark.SparkException: Exception thrown in awaitResult:
         at org.apache.spark.rpc.RpcEndpointRef.askSync(RpcEndpointRef.scala:85)
         at org.apache.spark.storage.BlockManagerMaster.registerBlockManager(BlockManagerMaster.scala:81)
         at org.apache.spark.storage.BlockManager.reregister(BlockManager.scala:674)
-        at org.apache.spark.executor.Executor.reportHeartBeat(Executor.scala:1363)
-        at org.apache.spark.executor.Executor.$anonfun$heartbeater$1(Executor.scala:356)
+        at org.apache.spark.executor.Executor.reportHeartBeat(Executor.scala:1530)
+        at org.apache.spark.executor.Executor.$anonfun$heartbeater$1(Executor.scala:483)
         at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.scala:18)
         at org.apache.spark.util.Utils$.logUncaughtExceptions(Utils.scala:1941)
         at org.apache.spark.Heartbeater$$anon$1.run(Heartbeater.scala:46)
@@ -230,73 +244,31 @@ Caused by: java.lang.NullPointerException: Cannot invoke "org.apache.spark.stora
         at org.apache.spark.rpc.netty.MessageLoop.org$apache$spark$rpc$netty$MessageLoop$$receiveLoop(MessageLoop.scala:76)
         at org.apache.spark.rpc.netty.MessageLoop$$anon$1.run(MessageLoop.scala:42)
         ... 3 more
-26/11/18 10:58:29 ERROR Inbox: Ignoring error
-java.lang.NullPointerException: Cannot invoke "org.apache.spark.storage.BlockManagerId.executorId()" because "idWithoutTopologyInfo" is null
-        at org.apache.spark.storage.BlockManagerMasterEndpoint.org$apache$spark$storage$BlockManagerMasterEndpoint$$register(BlockManagerMasterEndpoint.scala:696)
-        at org.apache.spark.storage.BlockManagerMasterEndpoint$$anonfun$receiveAndReply$1.applyOrElse(BlockManagerMasterEndpoint.scala:141)
-        at org.apache.spark.rpc.netty.Inbox.$anonfun$process$1(Inbox.scala:104)
-        at org.apache.spark.rpc.netty.Inbox.safelyCall(Inbox.scala:216)
-        at org.apache.spark.rpc.netty.Inbox.process(Inbox.scala:101)
-        at org.apache.spark.rpc.netty.MessageLoop.org$apache$spark$rpc$netty$MessageLoop$$receiveLoop(MessageLoop.scala:76)
-        at org.apache.spark.rpc.netty.MessageLoop$$anon$1.run(MessageLoop.scala:42)
-        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
-        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
-        at java.base/java.lang.Thread.run(Thread.java:840)
-26/11/18 10:58:29 WARN Executor: Issue communicating with driver in heartbeater
-org.apache.spark.SparkException: Exception thrown in awaitResult: 
-        at org.apache.spark.util.SparkThreadUtils$.awaitResult(SparkThreadUtils.scala:53)
-        at org.apache.spark.util.ThreadUtils$.awaitResult(ThreadUtils.scala:359)
-        at org.apache.spark.rpc.RpcTimeout.awaitResult(RpcTimeout.scala:75)
-        at org.apache.spark.rpc.RpcEndpointRef.askSync(RpcEndpointRef.scala:101)
-        at org.apache.spark.rpc.RpcEndpointRef.askSync(RpcEndpointRef.scala:85)
-        at org.apache.spark.storage.BlockManagerMaster.registerBlockManager(BlockManagerMaster.scala:81)
-        at org.apache.spark.storage.BlockManager.reregister(BlockManager.scala:674)
-        at org.apache.spark.executor.Executor.reportHeartBeat(Executor.scala:1363)
-        at org.apache.spark.executor.Executor.$anonfun$heartbeater$1(Executor.scala:356)
-        at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.scala:18)
-        at org.apache.spark.util.Utils$.logUncaughtExceptions(Utils.scala:1941)
-        at org.apache.spark.Heartbeater$$anon$1.run(Heartbeater.scala:46)
-        at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539)
-        at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:305)
-        at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:305)
-        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
-        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
-        at java.base/java.lang.Thread.run(Thread.java:840)
-Caused by: java.lang.NullPointerException: Cannot invoke "org.apache.spark.storage.BlockManagerId.executorId()" because "idWithoutTopologyInfo" is null
-        at org.apache.spark.storage.BlockManagerMasterEndpoint.org$apache$spark$storage$BlockManagerMasterEndpoint$$register(BlockManagerMasterEndpoint.scala:696)
-        at org.apache.spark.storage.BlockManagerMasterEndpoint$$anonfun$receiveAndReply$1.applyOrElse(BlockManagerMasterEndpoint.scala:141)
-        at org.apache.spark.rpc.netty.Inbox.$anonfun$process$1(Inbox.scala:104)
-        at org.apache.spark.rpc.netty.Inbox.safelyCall(Inbox.scala:216)
-        at org.apache.spark.rpc.netty.Inbox.process(Inbox.scala:101)
-        at org.apache.spark.rpc.netty.MessageLoop.org$apache$spark$rpc$netty$MessageLoop$$receiveLoop(MessageLoop.scala:76)
-        at org.apache.spark.rpc.netty.MessageLoop$$anon$1.run(MessageLoop.scala:42)
-        ... 3 more
-Spark Version: 4.1.1
+Spark Version: 4.1.4
 Spark Master: local[2]
 Delta Lake configuration loaded.
 Kafka connector configured.
 ============================================================
 INDIAN STOCK SILVER STREAMING JOB
 ============================================================
-Spark version: 4.1.1
+Spark version: 4.1.4
 Kafka broker: localhost:9092
 Kafka topic: stock-prices
 Silver path: C:\Users\2000209445\Desktop\Ticker\silver\data\stock_silver
 Quarantine path: C:\Users\2000209445\Desktop\Ticker\silver\data\stock_quarantine
 ============================================================
-26/11/18 10:58:49 WARN ResolveWriteToStream: spark.sql.adaptive.enabled is not supported in streaming DataFrames/Datasets and will be disabled.
+26/11/18 12:10:10 WARN ResolveWriteToStream: spark.sql.adaptive.enabled is not supported in streaming DataFrames/Datasets and will be disabled.
 Silver streaming is running...
 Press CTRL + C to stop.
-26/11/18 10:58:55 WARN ProcessingTimeExecutor: Current batch is falling behind. The trigger interval is 500 milliseconds, but spent 2880 milliseconds
-26/11/18 10:59:28 ERROR MicroBatchExecution: Query stock-silver-stream [id = 5f38b174-494e-4556-8a0e-0ce7e23639a4, runId = e04da252-16dd-41cd-bbd7-ddbdc5bfba89] terminated with error
+26/11/18 12:10:14 ERROR MicroBatchExecution: Query stock-silver-stream [id = 5f38b174-494e-4556-8a0e-0ce7e23639a4, runId = 4d5f3712-2fd6-4667-bf85-94563f18bdb4] terminated with error
 org.apache.spark.sql.execution.streaming.sources.ForeachBatchUserFuncException: [FOREACH_BATCH_USER_FUNCTION_ERROR] An error occurred in the user provided function in foreach batch sink. Reason: An exception was raised by the Python Proxy. Return Message: Traceback (most recent call last):
-  File "C:\Users\2000209445\AppData\Roaming\Python\Python314\site-packages\py4j\clientserver.py", line 644, in _call_proxy
+  File "C:\Users\2000209445\Desktop\Ticker\silver_venv\Lib\site-packages\py4j\clientserver.py", line 644, in _call_proxy
     return_value = getattr(self.pool[obj_id], method)(*params)
-  File "C:\Users\2000209445\AppData\Roaming\Python\Python314\site-packages\pyspark\sql\utils.py", line 165, in call
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\2000209445\Desktop\Ticker\silver_venv\Lib\site-packages\pyspark\sql\utils.py", line 165, in call
     raise e
-  File "C:\Users\2000209445\AppData\Roaming\Python\Python314\site-packages\pyspark\sql\utils.py", line 162, in call
+  File "C:\Users\2000209445\Desktop\Ticker\silver_venv\Lib\site-packages\pyspark\sql\utils.py", line 162, in call
     self.func(DataFrame(jdf, wrapped_session_jdf), batch_id)
-    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "C:\Users\2000209445\Desktop\Ticker\silver\stock_silver.py", line 389, in write_batch_to_delta
     write_delta_if_not_empty(
     ^^^^^^^^^^^^^^^^^^^^^^^^
@@ -304,7 +276,7 @@ NameError: name 'write_delta_if_not_empty' is not defined
  SQLSTATE: 39000
         at org.apache.spark.sql.execution.streaming.sources.ForeachBatchSink.callBatchWriter(ForeachBatchSink.scala:60)
         at org.apache.spark.sql.execution.streaming.sources.ForeachBatchSink.addBatch(ForeachBatchSink.scala:49)
-        at org.apache.spark.sql.execution.streaming.runtime.MicroBatchExecution.$anonfun$runBatch$19(MicroBatchExecution.scala:1074)
+        at org.apache.spark.sql.execution.streaming.runtime.MicroBatchExecution.$anonfun$runBatch$19(MicroBatchExecution.scala:1079)
         at org.apache.spark.sql.execution.SQLExecution$.$anonfun$withNewExecutionId0$8(SQLExecution.scala:177)
         at org.apache.spark.sql.execution.SQLExecution$.withSessionTagsApplied(SQLExecution.scala:285)
         at org.apache.spark.sql.execution.SQLExecution$.$anonfun$withNewExecutionId0$7(SQLExecution.scala:139)
@@ -318,9 +290,9 @@ NameError: name 'write_delta_if_not_empty' is not defined
         at org.apache.spark.sql.SparkSession.withActive(SparkSession.scala:804)
         at org.apache.spark.sql.execution.SQLExecution$.withNewExecutionId0(SQLExecution.scala:92)
         at org.apache.spark.sql.execution.SQLExecution$.withNewExecutionId(SQLExecution.scala:250)
-        at org.apache.spark.sql.execution.streaming.runtime.MicroBatchExecution.$anonfun$runBatch$18(MicroBatchExecution.scala:1065)
+        at org.apache.spark.sql.execution.streaming.runtime.MicroBatchExecution.$anonfun$runBatch$18(MicroBatchExecution.scala:1070)
         at org.apache.spark.sql.execution.streaming.runtime.ProgressContext.reportTimeTaken(ProgressReporter.scala:200)
-        at org.apache.spark.sql.execution.streaming.runtime.MicroBatchExecution.runBatch(MicroBatchExecution.scala:1065)
+        at org.apache.spark.sql.execution.streaming.runtime.MicroBatchExecution.runBatch(MicroBatchExecution.scala:1070)
         at org.apache.spark.sql.execution.streaming.runtime.MicroBatchExecution.$anonfun$executeOneBatch$2(MicroBatchExecution.scala:516)
         at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.scala:18)
         at org.apache.spark.sql.execution.streaming.runtime.ProgressContext.reportTimeTaken(ProgressReporter.scala:200)
@@ -338,13 +310,13 @@ NameError: name 'write_delta_if_not_empty' is not defined
         at org.apache.spark.sql.execution.streaming.runtime.StreamExecution.org$apache$spark$sql$execution$streaming$runtime$StreamExecution$$runStream(StreamExecution.scala:307)
         at org.apache.spark.sql.execution.streaming.runtime.StreamExecution$$anon$1.run(StreamExecution.scala:230)
 Caused by: py4j.Py4JException: An exception was raised by the Python Proxy. Return Message: Traceback (most recent call last):
-  File "C:\Users\2000209445\AppData\Roaming\Python\Python314\site-packages\py4j\clientserver.py", line 644, in _call_proxy
+  File "C:\Users\2000209445\Desktop\Ticker\silver_venv\Lib\site-packages\py4j\clientserver.py", line 644, in _call_proxy
     return_value = getattr(self.pool[obj_id], method)(*params)
-  File "C:\Users\2000209445\AppData\Roaming\Python\Python314\site-packages\pyspark\sql\utils.py", line 165, in call
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\2000209445\Desktop\Ticker\silver_venv\Lib\site-packages\pyspark\sql\utils.py", line 165, in call
     raise e
-  File "C:\Users\2000209445\AppData\Roaming\Python\Python314\site-packages\pyspark\sql\utils.py", line 162, in call
+  File "C:\Users\2000209445\Desktop\Ticker\silver_venv\Lib\site-packages\pyspark\sql\utils.py", line 162, in call
     self.func(DataFrame(jdf, wrapped_session_jdf), batch_id)
-    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "C:\Users\2000209445\Desktop\Ticker\silver\stock_silver.py", line 389, in write_batch_to_delta
     write_delta_if_not_empty(
     ^^^^^^^^^^^^^^^^^^^^^^^^
@@ -361,44 +333,43 @@ Spark session stopped.
 Traceback (most recent call last):
   File "C:\Users\2000209445\Desktop\Ticker\silver\stock_silver.py", line 491, in <module>
     main()
-    ~~~~^^
   File "C:\Users\2000209445\Desktop\Ticker\silver\stock_silver.py", line 470, in main
     query.awaitTermination()
-    ~~~~~~~~~~~~~~~~~~~~~~^^
-  File "C:\Users\2000209445\AppData\Roaming\Python\Python314\site-packages\pyspark\sql\streaming\query.py", line 225, in awaitTermination
+  File "C:\Users\2000209445\Desktop\Ticker\silver_venv\Lib\site-packages\pyspark\sql\streaming\query.py", line 225, in awaitTermination
     return self._jsq.awaitTermination()
-           ~~~~~~~~~~~~~~~~~~~~~~~~~~^^
-  File "C:\Users\2000209445\AppData\Roaming\Python\Python314\site-packages\py4j\java_gateway.py", line 1362, in __call__
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\2000209445\Desktop\Ticker\silver_venv\Lib\site-packages\py4j\java_gateway.py", line 1362, in __call__
     return_value = get_return_value(
-        answer, self.gateway_client, self.target_id, self.name)
-  File "C:\Users\2000209445\AppData\Roaming\Python\Python314\site-packages\pyspark\errors\exceptions\captured.py", line 269, in deco
+                   ^^^^^^^^^^^^^^^^^
+  File "C:\Users\2000209445\Desktop\Ticker\silver_venv\Lib\site-packages\pyspark\errors\exceptions\captured.py", line 269, in deco
     raise converted from None
-  File "C:\Users\2000209445\AppData\Roaming\Python\Python314\site-packages\py4j\clientserver.py", line 644, in _call_proxy
+  File "C:\Users\2000209445\Desktop\Ticker\silver_venv\Lib\site-packages\py4j\clientserver.py", line 644, in _call_proxy
     return_value = getattr(self.pool[obj_id], method)(*params)
-    ^^^^^^^^^^^
-  File "C:\Users\2000209445\AppData\Roaming\Python\Python314\site-packages\pyspark\sql\utils.py", line 165, in call
+^^^^^^^^^^^^^^^
+  File "C:\Users\2000209445\Desktop\Ticker\silver_venv\Lib\site-packages\pyspark\sql\utils.py", line 165, in call
     raise e
-  File "C:\Users\2000209445\AppData\Roaming\Python\Python314\site-packages\pyspark\sql\utils.py", line 162, in call
+^^^^^^^^^^^^
+  File "C:\Users\2000209445\Desktop\Ticker\silver_venv\Lib\site-packages\pyspark\sql\utils.py", line 162, in call
     self.func(DataFrame(jdf, wrapped_session_jdf), batch_id)
-    ^^^^^^^^^^^
+^^^^^^^^^^^^^^^
   File "C:\Users\2000209445\Desktop\Ticker\silver\stock_silver.py", line 389, in write_batch_to_delta
     write_delta_if_not_empty(
       ^^^^^^^^^^^^^^^^^
-pyspark.errors.exceptions.captured.StreamingQueryException: [STREAM_FAILED] Query [id = 5f38b174-494e-4556-8a0e-0ce7e23639a4, runId = e04da252-16dd-41cd-bbd7-ddbdc5bfba89] terminated with exception: [FOREACH_BATCH_USER_FUNCTION_ERROR] An error occurred in the user provided function in foreach batch sink. Reason: An exception was raised by the Python Proxy. Return Message: Traceback (most recent call last):
-  File "C:\Users\2000209445\AppData\Roaming\Python\Python314\site-packages\py4j\clientserver.py", line 644, in _call_proxy
+pyspark.errors.exceptions.captured.StreamingQueryException: [STREAM_FAILED] Query [id = 5f38b174-494e-4556-8a0e-0ce7e23639a4, runId = 4d5f3712-2fd6-4667-bf85-94563f18bdb4] terminated with exception: [FOREACH_BATCH_USER_FUNCTION_ERROR] An error occurred in the user provided function in foreach batch sink. Reason: An exception was raised by the Python Proxy. Return Message: Traceback (most recent call last):
+  File "C:\Users\2000209445\Desktop\Ticker\silver_venv\Lib\site-packages\py4j\clientserver.py", line 644, in _call_proxy
     return_value = getattr(self.pool[obj_id], method)(*params)
-  File "C:\Users\2000209445\AppData\Roaming\Python\Python314\site-packages\pyspark\sql\utils.py", line 165, in call
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\2000209445\Desktop\Ticker\silver_venv\Lib\site-packages\pyspark\sql\utils.py", line 165, in call
     raise e
-  File "C:\Users\2000209445\AppData\Roaming\Python\Python314\site-packages\pyspark\sql\utils.py", line 162, in call
+  File "C:\Users\2000209445\Desktop\Ticker\silver_venv\Lib\site-packages\pyspark\sql\utils.py", line 162, in call
     self.func(DataFrame(jdf, wrapped_session_jdf), batch_id)
-    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "C:\Users\2000209445\Desktop\Ticker\silver\stock_silver.py", line 389, in write_batch_to_delta
     write_delta_if_not_empty(
     ^^^^^^^^^^^^^^^^^^^^^^^^
 NameError: name 'write_delta_if_not_empty' is not defined
  SQLSTATE: 39000 SQLSTATE: XXKST
 === Streaming Query ===
-Identifier: stock-silver-stream [id = 5f38b174-494e-4556-8a0e-0ce7e23639a4, runId = e04da252-16dd-41cd-bbd7-ddbdc5bfba89]
+Identifier: stock-silver-stream [id = 5f38b174-494e-4556-8a0e-0ce7e23639a4, runId = 4d5f3712-2fd6-4667-bf85-94563f18bdb4]
 Current Committed Offsets: {KafkaV2[Subscribe[stock-prices]]: {"stock-prices":{"0":172094}}}
 Current Available Offsets: {KafkaV2[Subscribe[stock-prices]]: {"stock-prices":{"0":172120}}}
 
@@ -410,6 +381,6 @@ Logical Plan:
 +- ~StreamingDataSourceV2ScanRelation[key#7, value#8, topic#9, partition#10, offset#11L, timestamp#12, timestampType#13] KafkaTable
 
 
-(silver_venv) C:\Users\2000209445\Desktop\Ticker>SUCCESS: The process with PID 17868 (child process of PID 18508) has been terminated.
-SUCCESS: The process with PID 18508 (child process of PID 5140) has been terminated.
-SUCCESS: The process with PID 5140 (child process of PID 17704) has been terminated.
+C:\Users\2000209445\Desktop\Ticker>SUCCESS: The process with PID 23680 (child process of PID 27868) has been terminated.
+SUCCESS: The process with PID 27868 (child process of PID 24312) has been terminated.
+SUCCESS: The process with PID 24312 (child process of PID 4148) has been terminated.
