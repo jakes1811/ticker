@@ -1,467 +1,503 @@
-(venv) C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel>selftest.bat
-Self-test data folder: C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel\data_selftest   table format: delta
-'-' is not recognized as an internal or external command,
-operable program or batch file.
-Missing Python executable 'C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel\venv\Scripts\python.exe', defaulting to 'C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel\venv\Lib\site-packages\pyspark\bin\..' for SPARK_HOME environment variable. Please install Python or specify the correct Python executable in PYSPARK_DRIVER_PYTHON or PYSPARK_PYTHON environment variable to detect SPARK_HOME safely.
-WARNING: Using incubator modules: jdk.incubator.vector
-:: loading settings :: url = jar:file:/C:/Users/2000209445/OneDrive%20-%20Hexaware%20Technologies/Desktop/fintel/venv/Lib/site-packages/pyspark/jars/ivy-2.5.3.jar!/org/apache/ivy/core/settings/ivysettings.xml
-Ivy Default Cache set to: C:\Users\2000209445\.ivy2.5.2\cache
-The jars for the packages stored in: C:\Users\2000209445\.ivy2.5.2\jars
-io.delta#delta-spark_4.1_2.13 added as a dependency
-:: resolving dependencies :: org.apache.spark#spark-submit-parent-cf260850-1ddd-4b1b-a565-2b100d35493c;1.0
-        confs: [default]
-        found io.delta#delta-spark_4.1_2.13;4.3.1 in central
-        found io.delta#delta-storage;4.3.1 in central
-        found io.unitycatalog#unitycatalog-client;0.5.0 in central
-        found org.slf4j#slf4j-api;2.0.13 in central
-        found org.apache.logging.log4j#log4j-slf4j2-impl;2.25.3 in central
-        found org.apache.logging.log4j#log4j-api;2.25.3 in central
-        found com.google.code.findbugs#jsr305;3.0.2 in central
-        found io.unitycatalog#unitycatalog-hadoop;0.5.0 in central
-        found org.apache.logging.log4j#log4j-core;2.25.3 in central
-        found io.delta#delta-kernel-api;4.3.1 in central
-        found org.roaringbitmap#RoaringBitmap;0.9.25 in central
-        found com.fasterxml.jackson.core#jackson-databind;2.13.5 in central
-        found com.fasterxml.jackson.core#jackson-annotations;2.13.5 in central
-        found com.fasterxml.jackson.core#jackson-core;2.13.5 in central
-        found com.fasterxml.jackson.datatype#jackson-datatype-jdk8;2.13.5 in central
-        found org.roaringbitmap#shims;0.9.25 in central
-        found io.delta#delta-kernel-defaults;4.3.1 in central
-        found org.apache.hadoop#hadoop-client-runtime;3.4.2 in central
-        found org.apache.parquet#parquet-hadoop;1.16.0 in central
-        found org.apache.parquet#parquet-column;1.16.0 in central
-        found org.apache.parquet#parquet-common;1.16.0 in central
-        found org.apache.parquet#parquet-format-structures;1.16.0 in central
-        found javax.annotation#javax.annotation-api;1.3.2 in central
-        found org.apache.parquet#parquet-encoding;1.16.0 in central
-        found org.locationtech.jts#jts-core;1.20.0 in central
-        found org.xerial.snappy#snappy-java;1.1.10.7 in central
-        found io.airlift#aircompressor;2.0.2 in central
-        found commons-pool#commons-pool;1.6 in central
-        found com.github.luben#zstd-jni;1.5.7-3 in central
-        found org.apache.hadoop#hadoop-client-api;3.4.2 in central
-        found commons-logging#commons-logging;1.3.0 in central
-        found org.apache.parquet#parquet-jackson;1.16.0 in central
-        found io.delta#delta-kernel-unitycatalog;4.3.1 in central
-:: resolution report :: resolve 2284ms :: artifacts dl 146ms
-        :: modules in use:
-        com.fasterxml.jackson.core#jackson-annotations;2.13.5 from central in [default]
-        com.fasterxml.jackson.core#jackson-core;2.13.5 from central in [default]
-        com.fasterxml.jackson.core#jackson-databind;2.13.5 from central in [default]
-        com.fasterxml.jackson.datatype#jackson-datatype-jdk8;2.13.5 from central in [default]
-        com.github.luben#zstd-jni;1.5.7-3 from central in [default]
-        com.google.code.findbugs#jsr305;3.0.2 from central in [default]
-        commons-logging#commons-logging;1.3.0 from central in [default]
-        commons-pool#commons-pool;1.6 from central in [default]
-        io.airlift#aircompressor;2.0.2 from central in [default]
-        io.delta#delta-kernel-api;4.3.1 from central in [default]
-        io.delta#delta-kernel-defaults;4.3.1 from central in [default]
-        io.delta#delta-kernel-unitycatalog;4.3.1 from central in [default]
-        io.delta#delta-spark_4.1_2.13;4.3.1 from central in [default]
-        io.delta#delta-storage;4.3.1 from central in [default]
-        io.unitycatalog#unitycatalog-client;0.5.0 from central in [default]
-        io.unitycatalog#unitycatalog-hadoop;0.5.0 from central in [default]
-        javax.annotation#javax.annotation-api;1.3.2 from central in [default]
-        org.apache.hadoop#hadoop-client-api;3.4.2 from central in [default]
-        org.apache.hadoop#hadoop-client-runtime;3.4.2 from central in [default]
-        org.apache.logging.log4j#log4j-api;2.25.3 from central in [default]
-        org.apache.logging.log4j#log4j-core;2.25.3 from central in [default]
-        org.apache.logging.log4j#log4j-slf4j2-impl;2.25.3 from central in [default]
-        org.apache.parquet#parquet-column;1.16.0 from central in [default]
-        org.apache.parquet#parquet-common;1.16.0 from central in [default]
-        org.apache.parquet#parquet-encoding;1.16.0 from central in [default]
-        org.apache.parquet#parquet-format-structures;1.16.0 from central in [default]
-        org.apache.parquet#parquet-hadoop;1.16.0 from central in [default]
-        org.apache.parquet#parquet-jackson;1.16.0 from central in [default]
-        org.locationtech.jts#jts-core;1.20.0 from central in [default]
-        org.roaringbitmap#RoaringBitmap;0.9.25 from central in [default]
-        org.roaringbitmap#shims;0.9.25 from central in [default]
-        org.slf4j#slf4j-api;2.0.13 from central in [default]
-        org.xerial.snappy#snappy-java;1.1.10.7 from central in [default]
-        :: evicted modules:
-        org.slf4j#slf4j-api;2.0.17 by [org.slf4j#slf4j-api;2.0.13] in [default]
-        org.slf4j#slf4j-api;1.7.36 by [org.slf4j#slf4j-api;2.0.13] in [default]
-        org.slf4j#slf4j-api;1.7.33 by [org.slf4j#slf4j-api;2.0.13] in [default]
-        org.xerial.snappy#snappy-java;1.1.10.4 by [org.xerial.snappy#snappy-java;1.1.10.7] in [default]
-        ---------------------------------------------------------------------
-        |                  |            modules            ||   artifacts   |
-        |       conf       | number| search|dwnlded|evicted|| number|dwnlded|
-        ---------------------------------------------------------------------
-        |      default     |   37  |   0   |   0   |   4   ||   33  |   0   |
-        ---------------------------------------------------------------------
-:: retrieving :: org.apache.spark#spark-submit-parent-cf260850-1ddd-4b1b-a565-2b100d35493c
-        confs: [default]
-        0 artifacts copied, 33 already retrieved (0kB/66ms)
-Using Spark's default log4j profile: org/apache/spark/log4j2-defaults.properties
-Setting default log level to "WARN".
-To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
-26/11/17 10:56:17 WARN SparkConf: Note that spark.local.dir will be overridden by the value set by the cluster manager (via SPARK_LOCAL_DIRS in standalone/kubernetes and LOCAL_DIRS in YARN).
-26/11/17 10:56:52 ERROR Inbox: Ignoring error
-java.lang.NullPointerException: Cannot invoke "org.apache.spark.storage.BlockManagerId.executorId()" because "idWithoutTopologyInfo" is null
-        at org.apache.spark.storage.BlockManagerMasterEndpoint.org$apache$spark$storage$BlockManagerMasterEndpoint$$register(BlockManagerMasterEndpoint.scala:696)
-        at org.apache.spark.storage.BlockManagerMasterEndpoint$$anonfun$receiveAndReply$1.applyOrElse(BlockManagerMasterEndpoint.scala:141)
-        at org.apache.spark.rpc.netty.Inbox.$anonfun$process$1(Inbox.scala:104)
-        at org.apache.spark.rpc.netty.Inbox.safelyCall(Inbox.scala:216)
-        at org.apache.spark.rpc.netty.Inbox.process(Inbox.scala:101)
-        at org.apache.spark.rpc.netty.MessageLoop.org$apache$spark$rpc$netty$MessageLoop$$receiveLoop(MessageLoop.scala:76)
-        at org.apache.spark.rpc.netty.MessageLoop$$anon$1.run(MessageLoop.scala:42)
-        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
-        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
-        at java.base/java.lang.Thread.run(Thread.java:840)
-26/11/17 10:56:52 WARN Executor: Issue communicating with driver in heartbeater
-org.apache.spark.SparkException: Exception thrown in awaitResult: 
-        at org.apache.spark.util.SparkThreadUtils$.awaitResult(SparkThreadUtils.scala:53)
-        at org.apache.spark.util.ThreadUtils$.awaitResult(ThreadUtils.scala:359)
-        at org.apache.spark.rpc.RpcTimeout.awaitResult(RpcTimeout.scala:75)
-        at org.apache.spark.rpc.RpcEndpointRef.askSync(RpcEndpointRef.scala:101)
-        at org.apache.spark.rpc.RpcEndpointRef.askSync(RpcEndpointRef.scala:85)
-        at org.apache.spark.storage.BlockManagerMaster.registerBlockManager(BlockManagerMaster.scala:81)
-        at org.apache.spark.storage.BlockManager.reregister(BlockManager.scala:674)
-        at org.apache.spark.executor.Executor.reportHeartBeat(Executor.scala:1363)
-        at org.apache.spark.executor.Executor.$anonfun$heartbeater$1(Executor.scala:356)
-        at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.scala:18)
-        at org.apache.spark.util.Utils$.logUncaughtExceptions(Utils.scala:1941)
-        at org.apache.spark.Heartbeater$$anon$1.run(Heartbeater.scala:46)
-        at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539)
-        at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:305)
-        at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:305)
-        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
-        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
-        at java.base/java.lang.Thread.run(Thread.java:840)
-Caused by: java.lang.NullPointerException: Cannot invoke "org.apache.spark.storage.BlockManagerId.executorId()" because "idWithoutTopologyInfo" is null
-        at org.apache.spark.storage.BlockManagerMasterEndpoint.org$apache$spark$storage$BlockManagerMasterEndpoint$$register(BlockManagerMasterEndpoint.scala:696)
-        at org.apache.spark.storage.BlockManagerMasterEndpoint$$anonfun$receiveAndReply$1.applyOrElse(BlockManagerMasterEndpoint.scala:141)
-        at org.apache.spark.rpc.netty.Inbox.$anonfun$process$1(Inbox.scala:104)
-        at org.apache.spark.rpc.netty.Inbox.safelyCall(Inbox.scala:216)
-        at org.apache.spark.rpc.netty.Inbox.process(Inbox.scala:101)
-        at org.apache.spark.rpc.netty.MessageLoop.org$apache$spark$rpc$netty$MessageLoop$$receiveLoop(MessageLoop.scala:76)
-        at org.apache.spark.rpc.netty.MessageLoop$$anon$1.run(MessageLoop.scala:42)
-        ... 3 more
-26/11/17 10:57:08 ERROR Executor: Exception in task 1.0 in stage 0.0 (TID 1)/ 2]
-org.apache.spark.SparkException: Python worker exited unexpectedly (crashed). Consider setting 'spark.sql.execution.pyspark.udf.faulthandler.enabled' or'spark.python.worker.faulthandler.enabled' configuration to 'true' for the better Python traceback.
-        at org.apache.spark.api.python.BasePythonRunner$ReaderIterator$$anonfun$1.applyOrElse(PythonRunner.scala:678)
-        at org.apache.spark.api.python.BasePythonRunner$ReaderIterator$$anonfun$1.applyOrElse(PythonRunner.scala:663)
-        at scala.runtime.AbstractPartialFunction.apply(AbstractPartialFunction.scala:35)
-        at org.apache.spark.api.python.PythonRunner$$anon$3.read(PythonRunner.scala:1034)
-        at org.apache.spark.api.python.PythonRunner$$anon$3.read(PythonRunner.scala:1014)
-        at org.apache.spark.api.python.BasePythonRunner$ReaderIterator.hasNext(PythonRunner.scala:596)
-        at org.apache.spark.InterruptibleIterator.hasNext(InterruptibleIterator.scala:37)
-        at scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:611)
-        at scala.collection.Iterator$$anon$9.hasNext(Iterator.scala:593)
-        at scala.collection.Iterator$$anon$9.hasNext(Iterator.scala:593)
-        at org.apache.spark.sql.catalyst.expressions.GeneratedClass$GeneratedIteratorForCodegenStage1.processNext(Unknown Source)
-        at org.apache.spark.sql.execution.BufferedRowIterator.hasNext(BufferedRowIterator.java:43)
-        at org.apache.spark.sql.execution.WholeStageCodegenEvaluatorFactory$WholeStageCodegenPartitionEvaluator$$anon$1.hasNext(WholeStageCodegenEvaluatorFactory.scala:50)
-        at scala.collection.Iterator$$anon$6.hasNext(Iterator.scala:487)
-        at org.apache.spark.sql.catalyst.expressions.GeneratedClass$GeneratedIteratorForCodegenStage2.hashAgg_doAggregateWithoutKey_0$(Unknown Source)
-        at org.apache.spark.sql.catalyst.expressions.GeneratedClass$GeneratedIteratorForCodegenStage2.processNext(Unknown Source)
-        at org.apache.spark.sql.execution.BufferedRowIterator.hasNext(BufferedRowIterator.java:43)
-        at org.apache.spark.sql.execution.WholeStageCodegenEvaluatorFactory$WholeStageCodegenPartitionEvaluator$$anon$1.hasNext(WholeStageCodegenEvaluatorFactory.scala:50)
-        at scala.collection.Iterator$$anon$9.hasNext(Iterator.scala:593)
-        at org.apache.spark.shuffle.sort.BypassMergeSortShuffleWriter.write(BypassMergeSortShuffleWriter.java:153)
-        at org.apache.spark.shuffle.ShuffleWriteProcessor.write(ShuffleWriteProcessor.scala:57)
-        at org.apache.spark.scheduler.ShuffleMapTask.runTask(ShuffleMapTask.scala:111)
-        at org.apache.spark.scheduler.ShuffleMapTask.runTask(ShuffleMapTask.scala:54)
-        at org.apache.spark.TaskContext.runTaskWithListeners(TaskContext.scala:180)
-        at org.apache.spark.scheduler.Task.run(Task.scala:147)
-        at org.apache.spark.executor.Executor$TaskRunner.$anonfun$run$5(Executor.scala:716)
-        at org.apache.spark.util.SparkErrorUtils.tryWithSafeFinally(SparkErrorUtils.scala:86)
-        at org.apache.spark.util.SparkErrorUtils.tryWithSafeFinally$(SparkErrorUtils.scala:83)
-        at org.apache.spark.util.Utils$.tryWithSafeFinally(Utils.scala:97)
-        at org.apache.spark.executor.Executor$TaskRunner.run(Executor.scala:719)
-        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
-        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
-        at java.base/java.lang.Thread.run(Thread.java:840)
-Caused by: java.io.EOFException
-        at java.base/java.io.DataInputStream.readInt(DataInputStream.java:386)
-        at org.apache.spark.api.python.PythonRunner$$anon$3.read(PythonRunner.scala:1022)
-        ... 29 more
-26/11/17 10:57:08 WARN TaskSetManager: Lost task 1.0 in stage 0.0 (TID 1) (LTCH-5CD141FRRH executor driver): org.apache.spark.SparkException: Python worker exited unexpectedly (crashed). Consider setting 'spark.sql.execution.pyspark.udf.faulthandler.enabled' or'spark.python.worker.faulthandler.enabled' configuration to 'true' for the better Python traceback.
-        at org.apache.spark.api.python.BasePythonRunner$ReaderIterator$$anonfun$1.applyOrElse(PythonRunner.scala:678)
-        at org.apache.spark.api.python.BasePythonRunner$ReaderIterator$$anonfun$1.applyOrElse(PythonRunner.scala:663)
-        at scala.runtime.AbstractPartialFunction.apply(AbstractPartialFunction.scala:35)
-        at org.apache.spark.api.python.PythonRunner$$anon$3.read(PythonRunner.scala:1034)
-        at org.apache.spark.api.python.PythonRunner$$anon$3.read(PythonRunner.scala:1014)
-        at org.apache.spark.api.python.BasePythonRunner$ReaderIterator.hasNext(PythonRunner.scala:596)
-        at org.apache.spark.InterruptibleIterator.hasNext(InterruptibleIterator.scala:37)
-        at scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:611)
-        at scala.collection.Iterator$$anon$9.hasNext(Iterator.scala:593)
-        at scala.collection.Iterator$$anon$9.hasNext(Iterator.scala:593)
-        at org.apache.spark.sql.catalyst.expressions.GeneratedClass$GeneratedIteratorForCodegenStage1.processNext(Unknown Source)
-        at org.apache.spark.sql.execution.BufferedRowIterator.hasNext(BufferedRowIterator.java:43)
-        at org.apache.spark.sql.execution.WholeStageCodegenEvaluatorFactory$WholeStageCodegenPartitionEvaluator$$anon$1.hasNext(WholeStageCodegenEvaluatorFactory.scala:50)
-        at scala.collection.Iterator$$anon$6.hasNext(Iterator.scala:487)
-        at org.apache.spark.sql.catalyst.expressions.GeneratedClass$GeneratedIteratorForCodegenStage2.hashAgg_doAggregateWithoutKey_0$(Unknown Source)
-        at org.apache.spark.sql.catalyst.expressions.GeneratedClass$GeneratedIteratorForCodegenStage2.processNext(Unknown Source)
-        at org.apache.spark.sql.execution.BufferedRowIterator.hasNext(BufferedRowIterator.java:43)
-        at org.apache.spark.sql.execution.WholeStageCodegenEvaluatorFactory$WholeStageCodegenPartitionEvaluator$$anon$1.hasNext(WholeStageCodegenEvaluatorFactory.scala:50)
-        at scala.collection.Iterator$$anon$9.hasNext(Iterator.scala:593)
-        at org.apache.spark.shuffle.sort.BypassMergeSortShuffleWriter.write(BypassMergeSortShuffleWriter.java:153)
-        at org.apache.spark.shuffle.ShuffleWriteProcessor.write(ShuffleWriteProcessor.scala:57)
-        at org.apache.spark.scheduler.ShuffleMapTask.runTask(ShuffleMapTask.scala:111)
-        at org.apache.spark.scheduler.ShuffleMapTask.runTask(ShuffleMapTask.scala:54)
-        at org.apache.spark.TaskContext.runTaskWithListeners(TaskContext.scala:180)
-        at org.apache.spark.scheduler.Task.run(Task.scala:147)
-        at org.apache.spark.executor.Executor$TaskRunner.$anonfun$run$5(Executor.scala:716)
-        at org.apache.spark.util.SparkErrorUtils.tryWithSafeFinally(SparkErrorUtils.scala:86)
-        at org.apache.spark.util.SparkErrorUtils.tryWithSafeFinally$(SparkErrorUtils.scala:83)
-        at org.apache.spark.util.Utils$.tryWithSafeFinally(Utils.scala:97)
-        at org.apache.spark.executor.Executor$TaskRunner.run(Executor.scala:719)
-        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
-        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
-        at java.base/java.lang.Thread.run(Thread.java:840)
-Caused by: java.io.EOFException
-        at java.base/java.io.DataInputStream.readInt(DataInputStream.java:386)
-        at org.apache.spark.api.python.PythonRunner$$anon$3.read(PythonRunner.scala:1022)
-        ... 29 more
+import os
+from pathlib import Path
+import time
+# ============================================================
+# 1. WINDOWS HADOOP CONFIGURATION
+# ============================================================
 
-26/11/17 10:57:08 ERROR TaskSetManager: Task 1 in stage 0.0 failed 1 times; aborting job
-26/11/17 10:57:08 WARN TaskSetManager: Lost task 0.0 in stage 0.0 (TID 0) (LTCH-5CD141FRRH executor driver): TaskKilled (Stage cancelled: Job aborted due to stage failure: Task 1 in stage 0.0 failed 1 times, most recent failure: Lost task 1.0 in stage 0.0 (TID 1) (LTCH-5CD141FRRH executor driver): org.apache.spark.SparkException: Python worker exited unexpectedly (crashed). Consider setting 'spark.sql.execution.pyspark.udf.faulthandler.enabled' or'spark.python.worker.faulthandler.enabled' configuration to 'true' for the better Python traceback.
-        at org.apache.spark.api.python.BasePythonRunner$ReaderIterator$$anonfun$1.applyOrElse(PythonRunner.scala:678)
-        at org.apache.spark.api.python.BasePythonRunner$ReaderIterator$$anonfun$1.applyOrElse(PythonRunner.scala:663)
-        at scala.runtime.AbstractPartialFunction.apply(AbstractPartialFunction.scala:35)
-        at org.apache.spark.api.python.PythonRunner$$anon$3.read(PythonRunner.scala:1034)
-        at org.apache.spark.api.python.PythonRunner$$anon$3.read(PythonRunner.scala:1014)
-        at org.apache.spark.api.python.BasePythonRunner$ReaderIterator.hasNext(PythonRunner.scala:596)
-        at org.apache.spark.InterruptibleIterator.hasNext(InterruptibleIterator.scala:37)
-        at scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:611)
-        at scala.collection.Iterator$$anon$9.hasNext(Iterator.scala:593)
-        at scala.collection.Iterator$$anon$9.hasNext(Iterator.scala:593)
-        at org.apache.spark.sql.catalyst.expressions.GeneratedClass$GeneratedIteratorForCodegenStage1.processNext(Unknown Source)
-        at org.apache.spark.sql.execution.BufferedRowIterator.hasNext(BufferedRowIterator.java:43)
-        at org.apache.spark.sql.execution.WholeStageCodegenEvaluatorFactory$WholeStageCodegenPartitionEvaluator$$anon$1.hasNext(WholeStageCodegenEvaluatorFactory.scala:50)
-        at scala.collection.Iterator$$anon$6.hasNext(Iterator.scala:487)
-        at org.apache.spark.sql.catalyst.expressions.GeneratedClass$GeneratedIteratorForCodegenStage2.hashAgg_doAggregateWithoutKey_0$(Unknown Source)
-        at org.apache.spark.sql.catalyst.expressions.GeneratedClass$GeneratedIteratorForCodegenStage2.processNext(Unknown Source)
-        at org.apache.spark.sql.execution.BufferedRowIterator.hasNext(BufferedRowIterator.java:43)
-        at org.apache.spark.sql.execution.WholeStageCodegenEvaluatorFactory$WholeStageCodegenPartitionEvaluator$$anon$1.hasNext(WholeStageCodegenEvaluatorFactory.scala:50)
-        at scala.collection.Iterator$$anon$9.hasNext(Iterator.scala:593)
-        at org.apache.spark.shuffle.sort.BypassMergeSortShuffleWriter.write(BypassMergeSortShuffleWriter.java:153)
-        at org.apache.spark.shuffle.ShuffleWriteProcessor.write(ShuffleWriteProcessor.scala:57)
-        at org.apache.spark.scheduler.ShuffleMapTask.runTask(ShuffleMapTask.scala:111)
-        at org.apache.spark.scheduler.ShuffleMapTask.runTask(ShuffleMapTask.scala:54)
-        at org.apache.spark.TaskContext.runTaskWithListeners(TaskContext.scala:180)
-        at org.apache.spark.scheduler.Task.run(Task.scala:147)
-        at org.apache.spark.executor.Executor$TaskRunner.$anonfun$run$5(Executor.scala:716)
-        at org.apache.spark.util.SparkErrorUtils.tryWithSafeFinally(SparkErrorUtils.scala:86)
-        at org.apache.spark.util.SparkErrorUtils.tryWithSafeFinally$(SparkErrorUtils.scala:83)
-        at org.apache.spark.util.Utils$.tryWithSafeFinally(Utils.scala:97)
-        at org.apache.spark.executor.Executor$TaskRunner.run(Executor.scala:719)
-        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
-        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
-        at java.base/java.lang.Thread.run(Thread.java:840)
-Caused by: java.io.EOFException
-        at java.base/java.io.DataInputStream.readInt(DataInputStream.java:386)
-        at org.apache.spark.api.python.PythonRunner$$anon$3.read(PythonRunner.scala:1022)
-        ... 29 more
+if os.name == "nt" and Path(r"C:\hadoop\bin\winutils.exe").exists():
+    os.environ["HADOOP_HOME"] = r"C:\hadoop"
+    os.environ["PATH"] = (
+        r"C:\hadoop\bin" + os.pathsep + os.environ.get("PATH", "")
+    )
 
-Driver stacktrace:)
-Traceback (most recent call last):
-  File "<frozen runpy>", line 198, in _run_module_as_main
-  File "<frozen runpy>", line 88, in _run_code
-  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel\tools\selftest.py", line 183, in <module>
+# ============================================================
+# 2. IMPORTS
+# ============================================================
+
+try:
+    from delta import configure_spark_with_delta_pip
+except ModuleNotFoundError as exc:
+    raise SystemExit(
+        "Delta Lake is not installed in this Python environment. "
+        "Activate the project virtual environment and run: "
+        "python -m pip install -r requirements.txt"
+    ) from exc
+
+from pyspark.sql import SparkSession
+from pyspark.sql import functions as F
+from pyspark.sql.types import (
+    StructType,
+    StructField,
+    StringType,
+    DoubleType
+)
+
+# ============================================================
+# 3. CONFIGURATION
+# ============================================================
+
+PROJECT_ROOT = Path.cwd()
+
+SILVER_DIR = PROJECT_ROOT / "silver"
+DATA_DIR = SILVER_DIR / "data"
+CHECKPOINT_DIR = SILVER_DIR / "checkpoints"
+
+SILVER_PATH = DATA_DIR / "stock_silver"
+QUARANTINE_PATH = DATA_DIR / "stock_quarantine"
+
+# One checkpoint for the single streaming query writing both tables.
+CHECKPOINT_PATH = CHECKPOINT_DIR / "stock_silver"
+
+KAFKA_BOOTSTRAP_SERVERS = "localhost:9092"
+KAFKA_TOPIC = "stock-prices"
+
+STARTING_OFFSETS = "latest"
+MAX_OFFSETS_PER_TRIGGER = "2000"
+TRIGGER_INTERVAL = "500 milliseconds"
+
+EXPECTED_SYMBOLS = [
+    "RELIANCE",
+    "TCS",
+    "INFY",
+    "HDFCBANK",
+    "ICICIBANK",
+    "TATASTEEL",
+    "SBIN",
+    "ITC",
+    "SUNPHARMA",
+    "BHARTIARTL",
+    "ADANIENT",
+    "COALINDIA",
+    "BAJFINANCE"
+]
+
+# ============================================================
+# 4. STOCK JSON SCHEMA
+# ============================================================
+
+stock_schema = StructType([
+    StructField("symbol", StringType(), True),
+    StructField("yahoo_symbol", StringType(), True),
+    StructField("current_price", DoubleType(), True),
+    StructField("change", DoubleType(), True),
+    StructField("change_percent", DoubleType(), True),
+    StructField("currency", StringType(), True),
+    StructField("source", StringType(), True),
+    StructField("timestamp", StringType(), True),
+    StructField("fetched_at", StringType(), True),
+    StructField("ingested_at", StringType(), True)
+])
+
+# ============================================================
+# 5. CREATE SPARK SESSION
+# ============================================================
+
+def create_spark_session():
+
+    builder = (
+        SparkSession.builder
+        .appName("Indian-Stock-Silver-Layer")
+
+        # Delta Lake configuration
+        .config(
+            "spark.sql.extensions",
+            "io.delta.sql.DeltaSparkSessionExtension"
+        )
+
+        .config(
+            "spark.sql.catalog.spark_catalog",
+            "org.apache.spark.sql.delta.catalog.DeltaCatalog"
+        )
+
+        # Performance configurations
+        .config("spark.sql.session.timeZone", "UTC")
+        .config("spark.sql.shuffle.partitions", "4")
+        .config("spark.default.parallelism", "6")
+
+        # Local execution
+        .master("local[2]")
+
+    )
+
+    spark = configure_spark_with_delta_pip(
+        builder,
+        extra_packages=[
+            "org.apache.spark:spark-sql-kafka-0-10_2.13:4.1.1"
+        ]
+    ).getOrCreate()
+
+    spark.sparkContext.setLogLevel("WARN")
+
+    print("Spark Version:", spark.version)
+    print("Spark Master:", spark.sparkContext.master)
+    print("Delta Lake configuration loaded.")
+    print("Kafka connector configured.")
+
+    return spark
+# ============================================================
+# 6. READ DATA FROM KAFKA
+# ============================================================
+
+def read_kafka_stream(spark):
+
+    kafka_df = (
+        spark.readStream
+        .format("kafka")
+
+        .option(
+            "kafka.bootstrap.servers",
+            KAFKA_BOOTSTRAP_SERVERS
+        )
+
+        .option("subscribe", KAFKA_TOPIC)
+
+        .option(
+            "startingOffsets",
+            STARTING_OFFSETS
+        )
+
+        .option(
+            "maxOffsetsPerTrigger",
+            MAX_OFFSETS_PER_TRIGGER
+        )
+
+        .load()
+    )
+
+    return kafka_df
+
+
+# ============================================================
+# 7. PARSE AND VALIDATE STOCK DATA
+# ============================================================
+
+def transform_batch(batch_df):
+
+    # Preserve Kafka metadata and original JSON.
+    records = batch_df.select(
+        "topic",
+        "partition",
+        "offset",
+
+        F.col("timestamp").alias("kafka_timestamp"),
+
+        F.col("key").cast("string").alias("kafka_key"),
+
+        F.col("value").cast("string").alias("raw_json")
+    )
+
+    # Parse JSON.
+    parsed = (
+        records
+
+        .withColumn(
+            "parsed_json",
+            F.from_json("raw_json", stock_schema)
+        )
+
+        .select(
+            "topic",
+            "partition",
+            "offset",
+            "kafka_timestamp",
+            "kafka_key",
+            "raw_json",
+            "parsed_json.*"
+        )
+    )
+
+    # Unique ID for every Kafka publication.
+    parsed = parsed.withColumn(
+        "tick_id",
+        F.concat_ws(
+            "-",
+            F.col("topic"),
+            F.col("partition").cast("string"),
+            F.col("offset").cast("string")
+        )
+    )
+
+    # Convert producer timestamps into Spark timestamps.
+    parsed = (
+        parsed
+
+        .withColumn(
+            "market_timestamp",
+            F.try_to_timestamp("timestamp")
+        )
+
+        .withColumn(
+            "fetched_timestamp",
+            F.try_to_timestamp("fetched_at")
+        )
+
+        .withColumn(
+            "publication_timestamp",
+            F.try_to_timestamp("ingested_at")
+        )
+    )
+
+    # Validation rules.
+    rejection_reason = F.concat_ws(
+        "; ",
+
+        F.when(
+            F.col("symbol").isNull()
+            | (F.trim("symbol") == ""),
+            "Missing symbol"
+        ),
+
+        F.when(
+            ~F.col("symbol").isin(EXPECTED_SYMBOLS),
+            "Unknown stock symbol"
+        ),
+
+        F.when(
+            F.col("yahoo_symbol").isNull()
+            | (F.trim("yahoo_symbol") == ""),
+            "Missing yahoo_symbol"
+        ),
+
+        F.when(
+            F.col("current_price").isNull(),
+            "Missing or invalid current_price"
+        ),
+
+        F.when(
+            F.col("current_price") <= 0,
+            "current_price must be greater than zero"
+        ),
+
+        F.when(
+            F.col("currency").isNull()
+            | (F.trim("currency") == ""),
+            "Missing currency"
+        ),
+
+        F.when(
+            F.col("source").isNull()
+            | (F.trim("source") == ""),
+            "Missing source"
+        ),
+
+        F.when(
+            F.col("market_timestamp").isNull(),
+            "Invalid market timestamp"
+        ),
+
+        F.when(
+            F.col("fetched_timestamp").isNull(),
+            "Invalid fetched_at timestamp"
+        ),
+
+        F.when(
+            F.col("publication_timestamp").isNull(),
+            "Invalid ingested_at timestamp"
+        )
+    )
+
+    transformed = (
+        parsed
+
+        .withColumn(
+            "rejection_reason",
+            rejection_reason
+        )
+
+        .withColumn(
+            "silver_ingested_at",
+            F.current_timestamp()
+        )
+    )
+
+    # Valid stock records.
+    valid_records = (
+        transformed
+
+        .filter(F.col("rejection_reason") == "")
+
+        .select(
+            "tick_id",
+            "symbol",
+            "yahoo_symbol",
+            "current_price",
+            "change",
+            "change_percent",
+            "currency",
+            "source",
+            "market_timestamp",
+            "fetched_timestamp",
+            "publication_timestamp",
+            "silver_ingested_at",
+            "topic",
+            "partition",
+            "offset",
+            "kafka_timestamp",
+            "kafka_key",
+            "raw_json"
+        )
+    )
+
+    # Invalid stock records.
+    quarantine_records = (
+        transformed
+
+        .filter(F.col("rejection_reason") != "")
+
+        .select(
+            "tick_id",
+            "symbol",
+            "yahoo_symbol",
+            "current_price",
+            "change",
+            "change_percent",
+            "currency",
+            "source",
+            "timestamp",
+            "fetched_at",
+            "ingested_at",
+            "market_timestamp",
+            "fetched_timestamp",
+            "publication_timestamp",
+            "rejection_reason",
+            "silver_ingested_at",
+            "topic",
+            "partition",
+            "offset",
+            "kafka_timestamp",
+            "kafka_key",
+            "raw_json"
+        )
+    )
+
+    return valid_records, quarantine_records
+
+
+# ============================================================
+# 8. WRITE DATA INTO DELTA LAKE
+# ============================================================
+
+def write_delta_if_not_empty(
+    dataframe,
+    destination,
+    application_id,
+    batch_id
+):
+
+    if not dataframe.isEmpty():
+
+        (
+            dataframe.write
+
+            .format("delta")
+
+            .mode("append")
+
+            .option("txnAppId", application_id)
+
+            .option("txnVersion", batch_id)
+
+            .save(str(destination))
+        )
+
+
+def write_batch_to_delta(batch_df, batch_id):
+ 
+    import time
+ 
+    start = time.perf_counter()
+ 
+    transformed = transform_batch(batch_df)
+ 
+    count = transformed.count()
+ 
+    elapsed = (time.perf_counter() - start) * 1000
+ 
+    print(
+        f"Batch: {batch_id} | "
+        f"Records: {count} | "
+        f"Transformation: {elapsed:.2f} ms"
+    )
+# ============================================================
+# 9. MAIN STREAMING APPLICATION
+# ============================================================
+
+def main():
+
+    DATA_DIR.mkdir(
+        parents=True,
+        exist_ok=True
+    )
+
+    CHECKPOINT_PATH.mkdir(
+        parents=True,
+        exist_ok=True
+    )
+
+    spark = create_spark_session()
+
+    print("=" * 60)
+    print("INDIAN STOCK SILVER STREAMING JOB")
+    print("=" * 60)
+
+    print("Spark version:", spark.version)
+
+    print("Kafka broker:", KAFKA_BOOTSTRAP_SERVERS)
+
+    print("Kafka topic:", KAFKA_TOPIC)
+
+    print("Silver path:", SILVER_PATH)
+
+    print("Quarantine path:", QUARANTINE_PATH)
+
+    print("=" * 60)
+
+    kafka_stream = read_kafka_stream(spark)
+
+    query = (
+        kafka_stream.writeStream
+
+        .queryName("stock-silver-stream")
+
+        .foreachBatch(write_batch_to_delta)
+
+        .option(
+            "checkpointLocation",
+            str(CHECKPOINT_PATH)
+        )
+
+        .trigger(
+            processingTime=TRIGGER_INTERVAL
+        )
+
+        .start()
+    )
+
+    print("Silver streaming is running...")
+    print("Press CTRL + C to stop.")
+
+    try:
+
+        query.awaitTermination()
+
+    except KeyboardInterrupt:
+
+        print("Stopping Silver streaming...")
+
+        query.stop()
+
+    finally:
+
+        spark.stop()
+
+        print("Spark session stopped.")
+
+
+# ============================================================
+# 10. APPLICATION ENTRY POINT
+# ============================================================
+
+if __name__ == "__main__":
+
     main()
-  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel\tools\selftest.py", line 129, in main
-    valid.count() == 1 and quarantine.count() == 3)
-    ^^^^^^^^^^^^^
-  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel\venv\Lib\site-packages\pyspark\sql\classic\dataframe.py", line 439, in count
-    return int(self._jdf.count())
-               ^^^^^^^^^^^^^^^^^
-  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel\venv\Lib\site-packages\py4j\java_gateway.py", line 1362, in __call__
-    return_value = get_return_value(
-                   ^^^^^^^^^^^^^^^^^
-  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel\venv\Lib\site-packages\pyspark\errors\exceptions\captured.py", line 263, in deco
-    return f(*a, **kw)
-           ^^^^^^^^^^^
-  File "C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel\venv\Lib\site-packages\py4j\protocol.py", line 327, in get_return_value
-    raise Py4JJavaError(
-py4j.protocol.Py4JJavaError: An error occurred while calling o251.count.
-: org.apache.spark.SparkException: Job aborted due to stage failure: Task 1 in stage 0.0 failed 1 times, most recent failure: Lost task 1.0 in stage 0.0 (TID 1) (LTCH-5CD141FRRH executor driver): org.apache.spark.SparkException: Python worker exited unexpectedly (crashed). Consider setting 'spark.sql.execution.pyspark.udf.faulthandler.enabled' or'spark.python.worker.faulthandler.enabled' configuration to 'true' for the better Python traceback.
-        at org.apache.spark.api.python.BasePythonRunner$ReaderIterator$$anonfun$1.applyOrElse(PythonRunner.scala:678)
-        at org.apache.spark.api.python.BasePythonRunner$ReaderIterator$$anonfun$1.applyOrElse(PythonRunner.scala:663)
-        at scala.runtime.AbstractPartialFunction.apply(AbstractPartialFunction.scala:35)
-        at org.apache.spark.api.python.PythonRunner$$anon$3.read(PythonRunner.scala:1034)
-        at org.apache.spark.api.python.PythonRunner$$anon$3.read(PythonRunner.scala:1014)
-        at org.apache.spark.api.python.BasePythonRunner$ReaderIterator.hasNext(PythonRunner.scala:596)
-        at org.apache.spark.InterruptibleIterator.hasNext(InterruptibleIterator.scala:37)
-        at scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:611)
-        at scala.collection.Iterator$$anon$9.hasNext(Iterator.scala:593)
-        at scala.collection.Iterator$$anon$9.hasNext(Iterator.scala:593)
-        at org.apache.spark.sql.catalyst.expressions.GeneratedClass$GeneratedIteratorForCodegenStage1.processNext(Unknown Source)
-        at org.apache.spark.sql.execution.BufferedRowIterator.hasNext(BufferedRowIterator.java:43)
-        at org.apache.spark.sql.execution.WholeStageCodegenEvaluatorFactory$WholeStageCodegenPartitionEvaluator$$anon$1.hasNext(WholeStageCodegenEvaluatorFactory.scala:50)
-        at scala.collection.Iterator$$anon$6.hasNext(Iterator.scala:487)
-        at org.apache.spark.sql.catalyst.expressions.GeneratedClass$GeneratedIteratorForCodegenStage2.hashAgg_doAggregateWithoutKey_0$(Unknown Source)
-        at org.apache.spark.sql.catalyst.expressions.GeneratedClass$GeneratedIteratorForCodegenStage2.processNext(Unknown Source)
-        at org.apache.spark.sql.execution.BufferedRowIterator.hasNext(BufferedRowIterator.java:43)
-        at org.apache.spark.sql.execution.WholeStageCodegenEvaluatorFactory$WholeStageCodegenPartitionEvaluator$$anon$1.hasNext(WholeStageCodegenEvaluatorFactory.scala:50)
-        at scala.collection.Iterator$$anon$9.hasNext(Iterator.scala:593)
-        at org.apache.spark.shuffle.sort.BypassMergeSortShuffleWriter.write(BypassMergeSortShuffleWriter.java:153)
-        at org.apache.spark.shuffle.ShuffleWriteProcessor.write(ShuffleWriteProcessor.scala:57)
-        at org.apache.spark.scheduler.ShuffleMapTask.runTask(ShuffleMapTask.scala:111)
-        at org.apache.spark.scheduler.ShuffleMapTask.runTask(ShuffleMapTask.scala:54)
-        at org.apache.spark.TaskContext.runTaskWithListeners(TaskContext.scala:180)
-        at org.apache.spark.scheduler.Task.run(Task.scala:147)
-        at org.apache.spark.executor.Executor$TaskRunner.$anonfun$run$5(Executor.scala:716)
-        at org.apache.spark.util.SparkErrorUtils.tryWithSafeFinally(SparkErrorUtils.scala:86)
-        at org.apache.spark.util.SparkErrorUtils.tryWithSafeFinally$(SparkErrorUtils.scala:83)
-        at org.apache.spark.util.Utils$.tryWithSafeFinally(Utils.scala:97)
-        at org.apache.spark.executor.Executor$TaskRunner.run(Executor.scala:719)
-        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
-        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
-        at java.base/java.lang.Thread.run(Thread.java:840)
-Caused by: java.io.EOFException
-        at java.base/java.io.DataInputStream.readInt(DataInputStream.java:386)
-        at org.apache.spark.api.python.PythonRunner$$anon$3.read(PythonRunner.scala:1022)
-        ... 29 more
-
-Driver stacktrace:
-        at org.apache.spark.scheduler.DAGScheduler.$anonfun$abortStage$3(DAGScheduler.scala:3122)
-        at scala.Option.getOrElse(Option.scala:201)
-        at org.apache.spark.scheduler.DAGScheduler.$anonfun$abortStage$2(DAGScheduler.scala:3122)
-        at org.apache.spark.scheduler.DAGScheduler.$anonfun$abortStage$2$adapted(DAGScheduler.scala:3114)
-        at scala.collection.immutable.List.foreach(List.scala:323)
-        at org.apache.spark.scheduler.DAGScheduler.abortStage(DAGScheduler.scala:3114)
-        at org.apache.spark.scheduler.DAGScheduler.$anonfun$handleTaskSetFailed$1(DAGScheduler.scala:1303)
-        at org.apache.spark.scheduler.DAGScheduler.$anonfun$handleTaskSetFailed$1$adapted(DAGScheduler.scala:1303)
-        at scala.Option.foreach(Option.scala:437)
-        at org.apache.spark.scheduler.DAGScheduler.handleTaskSetFailed(DAGScheduler.scala:1303)
-        at org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.doOnReceive(DAGScheduler.scala:3397)
-        at org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.onReceive(DAGScheduler.scala:3328)
-        at org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.onReceive(DAGScheduler.scala:3317)
-        at org.apache.spark.util.EventLoop$$anon$1.run(EventLoop.scala:50)
-Caused by: org.apache.spark.SparkException: Python worker exited unexpectedly (crashed). Consider setting 'spark.sql.execution.pyspark.udf.faulthandler.enabled' or'spark.python.worker.faulthandler.enabled' configuration to 'true' for the better Python traceback.
-        at org.apache.spark.api.python.BasePythonRunner$ReaderIterator$$anonfun$1.applyOrElse(PythonRunner.scala:678)
-        at org.apache.spark.api.python.BasePythonRunner$ReaderIterator$$anonfun$1.applyOrElse(PythonRunner.scala:663)
-        at scala.runtime.AbstractPartialFunction.apply(AbstractPartialFunction.scala:35)
-        at org.apache.spark.api.python.PythonRunner$$anon$3.read(PythonRunner.scala:1034)
-        at org.apache.spark.api.python.PythonRunner$$anon$3.read(PythonRunner.scala:1014)
-        at org.apache.spark.api.python.BasePythonRunner$ReaderIterator.hasNext(PythonRunner.scala:596)
-        at org.apache.spark.InterruptibleIterator.hasNext(InterruptibleIterator.scala:37)
-        at scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:611)
-        at scala.collection.Iterator$$anon$9.hasNext(Iterator.scala:593)
-        at scala.collection.Iterator$$anon$9.hasNext(Iterator.scala:593)
-        at org.apache.spark.sql.catalyst.expressions.GeneratedClass$GeneratedIteratorForCodegenStage1.processNext(Unknown Source)
-        at org.apache.spark.sql.execution.BufferedRowIterator.hasNext(BufferedRowIterator.java:43)
-        at org.apache.spark.sql.execution.WholeStageCodegenEvaluatorFactory$WholeStageCodegenPartitionEvaluator$$anon$1.hasNext(WholeStageCodegenEvaluatorFactory.scala:50)
-        at scala.collection.Iterator$$anon$6.hasNext(Iterator.scala:487)
-        at org.apache.spark.sql.catalyst.expressions.GeneratedClass$GeneratedIteratorForCodegenStage2.hashAgg_doAggregateWithoutKey_0$(Unknown Source)
-        at org.apache.spark.sql.catalyst.expressions.GeneratedClass$GeneratedIteratorForCodegenStage2.processNext(Unknown Source)
-        at org.apache.spark.sql.execution.BufferedRowIterator.hasNext(BufferedRowIterator.java:43)
-        at org.apache.spark.sql.execution.WholeStageCodegenEvaluatorFactory$WholeStageCodegenPartitionEvaluator$$anon$1.hasNext(WholeStageCodegenEvaluatorFactory.scala:50)
-        at scala.collection.Iterator$$anon$9.hasNext(Iterator.scala:593)
-        at org.apache.spark.shuffle.sort.BypassMergeSortShuffleWriter.write(BypassMergeSortShuffleWriter.java:153)
-        at org.apache.spark.shuffle.ShuffleWriteProcessor.write(ShuffleWriteProcessor.scala:57)
-        at org.apache.spark.scheduler.ShuffleMapTask.runTask(ShuffleMapTask.scala:111)
-        at org.apache.spark.scheduler.ShuffleMapTask.runTask(ShuffleMapTask.scala:54)
-        at org.apache.spark.TaskContext.runTaskWithListeners(TaskContext.scala:180)
-        at org.apache.spark.scheduler.Task.run(Task.scala:147)
-        at org.apache.spark.executor.Executor$TaskRunner.$anonfun$run$5(Executor.scala:716)
-        at org.apache.spark.util.SparkErrorUtils.tryWithSafeFinally(SparkErrorUtils.scala:86)
-        at org.apache.spark.util.SparkErrorUtils.tryWithSafeFinally$(SparkErrorUtils.scala:83)
-        at org.apache.spark.util.Utils$.tryWithSafeFinally(Utils.scala:97)
-        at org.apache.spark.executor.Executor$TaskRunner.run(Executor.scala:719)
-        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
-        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
-        at java.base/java.lang.Thread.run(Thread.java:840)
-Caused by: java.io.EOFException
-        at java.base/java.io.DataInputStream.readInt(DataInputStream.java:386)
-        at org.apache.spark.api.python.PythonRunner$$anon$3.read(PythonRunner.scala:1022)
-        ... 29 more
-
-26/11/17 10:57:09 WARN SparkEnv: Exception while deleting Spark temp dir: C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel\data_selftest\spark_tmp\spark-060685c7-ed0e-44d6-9285-0e58f1f85958\userFiles-b13db850-f729-4b87-8ab9-4b31769f0446
-java.io.IOException: Failed to delete: C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel\data_selftest\spark_tmp\spark-060685c7-ed0e-44d6-9285-0e58f1f85958\userFiles-b13db850-f729-4b87-8ab9-4b31769f0446\org.xerial.snappy_snappy-java-1.1.10.7.jar
-        at org.apache.spark.network.util.JavaUtils.deleteRecursivelyUsingJavaIO(JavaUtils.java:308)
-        at org.apache.spark.network.util.JavaUtils.deleteRecursively(JavaUtils.java:277)
-        at org.apache.spark.network.util.JavaUtils.deleteRecursivelyUsingJavaIO(JavaUtils.java:291)
-        at org.apache.spark.network.util.JavaUtils.deleteRecursively(JavaUtils.java:277)
-        at org.apache.spark.network.util.JavaUtils.deleteRecursively(JavaUtils.java:248)
-        at org.apache.spark.util.SparkFileUtils.deleteRecursively(SparkFileUtils.scala:158)
-        at org.apache.spark.util.SparkFileUtils.deleteRecursively$(SparkFileUtils.scala:157)
-        at org.apache.spark.util.Utils$.deleteRecursively(Utils.scala:1062)
-        at org.apache.spark.SparkEnv.stop(SparkEnv.scala:131)
-        at org.apache.spark.SparkContext.$anonfun$stop$25(SparkContext.scala:2406)
-        at org.apache.spark.util.Utils$.tryLogNonFatalError(Utils.scala:1314)
-        at org.apache.spark.SparkContext.stop(SparkContext.scala:2406)
-        at org.apache.spark.SparkContext.stop(SparkContext.scala:2308)
-        at org.apache.spark.SparkContext.$anonfun$new$37(SparkContext.scala:712)
-        at org.apache.spark.util.SparkShutdownHook.run(ShutdownHookManager.scala:231)
-        at org.apache.spark.util.SparkShutdownHookManager.$anonfun$runAll$2(ShutdownHookManager.scala:205)
-        at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.scala:18)
-        at org.apache.spark.util.Utils$.logUncaughtExceptions(Utils.scala:1941)
-        at org.apache.spark.util.SparkShutdownHookManager.$anonfun$runAll$1(ShutdownHookManager.scala:205)
-        at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.scala:18)
-        at scala.util.Try$.apply(Try.scala:217)
-        at org.apache.spark.util.SparkShutdownHookManager.runAll(ShutdownHookManager.scala:205)
-        at org.apache.spark.util.SparkShutdownHookManager$$anon$2.run(ShutdownHookManager.scala:184)
-        at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539)
-        at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
-        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
-        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
-        at java.base/java.lang.Thread.run(Thread.java:840)
-26/11/17 10:57:09 ERROR ShutdownHookManager: Exception while deleting Spark temp dir: C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel\data_selftest\spark_tmp\spark-060685c7-ed0e-44d6-9285-0e58f1f85958
-java.io.IOException: Failed to delete: C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel\data_selftest\spark_tmp\spark-060685c7-ed0e-44d6-9285-0e58f1f85958\userFiles-b13db850-f729-4b87-8ab9-4b31769f0446\org.xerial.snappy_snappy-java-1.1.10.7.jar
-        at org.apache.spark.network.util.JavaUtils.deleteRecursivelyUsingJavaIO(JavaUtils.java:308)
-        at org.apache.spark.network.util.JavaUtils.deleteRecursively(JavaUtils.java:277)
-        at org.apache.spark.network.util.JavaUtils.deleteRecursivelyUsingJavaIO(JavaUtils.java:291)
-        at org.apache.spark.network.util.JavaUtils.deleteRecursively(JavaUtils.java:277)
-        at org.apache.spark.network.util.JavaUtils.deleteRecursivelyUsingJavaIO(JavaUtils.java:291)
-        at org.apache.spark.network.util.JavaUtils.deleteRecursively(JavaUtils.java:277)
-        at org.apache.spark.network.util.JavaUtils.deleteRecursively(JavaUtils.java:248)
-        at org.apache.spark.util.SparkFileUtils.deleteRecursively(SparkFileUtils.scala:158)
-        at org.apache.spark.util.SparkFileUtils.deleteRecursively$(SparkFileUtils.scala:157)
-        at org.apache.spark.util.Utils$.deleteRecursively(Utils.scala:1062)
-        at org.apache.spark.util.ShutdownHookManager$.$anonfun$new$4(ShutdownHookManager.scala:70)
-        at org.apache.spark.util.ShutdownHookManager$.$anonfun$new$4$adapted(ShutdownHookManager.scala:67)
-        at scala.collection.ArrayOps$.foreach$extension(ArrayOps.scala:1324)
-        at org.apache.spark.util.ShutdownHookManager$.$anonfun$new$2(ShutdownHookManager.scala:67)
-        at org.apache.spark.util.SparkShutdownHook.run(ShutdownHookManager.scala:231)
-        at org.apache.spark.util.SparkShutdownHookManager.$anonfun$runAll$2(ShutdownHookManager.scala:205)
-        at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.scala:18)
-        at org.apache.spark.util.Utils$.logUncaughtExceptions(Utils.scala:1941)
-        at org.apache.spark.util.SparkShutdownHookManager.$anonfun$runAll$1(ShutdownHookManager.scala:205)
-        at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.scala:18)
-        at scala.util.Try$.apply(Try.scala:217)
-        at org.apache.spark.util.SparkShutdownHookManager.runAll(ShutdownHookManager.scala:205)
-        at org.apache.spark.util.SparkShutdownHookManager$$anon$2.run(ShutdownHookManager.scala:184)
-        at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539)
-        at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
-        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
-        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
-        at java.base/java.lang.Thread.run(Thread.java:840)
-26/11/17 10:57:09 ERROR ShutdownHookManager: Exception while deleting Spark temp dir: C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel\data_selftest\spark_tmp\spark-060685c7-ed0e-44d6-9285-0e58f1f85958\userFiles-b13db850-f729-4b87-8ab9-4b31769f0446
-java.io.IOException: Failed to delete: C:\Users\2000209445\OneDrive - Hexaware Technologies\Desktop\fintel\data_selftest\spark_tmp\spark-060685c7-ed0e-44d6-9285-0e58f1f85958\userFiles-b13db850-f729-4b87-8ab9-4b31769f0446\org.xerial.snappy_snappy-java-1.1.10.7.jar
-        at org.apache.spark.network.util.JavaUtils.deleteRecursivelyUsingJavaIO(JavaUtils.java:308)
-        at org.apache.spark.network.util.JavaUtils.deleteRecursively(JavaUtils.java:277)
-        at org.apache.spark.network.util.JavaUtils.deleteRecursivelyUsingJavaIO(JavaUtils.java:291)
-        at org.apache.spark.network.util.JavaUtils.deleteRecursively(JavaUtils.java:277)
-        at org.apache.spark.network.util.JavaUtils.deleteRecursively(JavaUtils.java:248)
-        at org.apache.spark.util.SparkFileUtils.deleteRecursively(SparkFileUtils.scala:158)
-        at org.apache.spark.util.SparkFileUtils.deleteRecursively$(SparkFileUtils.scala:157)
-        at org.apache.spark.util.Utils$.deleteRecursively(Utils.scala:1062)
-        at org.apache.spark.util.ShutdownHookManager$.$anonfun$new$4(ShutdownHookManager.scala:70)
-        at org.apache.spark.util.ShutdownHookManager$.$anonfun$new$4$adapted(ShutdownHookManager.scala:67)
-        at scala.collection.ArrayOps$.foreach$extension(ArrayOps.scala:1324)
-        at org.apache.spark.util.ShutdownHookManager$.$anonfun$new$2(ShutdownHookManager.scala:67)
-        at org.apache.spark.util.SparkShutdownHook.run(ShutdownHookManager.scala:231)
-        at org.apache.spark.util.SparkShutdownHookManager.$anonfun$runAll$2(ShutdownHookManager.scala:205)
-        at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.scala:18)
-        at org.apache.spark.util.Utils$.logUncaughtExceptions(Utils.scala:1941)
-        at org.apache.spark.util.SparkShutdownHookManager.$anonfun$runAll$1(ShutdownHookManager.scala:205)
-        at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.scala:18)
-        at scala.util.Try$.apply(Try.scala:217)
-        at org.apache.spark.util.SparkShutdownHookManager.runAll(ShutdownHookManager.scala:205)
-        at org.apache.spark.util.SparkShutdownHookManager$$anon$2.run(ShutdownHookManager.scala:184)
-        at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539)
-        at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
-        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
-        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
-        at java.base/java.lang.Thread.run(Thread.java:840)
-Press any key to continue . . . SUCCESS: The process with PID 18180 (child process of PID 29548) has been terminated.
-SUCCESS: The process with PID 5852 (child process of PID 29548) has been terminated.
-SUCCESS: The process with PID 29548 (child process of PID 16584) has been terminated.
-SUCCESS: The process with PID 16584 (child process of PID 15188) has been terminated.
-SUCCESS: The process with PID 15188 (child process of PID 16288) has been terminated.
-SUCCESS: The process with PID 16288 (child process of PID 27040) has been terminated.
-^C
-Terminate batch job (Y/N)? Y
